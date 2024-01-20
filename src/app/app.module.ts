@@ -14,14 +14,16 @@ import { MaterialModule } from './shared/material/material.module';
 
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
-import { InicialComponent } from './pages/inicial/inicial.component';
+import { LoginComponent } from './pages/login/login.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 registerLocaleData(localePT);
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
-    InicialComponent
+    LoginComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,
