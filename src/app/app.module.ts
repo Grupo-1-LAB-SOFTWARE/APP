@@ -8,7 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentsModule } from './pages/components/components.module';
 import { CoreModule } from './core/core.module';
-import { LayoutComponent } from './pages/components/layout/layout.component';
+
 import { MaterialModule } from './shared/material/material.module';
 
 
@@ -21,7 +21,6 @@ registerLocaleData(localePT);
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent,
     LoginComponent,
     PerfilComponent
   ],
