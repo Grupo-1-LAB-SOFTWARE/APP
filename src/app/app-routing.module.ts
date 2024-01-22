@@ -2,17 +2,23 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './pages/components/layout/layout.component';
 import { LoginComponent } from './pages/login/login.component';
-import { PerfilComponent } from './pages/perfil/perfil.component';
-import { EnsinoComponent } from './pages/ensino/ensino.component';
-import { PesquisaComponent } from './pages/pesquisa/pesquisa.component';
-import { GestaoComponent } from './pages/gestao/gestao.component';
-import { ExtensaoComponent } from './pages/extensao/extensao.component';
+
 
 const routes: Routes = [
+
   {
-    path: 'perfil',
-    pathMatch: 'full',
-    component: PerfilComponent
+    path:'login',
+    component: LoginComponent
+  },
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'perfil',
+        loadChildren: () => import('./pages/perfil/perfil.module').then(m => m.PerfilModule)
+      }
+    ]
   },
   {
     path:'',
@@ -20,26 +26,30 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'documento',
+    path: '',
     component: LayoutComponent,
     children: [
       {
-        path: 'ensino',
-        component: EnsinoComponent
+        path: 'documento',
+        children: [
+          {
+            path: 'ensino',
+            loadChildren: () => import('./pages/ensino/ensino.module').then(m => m.EnsinoModule)
+          },
+          {
+            path: 'pesquisa',
+            loadChildren: () => import('./pages/pesquisa/pesquisa.module').then(m => m.PesquisaModule)
+          },
+          {
+            path: 'gestao',
+            loadChildren: () => import('./pages/gestao/gestao.module').then(m => m.GestaoModule)
+          },
+          {
+            path: 'extensao',
+            loadChildren: () => import('./pages/extensao/extensao.module').then(m => m.ExtensaoModule)
+          }
+        ]
       },
-      {
-        path: 'pesquisa',
-        component: PesquisaComponent
-      },
-      {
-        path: 'gestao',
-        component: GestaoComponent
-      },
-      {
-        path: 'extensao',
-        component: ExtensaoComponent
-      },
-      // Adicione outras rotas relacionadas a documentos conforme necessário
     ]
   },
 ];
