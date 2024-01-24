@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-success fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Relátorio Anual do Docente</a>
+    <a class="navbar-brand" [routerLink]="['/perfil']"  >Relátorio Anual do Docente</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -12,22 +12,22 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item ">
-            <a class="nav-link active d-flex align-items-end gap-2" aria-current="page" href="#"><mat-icon fontIcon="home"></mat-icon>Perfil</a>
+            <h4 class="nav-link active d-flex align-items-end gap-2" aria-current="page" href="#" [routerLink]="['/perfil']"><mat-icon fontIcon="home"></mat-icon>Perfil</h4>
           </li>
           <li class="nav-item mt-3">
-            <h4 class="nav-link d-flex align-items-end gap-2" href="#"><mat-icon>school</mat-icon>Ensino</h4>
+            <h4 class="nav-link d-flex align-items-end gap-2" [routerLink]="['/documento/ensino']"><mat-icon>school</mat-icon>Ensino</h4>
           </li>
           <li class="nav-item">
-            <h4 class="nav-link d-flex align-items-end gap-2" href="#"><mat-icon>laptop_chromebook</mat-icon>Pesquisa</h4>
+            <h4 class="nav-link d-flex align-items-end gap-2" [routerLink]="['/documento/pesquisa']"><mat-icon>laptop_chromebook</mat-icon>Pesquisa</h4>
           </li>
           <li class="nav-item">
-            <h4 class="nav-link d-flex align-items-end gap-2" href="#"><mat-icon>account_balance</mat-icon>Gestão</h4>
+            <h4 class="nav-link d-flex align-items-end gap-2" [routerLink]="['/documento/gestao']"><mat-icon>account_balance</mat-icon>Gestão</h4>
           </li>
           <li class="nav-item">
-            <h4 class="nav-link d-flex align-items-end gap-2" href="#"><mat-icon>extension</mat-icon>Extensão</h4>
+            <h4 class="nav-link d-flex align-items-end gap-2" [routerLink]="['/documento/extensao']"><mat-icon>extension</mat-icon>Extensão</h4>
           </li>
         </ul>
-        <button class="btn d-flex align-items-center mt-3" mat-icon-button>
+        <button class="btn d-flex align-items-center mt-3" mat-icon-button  [routerLink]="['/login']">
           <mat-icon>logout</mat-icon>
         </button>
       </div>

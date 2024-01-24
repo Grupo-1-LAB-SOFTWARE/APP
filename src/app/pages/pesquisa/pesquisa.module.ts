@@ -5,6 +5,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CoreModule } from 'src/app/core/core.module';
 import { ComponentsModule } from '../components/components.module';
 import { FormsModule } from '@angular/forms';
+import { PesquisaRoutingModule } from './pesquisa-routing.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     SharedModule,
     CoreModule,
     ComponentsModule,
-    FormsModule
+    FormsModule,
+    PesquisaRoutingModule
   ]
 })
 export class PesquisaModule { }

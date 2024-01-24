@@ -22,7 +22,7 @@ registerLocaleData(localePT);
   declarations: [
     AppComponent,
     LoginComponent,
-    PerfilComponent
+    
   ],
   imports: [
     BrowserModule,

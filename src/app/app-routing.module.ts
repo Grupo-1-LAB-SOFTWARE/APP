@@ -16,14 +16,9 @@ const routes: Routes = [
     children: [
       {
         path: 'perfil',
-        loadChildren: () => import('./pages/perfil/perfil.module').then(m => m.PerfilModule)
+        loadChildren: ()=> import('./pages/perfil/perfil.module').then(m => m.PerfilModule)
       }
     ]
-  },
-  {
-    path:'',
-    redirectTo:'/perfil',
-    pathMatch: 'full'
   },
   {
     path: '',
@@ -47,11 +42,15 @@ const routes: Routes = [
           {
             path: 'extensao',
             loadChildren: () => import('./pages/extensao/extensao.module').then(m => m.ExtensaoModule)
-          }
+          },
         ]
       },
     ]
   },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];
 
 @NgModule({
