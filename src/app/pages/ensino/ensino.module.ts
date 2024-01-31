@@ -12,7 +12,7 @@ import { EnsinoRoutingModule } from './ensino-routing.module';
 @NgModule({
   declarations: [
     EnsinoComponent,
-    
+    EnsinoCreateComponent
   ],
   imports: [
     CommonModule,
