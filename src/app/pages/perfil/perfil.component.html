@@ -1,1 +1,45 @@
-<h1>perfil works!</h1>
+
+<div class="perfil">
+    <div class="img">
+        <img mat-card-image src="assets/foto-perfil.png" alt="Foto de perfil" height="120px" width="120px">
+    </div>
+
+    <div class="info">
+        Nome 
+        SIAGE 
+        Classe
+        Vínculo 
+        Titulação 
+        Instituto 
+        e-mail 
+    </div>
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"(closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    RADOC
+                </mat-panel-title>            
+            </mat-expansion-panel-header>
+            <div class="forms">
+                <p>2023.2 {{panelOpenState ? 'em andamento' : 'fnalizado'}}</p>
+                <button mat-button>
+                    <mat-icon role="img" aria-hidden="false" aria-label="Abrir formulário" fontIcon="file_open"></mat-icon>
+                </button>
+                <button mat-button>
+                    <mat-icon role="img" aria-hidden="false" aria-label="Gerar comprovante" fontIcon="assignment_turned_in"></mat-icon>
+                </button>
+                <mat-divider></mat-divider>
+                <p>2023.1 {{panelOpenState ? 'finalizado' : 'fnalizado'}}</p>
+                <button mat-button>
+                    <mat-icon role="img" aria-hidden="false" aria-label="Abrir formulário" fontIcon="file_open"></mat-icon>
+                </button>
+                <button mat-button>
+                    <mat-icon role="img" aria-hidden="false" aria-label="Gerar comprovante" fontIcon="assignment_turned_in"></mat-icon>
+                </button>
+                <mat-divider></mat-divider>
+            </div>
+            
+        </mat-expansion-panel>
+        
+    </mat-accordion>
+</div>
