@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './pages/components/layout/layout.component';
 import { LoginComponent } from './pages/login/login.component';
+import { CadastroComponent } from './pages/cadastro/cadastro.component';
+import { authGuard } from './core/guards/auth.guard';
 
 
 const routes: Routes = [
@@ -11,8 +13,13 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path:'cadastro',
+    component: CadastroComponent
+  },
+  {
     path: '',
     component: LayoutComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: 'perfil',
@@ -23,9 +30,11 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: 'documento',
+        canActivate: [authGuard],
         children: [
           {
             path: 'ensino',
