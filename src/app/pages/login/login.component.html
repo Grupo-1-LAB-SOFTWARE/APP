@@ -1,23 +1,19 @@
-<mat-card>
-  <mat-card-content>
-    <form #loginForm="ngForm" >
-      <h2>Log In</h2>
-      <mat-error >
-        The username and password were not recognized
-      </mat-error>
-      <mat-form-field>
-        <input matInput placeholder="Email"  name="username" required>
-        <mat-error>
-          Please provide a valid email address
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="password" placeholder="Password"  name="password" required>
-        <mat-error>
-          Please provide a valid password
-        </mat-error>
-      </mat-form-field>
-      <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Login</button>
-    </form>
-  </mat-card-content>
-</mat-card>
+<!-- login-form.component.html -->
+<h2 class="login-title">Login</h2>
+<button type="submit" class="btn-home">HOME</button>
+<figure class="login-container">
+  <form>
+      <label for="username" class="usuario-title">Nome de Usuário ou Email</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password" class="senha-title">Senha</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit" class="btn-entrar">Entrar</button>
+
+      <a href="#" class="esqueci-senha">Esqueci a senha</a><br>
+
+      <a href="#" class="retangulo-cadastro">Realizar Cadastro</a>
+  </form>
+ 
+</figure>
