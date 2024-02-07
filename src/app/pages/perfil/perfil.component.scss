@@ -1,0 +1,39 @@
+.perfil {
+    border-width: 1rem;
+    border-color: black;
+    
+}
+.img {
+    margin: 1rem;
+    display: flex;
+    
+}
+.info {
+    margin: 1rem;
+    display: flex;
+   
+    font-family: roboto;
+    font-size: medium;
+    border-bottom: 2px solid #6AD268;
+    border-radius: 2rem;
+    
+}
+.mat-button {
+    background-color: #6AD268;
+    color: black;
+}
+.mat-icon {
+    color: black;
+}
+.mat-expansion-panel {
+    margin: 1rem;
+    border-bottom: 0.5rem;
+    border-color:#3f3232;
+    color: black;
+    background-color: #6AD268;
+    
+}
+.mat-divider {
+    color: black;
+    background-color: black;
+}
