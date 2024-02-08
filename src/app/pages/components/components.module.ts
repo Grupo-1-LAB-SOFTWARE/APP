@@ -7,6 +7,8 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
+import { CadastroFormBaseComponent } from './cadastro-form-base/cadastro-form-base.component';
+import { ContainerComponent } from './container/container.component';
 
 
 
@@ -15,7 +17,9 @@ import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.
     HeaderComponent,
     LayoutComponent,
     ErrorDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    CadastroFormBaseComponent,
+    ContainerComponent
 
   ],
   imports: [
@@ -28,7 +32,8 @@ import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.
     HeaderComponent,
     LayoutComponent,
     ErrorDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    CadastroFormBaseComponent
   ]
 })
 export class ComponentsModule { }
