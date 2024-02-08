@@ -1,5 +1,5 @@
 const API_HOST = 'http://localhost';
-const API_PATH = 'api';
-const API_PORT = '8080';
+// const API_PATH = 'api';
+const API_PORT = '8000';
 
-export const API_URL = `${API_HOST}:${API_PORT}/${API_PATH}`;
+export const API_URL = `${API_HOST}:${API_PORT}/`;
