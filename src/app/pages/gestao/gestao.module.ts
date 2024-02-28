@@ -6,11 +6,13 @@ import { CoreModule } from 'src/app/core/core.module';
 import { ComponentsModule } from '../components/components.module';
 import { FormsModule } from '@angular/forms';
 import { GestaoRoutingModule } from './gestao-routing.module';
+import { GestaoCreateComponent } from './gestao-create/gestao-create.component';
 
 
 @NgModule({
   declarations: [
-    GestaoComponent
+    GestaoComponent,
+    GestaoCreateComponent
   ],
   imports: [
     CommonModule,
