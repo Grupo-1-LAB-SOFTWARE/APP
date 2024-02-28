@@ -6,11 +6,13 @@ import { CoreModule } from 'src/app/core/core.module';
 import { ComponentsModule } from '../components/components.module';
 import { FormsModule } from '@angular/forms';
 import { ExtensaoRoutingModule } from './extensao-routing.module';
+import { ExtensaoCreateComponent } from './extensao-create/extensao-create.component';
 
 
 @NgModule({
   declarations: [
-    ExtensaoComponent
+    ExtensaoComponent,
+    ExtensaoCreateComponent
   ],
   imports: [
     CommonModule,

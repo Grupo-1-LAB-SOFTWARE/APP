@@ -6,11 +6,13 @@ import { CoreModule } from 'src/app/core/core.module';
 import { ComponentsModule } from '../components/components.module';
 import { FormsModule } from '@angular/forms';
 import { PesquisaRoutingModule } from './pesquisa-routing.module';
+import { PesquisaCreateComponent } from './pesquisa-create/pesquisa-create.component';
 
 
 @NgModule({
   declarations: [
-    PesquisaComponent
+    PesquisaComponent,
+    PesquisaCreateComponent
   ],
   imports: [
     CommonModule,
