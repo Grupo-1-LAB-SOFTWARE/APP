@@ -7,7 +7,17 @@ import { authGuard } from './core/guards/auth.guard';
 
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'perfil/painel',
+    pathMatch: 'full'
+  },
+  {
+    path: 'perfil',
+    redirectTo: 'perfil/painel',
+    pathMatch: 'full'
 
+  },
   {
     path:'login',
     component: LoginComponent
@@ -23,7 +33,13 @@ const routes: Routes = [
     children: [
       {
         path: 'perfil',
-        loadChildren: ()=> import('./pages/perfil/perfil.module').then(m => m.PerfilModule)
+        children: [
+          {
+            path: 'painel',
+            loadChildren: ()=> import('./pages/perfil/perfil.module').then(m => m.PerfilModule)
+          },
+          
+        ]
       }
     ]
   },
