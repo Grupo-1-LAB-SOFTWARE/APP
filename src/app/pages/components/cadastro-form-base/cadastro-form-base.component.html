@@ -13,36 +13,36 @@
         <div class="grid-container">
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Nome Completo</mat-label>
-            <input matInput formControlName="nome" placeholder="Nome">
+            <input type="text" matInput formControlName="nome" placeholder="Nome">
             <mat-error *ngIf="cadastroForm.get('nome')?.errors">Nome é obrigatório</mat-error>
           </mat-form-field>
           <div class="grid-item">
             <mat-form-field appearance="outline">
               <mat-label>Vinculo</mat-label>
-              <input matInput formControlName="vinculo" placeholder="Digite seu Vinculo">
+              <input type="text" matInput formControlName="vinculo" placeholder="Digite seu Vinculo">
               <mat-error *ngIf="cadastroForm.get('vinculo')?.errors">Vinculo é obrigatório</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Titulação Academica</mat-label>
-              <input matInput formControlName="titulacao_academica" placeholder="Digite sua Titulação Academica">
+              <input type="text" matInput formControlName="titulacao_academica" placeholder="Digite sua Titulação Academica">
               <mat-error *ngIf="cadastroForm.get('titulacao_academica')?.errors">Titulação academica é obrigatório</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>SIAPE</mat-label>
-              <input matInput formControlName="siape" placeholder="Digite seu siape">
+              <input type="text" matInput formControlName="siape" placeholder="Digite seu siape">
               <mat-error *ngIf="cadastroForm.get('siape')?.errors">SIAPE é obrigatória</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Campos</mat-label>
-              <input matInput formControlName="compos" placeholder="Digite seu campos">
-              <mat-error *ngIf="cadastroForm.get('siape')?.errors">Campos é obrigatória</mat-error>
+              <input type="text" matInput formControlName="compos" placeholder="Digite seu campos">
+              <mat-error *ngIf="cadastroForm.get('campos')?.errors">Campos é obrigatória</mat-error>
             </mat-form-field>
           </div>
           <div class="grid-item">
             <mat-form-field appearance="outline">
               <mat-label>Regime de Trabalho</mat-label>
-              <input matInput formControlName="regimeTrabalho" placeholder="Digite seu Regime de Trabalho">
-              <mat-error *ngIf="cadastroForm.get('regime_trabalho')?.errors">Regime de Trabalho é obrigatório</mat-error>
+              <input type="text" matInput formControlName="regimeTrabalho" placeholder="Digite seu Regime de Trabalho">
+              <mat-error *ngIf="cadastroForm.get('regimeTrabalho')?.errors">Regime de Trabalho é obrigatório</mat-error>
             </mat-form-field>
 
           </div>
@@ -71,7 +71,7 @@
           <div class="grid-item">
             <mat-form-field appearance="outline">
               <mat-label>Confirmar E-mail</mat-label>
-              <input matInput formControlName="confirmarEmail" placeholder="Digite seu e-mail novamente">
+              <input type="email" matInput formControlName="confirmarEmail" placeholder="Digite seu e-mail novamente">
               <mat-error *ngIf="cadastroForm.get('confirmarEmail')?.errors?.['required']">Confirmação de E-mail é obrigatória</mat-error>
               <mat-error *ngIf="cadastroForm.get('confirmarEmail')?.errors?.['email']">E-mail inválido</mat-error>
               <mat-error *ngIf="cadastroForm.get('confirmarEmail')?.errors?.['equalTo']">E-mails não coincidem</mat-error>
