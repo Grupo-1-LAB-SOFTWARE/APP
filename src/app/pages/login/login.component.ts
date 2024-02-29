@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FloatLabelType } from '@angular/material/form-field';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/core/interfaces/usuario.interface';
@@ -12,7 +13,8 @@ import { AutenticacaoService } from 'src/app/core/services/autenticacao.service'
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
-
+  isLogged: boolean = false;
+  floatLabelControl = 'always' as FloatLabelType;
   initialForm = {
     username: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required,Validators.minLength(3)]],
