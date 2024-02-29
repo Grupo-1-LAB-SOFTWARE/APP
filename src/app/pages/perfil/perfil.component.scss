@@ -1,22 +1,31 @@
-.perfil {
-    border-width: 1rem;
-    border-color: black;
-    
+.matContainer{
+  border-radius: 2rem;
+  border-top: 2px solid #6AD268;
+  border-bottom: 2px solid #6AD268;
+  border-radius: 2rem;
+  width: 30rem;
+  align-items: center;
 }
+mat-accordion{
+  width: 25rem;
+}
+
 .img {
-    margin: 1rem;
+    width: 30rem;
     display: flex;
-    
+    justify-content: center;
+    align-items: center;
+    mix-blend-mode: multiply ;
+    border-bottom: 1px solid #6ad26856;
 }
+
 .info {
     margin: 1rem;
     display: flex;
-   
+    padding-bottom: 4rem;
     font-family: roboto;
     font-size: medium;
-    border-bottom: 2px solid #6AD268;
-    border-radius: 2rem;
-    
+
 }
 .mat-button {
     background-color: #6AD268;
@@ -26,14 +35,17 @@
     color: black;
 }
 .mat-expansion-panel {
-    margin: 1rem;
-    border-bottom: 0.5rem;
-    border-color:#3f3232;
-    color: black;
-    background-color: #6AD268;
-    
+  margin: 1rem;
+  border-bottom: 0.5rem;
+  border-color:#3f3232;
+  color: black;
+  background-color: #6AD268;
 }
-.mat-divider {
-    color: black;
-    background-color: black;
+
+.mat-expansion-panel-header-description {
+  flex-grow: 0  !important;
+}
+
+.mat-content.mat-content-hide-toggle {
+  margin-right: 0px !important;
 }

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { PerfilCreateComponent } from './perfil-create/perfil-create.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -6,5 +9,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./perfil.component.scss']
 })
 export class PerfilComponent {
-  panelOpenState = false;
+  step = 0;
+  constructor(public router: Router ){}
+
 }
