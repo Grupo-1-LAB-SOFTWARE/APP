@@ -10,7 +10,7 @@ import { FormularioService } from 'src/app/core/services/formulario.service';
 })
 export class CadastroComponent {
   perfilComponent:boolean = false;
-
+  isLogged: boolean = false;
 
   constructor(
     private formularioService: FormularioService,
