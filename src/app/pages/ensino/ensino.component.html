@@ -4,13 +4,13 @@
 
       <ng-container *ngIf="ensinoForm; else elseButton">
         <mat-card-title>Relátorio de ensino</mat-card-title>
-        <button style=" top: -2px; left: 13px;" mat-mini-fab color="primary" (click)="viewList()">
+        <button style=" top: -2px; left: 13px; margin-bottom: 10px;" mat-mini-fab color="primary" (click)="viewList()">
           <mat-icon>list</mat-icon>
         </button>
       </ng-container>
       <ng-template #elseButton>
         <mat-card-title>Relátorio de ensino</mat-card-title>
-        <button style=" top: -2px; left: 13px;" mat-mini-fab color="primary" (click)="create()">
+        <button style=" top: -2px; left: 13px; margin-bottom: 10px;" mat-mini-fab color="primary" (click)="create()">
           <mat-icon>add</mat-icon>
         </button>
       </ng-template>

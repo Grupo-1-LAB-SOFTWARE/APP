@@ -1,4 +1,3 @@
-import { bancaExaminacao } from './../../../core/interfaces/ensino.interface';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
