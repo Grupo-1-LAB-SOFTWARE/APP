@@ -9,8 +9,8 @@ import { FormularioService } from 'src/app/core/services/formulario.service';
   styleUrls: ['./perfil-create.component.scss']
 })
 export class PerfilCreateComponent {
-  perfilComponent:boolean = false;
-
+  perfilComponent:boolean = true;
+  title:string = 'Edite seu Perfil'
   constructor(
     private formularioService: FormularioService,
     private crudService: CrudService<Usuario>

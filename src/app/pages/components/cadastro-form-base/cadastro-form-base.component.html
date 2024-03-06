@@ -2,7 +2,7 @@
   <mat-card class="cadastro-form-base">
     <form [formGroup]="cadastroForm" >
       <mat-card-title>
-        Crie sua conta
+       {{title}}
       </mat-card-title>
       <section>
         <div class="acoesPerfil" *ngIf="perfilComponent">
@@ -11,40 +11,66 @@
       </section>
       <mat-card-content>
         <div class="grid-container">
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Nome Completo</mat-label>
-            <input type="text" matInput formControlName="nome" placeholder="Nome">
-            <mat-error *ngIf="cadastroForm.get('nome')?.errors">Nome é obrigatório</mat-error>
-          </mat-form-field>
           <div class="grid-item">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Username</mat-label>
+              <input type="text" matInput formControlName="username" placeholder="Username">
+              <mat-error *ngIf="cadastroForm.get('username')?.errors">Username é obrigatório</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Nome Completo</mat-label>
+              <input type="text" matInput formControlName="nome_completo" placeholder="Nome">
+              <mat-error *ngIf="cadastroForm.get('nome_completo')?.errors">Nome é obrigatório</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Perfil</mat-label>
+              <input type="text" matInput formControlName="perfil" placeholder="Perfil">
+              <mat-error *ngIf="cadastroForm.get('perfil')?.errors">Perfil é obrigatório</mat-error>
+            </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Vinculo</mat-label>
               <input type="text" matInput formControlName="vinculo" placeholder="Digite seu Vinculo">
               <mat-error *ngIf="cadastroForm.get('vinculo')?.errors">Vinculo é obrigatório</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
-              <mat-label>Titulação Academica</mat-label>
-              <input type="text" matInput formControlName="titulacao_academica" placeholder="Digite sua Titulação Academica">
-              <mat-error *ngIf="cadastroForm.get('titulacao_academica')?.errors">Titulação academica é obrigatório</mat-error>
+              <mat-label>Selecione sua classe</mat-label>
+              <mat-select formControlName="classe">
+                <mat-option value="a">Classe A</mat-option>
+                <mat-option value="b">Classe B</mat-option>
+                <mat-option value="c">Classe C</mat-option>
+                <mat-option value="d">Classe D</mat-option>
+                <mat-option value="e">Classe E</mat-option>
+              </mat-select>
+              <mat-error *ngIf="cadastroForm.get('classe')?.errors">Classe é obrigatório</mat-error>
             </mat-form-field>
+          </div>
+          <div class="grid-item">
+            <mat-form-field appearance="outline">
+              <mat-label>Regime de Trabalho</mat-label>
+              <input type="text" matInput formControlName="regime_de_trabalho" placeholder="Digite seu Regime de Trabalho">
+              <mat-error *ngIf="cadastroForm.get('regime_de_trabalho')?.errors">Regime de Trabalho é obrigatório</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Titulação Academica</mat-label>
+              <input type="text" matInput formControlName="titulacao" placeholder="Digite sua Titulação Academica">
+              <mat-error *ngIf="cadastroForm.get('titulacao')?.errors">Titulação Academica é obrigatório</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Instituto</mat-label>
+              <input type="text" matInput formControlName="instituto" placeholder="Digite seu Instituto">
+              <mat-error *ngIf="cadastroForm.get('instituto')?.errors">Instituto é obrigatório</mat-error>
+            </mat-form-field>
+
             <mat-form-field appearance="outline">
               <mat-label>SIAPE</mat-label>
               <input type="text" matInput formControlName="siape" placeholder="Digite seu siape">
               <mat-error *ngIf="cadastroForm.get('siape')?.errors">SIAPE é obrigatória</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
-              <mat-label>Campos</mat-label>
-              <input type="text" matInput formControlName="compos" placeholder="Digite seu campos">
-              <mat-error *ngIf="cadastroForm.get('campos')?.errors">Campos é obrigatória</mat-error>
+              <mat-label>Campus</mat-label>
+              <input type="text" matInput formControlName="campus" placeholder="Digite seu campos">
+              <mat-error *ngIf="cadastroForm.get('campus')?.errors">Campos é obrigatória</mat-error>
             </mat-form-field>
-          </div>
-          <div class="grid-item">
-            <mat-form-field appearance="outline">
-              <mat-label>Regime de Trabalho</mat-label>
-              <input type="text" matInput formControlName="regimeTrabalho" placeholder="Digite seu Regime de Trabalho">
-              <mat-error *ngIf="cadastroForm.get('regimeTrabalho')?.errors">Regime de Trabalho é obrigatório</mat-error>
-            </mat-form-field>
-
           </div>
         </div>
       </mat-card-content>
@@ -54,21 +80,25 @@
       </div>
       <mat-card-content>
         <div class="grid-container">
-          <div class="grid-item">
-            <mat-form-field appearance="outline">
-              <mat-label>E-mail</mat-label>
-              <input matInput formControlName="email" type="email" placeholder="Digite seu e-mail">
-              <mat-error *ngIf="cadastroForm.get('email')?.errors?.['required']">E-mail é obrigatório</mat-error>
-              <mat-error *ngIf="cadastroForm.get('email')?.errors?.['email']">E-mail inválido</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Senha</mat-label>
-              <input matInput formControlName="senha" type="password" placeholder="Digite sua senha">
-              <mat-error *ngIf="cadastroForm.get('senha')?.errors?.['required']">Senha é obrigatória</mat-error>
-              <mat-error *ngIf="cadastroForm.get('senha')?.errors?.['minlength']">Senha deve ter pelo menos 3 caracteres</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="grid-item">
+          <mat-form-field appearance="outline">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email" type="email" placeholder="Digite seu e-mail">
+            <mat-error *ngIf="cadastroForm.get('email')?.errors?.['required']">E-mail é obrigatório</mat-error>
+            <mat-error *ngIf="cadastroForm.get('email')?.errors?.['email']">E-mail inválido</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Senha</mat-label>
+            <input matInput formControlName="password" type="password" placeholder="Digite sua Senha">
+            <mat-error *ngIf="cadastroForm.get('password')?.errors?.['required']">Senha é obrigatória</mat-error>
+            <mat-error *ngIf="cadastroForm.get('password')?.errors?.['minlength']">Senha deve ter pelo menos 3 caracteres</mat-error>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+
+
+
+        <mat-card-content>
+          <div class="grid-container">
             <mat-form-field appearance="outline">
               <mat-label>Confirmar E-mail</mat-label>
               <input type="email" matInput formControlName="confirmarEmail" placeholder="Digite seu e-mail novamente">
@@ -83,13 +113,13 @@
               <mat-error *ngIf="cadastroForm.get('confirmarSenha')?.errors?.['equalTo']">Senhas não coincidem</mat-error>
             </mat-form-field>
           </div>
-        </div>
-      </mat-card-content>
+        </mat-card-content>
+
       <mat-card-actions class="full-width">
-        <button mat-flat-button
+        <button mat-raised-button
           (click)="executarAcao()"
           [disabled]="cadastroForm.invalid"
-          color="primary"
+
         >CADASTRAR
         </button>
       </mat-card-actions>

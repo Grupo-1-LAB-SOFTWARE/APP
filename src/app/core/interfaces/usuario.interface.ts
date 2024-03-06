@@ -1,12 +1,17 @@
-// usuario.model.ts
 export interface Usuario {
   id: number;
-  nome: string;
-  campos: string;
+  username: string;
+  nome_completo: string;
+  perfil: string;
+  email: string;
+  password: string;
+  classe: string;
   siape: string;
   vinculo: string;
-  regimeTrabalho: string;
-  titulacao_academica: string;
-  email: string;
-  senha: string;
+  regime_de_trabalho: string;
+  titulacao: string;
+  instituto: string;
+  campos: string;
+  confirmarSenha: string;
+  confirmarEmail: string;
 }

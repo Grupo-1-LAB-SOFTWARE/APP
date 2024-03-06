@@ -12,6 +12,7 @@ export class CadastroFormBaseComponent implements OnInit{
   cadastroForm!: FormGroup;
   estadoControl = new FormControl<any | null>(null, Validators.required);
   @Input() perfilComponent!:boolean;
+  @Input() title:string = 'Crie sua Conta'
   @Output() acaoClick: EventEmitter<any> = new EventEmitter<any>();
   constructor(
     private formBuilder: FormBuilder,
@@ -20,21 +21,26 @@ export class CadastroFormBaseComponent implements OnInit{
 
   ngOnInit() {
     this.cadastroForm = this.formBuilder.group({
-      nome: ['', Validators.required],
-      campos: ['', Validators.required],
-      siape: ['', Validators.required],
+      username: ['', Validators.required],
+      nome_completo: ['', Validators.required],
+      perfil: ['', Validators.required], // Mapeando para 'nome_completo'
+      campus: ['', Validators.required], // Campos
+      siape: ['', Validators.required], // Siape
       vinculo: ['', Validators.required],
-      regimeTrabalho: ['', Validators.required],
-      titulacao_academica: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required, Validators.minLength(3)]],
+      classe: ['', Validators.required], // Vinculo
+      regime_de_trabalho: ['', Validators.required], // Regime de Trabalho
+      titulacao: ['', Validators.required],
+      instituto: ['', Validators.required], // Titulacao Academica
+      email: ['', [Validators.required, Validators.email]], // Email
+      password: ['', [Validators.required, Validators.minLength(3)]], // Senha
       confirmarEmail: ['', [Validators.required, Validators.email, FormValidations.equalTo('email')]],
-      confirmarSenha: ['', [Validators.required, Validators.minLength(3), FormValidations.equalTo('senha')]],
+      confirmarSenha: ['', [Validators.required, Validators.minLength(3), FormValidations.equalTo('password')]],
     });
-    this.formularioService.setCadastro(this.cadastroForm)
+    this.formularioService.setCadastro(this.cadastroForm);
   }
 
   executarAcao(){
     this.acaoClick.emit()
+    console.log(this.cadastroForm)
   }
 }
