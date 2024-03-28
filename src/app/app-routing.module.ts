@@ -4,6 +4,7 @@ import { LayoutComponent } from './pages/components/layout/layout.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { authGuard } from './core/guards/auth.guard';
+import { TelaConfirmarComponent } from './pages/tela-confirmar/tela-confirmar.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path:'cadastro',
     component: CadastroComponent
+  },
+  {
+    path:'tela-confirmar',
+    component: TelaConfirmarComponent
   },
   {
     path: '',

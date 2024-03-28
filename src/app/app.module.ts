@@ -18,6 +18,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interceptor';
+import { TelaConfirmarComponent } from './pages/tela-confirmar/tela-confirmar.component';
 
 registerLocaleData(localePT);
 @NgModule({
@@ -25,6 +26,7 @@ registerLocaleData(localePT);
     AppComponent,
     LoginComponent,
     CadastroComponent,
+    TelaConfirmarComponent,
 
   ],
   imports: [
