@@ -33,8 +33,8 @@ export class CadastroFormBaseComponent implements OnInit{
       instituto: ['', Validators.required], // Titulacao Academica
       email: ['', [Validators.required, Validators.email]], // Email
       password: ['', [Validators.required, Validators.minLength(3)]], // Senha
-      confirmarEmail: ['', [Validators.required, Validators.email, FormValidations.equalTo('email')]],
-      confirmarSenha: ['', [Validators.required, Validators.minLength(3), FormValidations.equalTo('password')]],
+      confirmar_email: ['', [Validators.required, Validators.email, FormValidations.equalTo('email')]],
+      confirmar_senha: ['', [Validators.required, Validators.minLength(3), FormValidations.equalTo('password')]],
     });
     this.formularioService.setCadastro(this.cadastroForm);
   }

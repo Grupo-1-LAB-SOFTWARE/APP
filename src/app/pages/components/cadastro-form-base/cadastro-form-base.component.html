@@ -101,22 +101,22 @@
           <div class="grid-container">
             <mat-form-field appearance="outline">
               <mat-label>Confirmar E-mail</mat-label>
-              <input type="email" matInput formControlName="confirmarEmail" placeholder="Digite seu e-mail novamente">
-              <mat-error *ngIf="cadastroForm.get('confirmarEmail')?.errors?.['required']">Confirmação de E-mail é obrigatória</mat-error>
-              <mat-error *ngIf="cadastroForm.get('confirmarEmail')?.errors?.['email']">E-mail inválido</mat-error>
-              <mat-error *ngIf="cadastroForm.get('confirmarEmail')?.errors?.['equalTo']">E-mails não coincidem</mat-error>
+              <input type="email" matInput formControlName="confirmar_email" placeholder="Digite seu e-mail novamente">
+              <mat-error *ngIf="cadastroForm.get('confirmar_email')?.errors?.['required']">Confirmação de E-mail é obrigatória</mat-error>
+              <mat-error *ngIf="cadastroForm.get('confirmar_email')?.errors?.['email']">E-mail inválido</mat-error>
+              <mat-error *ngIf="cadastroForm.get('confirmar_email')?.errors?.['equalTo']">E-mails não coincidem</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Confirmar Senha</mat-label>
-              <input matInput formControlName="confirmarSenha" type="password" placeholder="Repita sua senha">
-              <mat-error *ngIf="cadastroForm.get('confirmarSenha')?.errors?.['required']">Confirmação de Senha é obrigatória</mat-error>
-              <mat-error *ngIf="cadastroForm.get('confirmarSenha')?.errors?.['equalTo']">Senhas não coincidem</mat-error>
+              <input matInput formControlName="confirmar_senha" type="password" placeholder="Repita sua senha">
+              <mat-error *ngIf="cadastroForm.get('confirmar_senha')?.errors?.['required']">Confirmação de Senha é obrigatória</mat-error>
+              <mat-error *ngIf="cadastroForm.get('confirmar_senha')?.errors?.['equalTo']">Senhas não coincidem</mat-error>
             </mat-form-field>
           </div>
         </mat-card-content>
 
       <mat-card-actions class="full-width">
-        <button mat-raised-button
+        <button mat-fab extended
           (click)="executarAcao()"
           [disabled]="cadastroForm.invalid"
 
