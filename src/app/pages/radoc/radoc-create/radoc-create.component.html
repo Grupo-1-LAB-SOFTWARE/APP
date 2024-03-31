@@ -1,0 +1,34 @@
+<mat-tab-group dynamicHeight animationDuration="2000ms" class="example-tab-group">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">school</mat-icon>
+      Ensino
+    </ng-template>
+
+    <app-ensino-create></app-ensino-create>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">laptop_chromebook</mat-icon>
+      Pesquisa
+    </ng-template>
+
+    <app-pesquisa-create></app-pesquisa-create>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">account_balance</mat-icon>
+      Gestão
+    </ng-template>
+
+    <app-gestao-create></app-gestao-create>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">extension</mat-icon>
+      Extensão
+    </ng-template>
+
+    <app-extensao-create></app-extensao-create>
+  </mat-tab>
+</mat-tab-group>
