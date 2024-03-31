@@ -1,10 +1,11 @@
 .matContainer{
   border-radius: 2rem;
-  border-top: 2px solid #6AD268;
-  border-bottom: 2px solid #6AD268;
+  border-top: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
   border-radius: 2rem;
   width: 30rem;
   align-items: center;
+  margin-top: 3rem;
 }
 mat-accordion{
   width: 25rem;
@@ -16,7 +17,7 @@ mat-accordion{
     justify-content: center;
     align-items: center;
     mix-blend-mode: multiply ;
-    border-bottom: 1px solid #6ad26856;
+    border-bottom: 1px solid #115B2F;
 }
 
 .info {
@@ -28,7 +29,7 @@ mat-accordion{
 
 }
 .mat-button {
-    background-color: #6AD268;
+    background-color: #115B2F;
     color: black;
 }
 .mat-icon {
@@ -39,7 +40,7 @@ mat-accordion{
   border-bottom: 0.5rem;
   border-color:#3f3232;
   color: black;
-  background-color: #6AD268;
+  background-color: #FFF;
 }
 
 .mat-expansion-panel-header-description {
@@ -48,4 +49,7 @@ mat-accordion{
 
 .mat-content.mat-content-hide-toggle {
   margin-right: 0px !important;
+}
+.matContainer{
+  background-color: #115B2F !important;
 }

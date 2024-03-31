@@ -12,6 +12,6 @@ export interface Usuario {
   titulacao: string;
   instituto: string;
   campos: string;
-  confirmarSenha: string;
-  confirmarEmail: string;
+  confirmar_senha: string;
+  confirmar_email: string;
 }

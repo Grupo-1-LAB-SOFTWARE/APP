@@ -11,14 +11,14 @@
               Informações Básicas
             </mat-panel-title>
             <mat-panel-description>
-              <button mat-icon-button color="primary" matTooltip="Editar perfil" [routerLink]="['/perfil/painel/editar']">
+              <button mat-icon-button color="primary" matTooltip="Editar perfil" (click)="chamarComponentePerfilCreate()">
                 <mat-icon>edit</mat-icon>
               </button>
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <div class="row">
+          <div class="row" *ngFor="let item of saveData">
             <strong>
-              <span class="row">Nome:</span>
+              <span class="row">Nome:{{item.nome_completo}}</span>
               <span class="row">Titulação:</span>
               <span class="row">Instituto:</span>
               <span class="row">E-mail:</span>
@@ -35,7 +35,7 @@
                 <mat-icon>account_circle</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <div class="row">
+            <div class="row" *ngFor="let item of saveData">
               <span class="row">Classe</span>
               <span class="row">SIAGE</span>
               <span class="row">Vínculo</span>
