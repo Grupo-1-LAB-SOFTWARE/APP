@@ -1,4 +1,19 @@
 nav{
-  position: relative;
-  margin-bottom: 5rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #115B2F;
+}
+mat-icon,h4,a,h5{
+  color: #000000
+}
+mat-icon[_ngcontent-ng-c1228791483], h4[_ngcontent-ng-c1228791483], a[_ngcontent-ng-c1228791483], h5[_ngcontent-ng-c1228791483] {
+  color: white !important;
+}
+
+.offcanvas-header{
+  background-color: #115B2F;
+}
+.offcanvas-body{
+  background-color: #115B2F;
 }

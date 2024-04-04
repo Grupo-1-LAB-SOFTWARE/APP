@@ -1,28 +1,28 @@
 <div class="container inicio-inventario d-flex justify-content-center align-items-center">
-  <mat-card class="d-flex justify-content-center align-items-center">
+  <div class="container-a d-flex justify-content-center align-items-center">
     <mat-card-header>
 
       <ng-container *ngIf="ensinoForm; else elseButton">
-        <mat-card-title>Relátorio de ensino</mat-card-title>
-        <button style=" top: -2px; left: 13px; margin-bottom: 10px;" mat-mini-fab color="primary" (click)="viewList()">
-          <mat-icon>list</mat-icon>
+        <h1><strong>Relatório Anual de Docente</strong></h1>
+        <button mat-fab extended matTooltip="Listar Radoc" style=" top: -2px; left: 13px; margin-bottom: 10px; color:white !important; "  (click)="viewList()">
+          <mat-icon>list</mat-icon> <span class="spans">Listar Relátorio</span>
         </button>
       </ng-container>
       <ng-template #elseButton>
-        <mat-card-title>Relátorio de ensino</mat-card-title>
-        <button style=" top: -2px; left: 13px; margin-bottom: 10px;" mat-mini-fab color="primary" (click)="create()">
-          <mat-icon>add</mat-icon>
+        <h1><strong>Relatório Anual de Docente</strong></h1>
+        <button mat-fab extended matTooltip="Criar Radoc" style=" top: -2px; left: 13px; margin-bottom: 10px; color:white !important;" (click)="create()">
+          <mat-icon>add</mat-icon><span class="spans">Criar Novo</span>
         </button>
       </ng-template>
     </mat-card-header>
     <mat-card-content class="text-center gap-1">
       <ng-container *ngIf="ensinoForm; else elseTemplate">
-        <app-ensino-create [ensinoSize]="ensinoSize" [ensino]="ensino" [isCreate]="isCreate"></app-ensino-create>
+        <app-radoc-create [ensinoSize]="ensinoSize" [ensino]="ensino" [isCreate]="isCreate"></app-radoc-create>
       </ng-container>
       <ng-template #elseTemplate>
 
-        <div class="mat-elevation-z8" matSort>
-          <table mat-table [dataSource]="ensinoData">
+        <div class="tables mat-elevation-z8" matSort>
+          <table mat-table [dataSource]="ensinoData" style="background: none;">
 
             <!-- Id Column -->
             <!-- <ng-container matColumnDef="id">
@@ -33,7 +33,7 @@
             <!-- Tag Name Column -->
             <ng-container matColumnDef="tagName">
               <th mat-header-cell *matHeaderCellDef> Tag </th>
-              <td mat-cell *matCellDef="let element"> {{element.tagName}} </td>
+              <td  mat-cell *matCellDef="let element"> {{element.tagName}} </td>
             </ng-container>
 
             <!-- Sector Column -->
@@ -89,5 +89,5 @@
       </ng-template>
 
     </mat-card-content>
-  </mat-card>
+  </div>
 </div>

@@ -12,7 +12,7 @@ import { ExtensaoCreateComponent } from './extensao-create/extensao-create.compo
 @NgModule({
   declarations: [
     ExtensaoComponent,
-    ExtensaoCreateComponent
+
   ],
   imports: [
     CommonModule,

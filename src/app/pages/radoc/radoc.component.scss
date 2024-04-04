@@ -1,0 +1,25 @@
+.inicio-inventario{
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+.container-a{
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  justify-content: center;
+  align-items: center;
+}
+mat-card-header{
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+  margin-left: 11rem;
+}
+.tables{
+  width: 150%;
+  border-radius: 30px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px 0px, rgba(0, 0, 0, 0.06) 0px 2px 4px 0px;
+}
+.mdc-data-table__cell, .mdc-data-table__header-cell {
+  padding: 20px;
+}

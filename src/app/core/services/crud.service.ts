@@ -24,8 +24,8 @@ export class CrudService<T> {
     return this.http.post<T>(`${this.baseURL}/${endpoint}`, data);
   }
 
-  update(endpoint: string, id: number, data: T): Observable<T> {
-    return this.http.put<T>(`${this.baseURL}/${endpoint}/${id}`, data);
+  update(endpoint: string, data: T): Observable<T> {
+    return this.http.put<T>(`${this.baseURL}/${endpoint}`, data);
   }
 
   delete(endpoint: string, id: number | string): Observable<T> {

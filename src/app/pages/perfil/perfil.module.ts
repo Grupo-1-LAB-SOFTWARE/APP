@@ -7,11 +7,13 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
 import { ComponentsModule } from '../components/components.module';
 import { FormsModule } from '@angular/forms';
 import { PerfilRoutingModule } from './perfil-routing.module';
+import { PerfilCreateComponent } from './perfil-create/perfil-create.component';
 
 
 @NgModule({
   declarations: [
-    PerfilComponent
+    PerfilComponent,
+    PerfilCreateComponent
   ],
   imports: [
     CommonModule,

@@ -7,7 +7,7 @@ import { Usuario } from '../interfaces/usuario.interface';
 
 
 interface AuthResponse {
-  access_token: string;
+  token: string;
 }
 @Injectable({
   providedIn: 'root'
@@ -21,24 +21,24 @@ export class AutenticacaoService {
 
   autenticar(email: string, senha: string): Observable<HttpResponse<AuthResponse>> {
     return this.http.post<AuthResponse>(
-      `${this.baseURL}/auth/login`,
-      { email, senha },
+      `${this.baseURL}/login/`,
+      { email:email, password:senha },
       { observe: 'response'}).pipe(
       tap((response) => {
-        const authToken = response.body?.access_token || '';
+        const authToken = response.body?.token || '';
         this.UserService.salvarToken(authToken);
       })
     );
   }
 
   buscarCadastro(): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.baseURL}/auth/perfil`);
+    return this.http.get<Usuario>(`${this.baseURL}/usuarios/`);
   }
 
   //Código omitido
 
   editarCadastro(usuario: Usuario):Observable<Usuario> {
-    return this.http.patch<Usuario>(`${this.baseURL}/auth/perfil`,usuario);
+    return this.http.patch<Usuario>(`${this.baseURL}/usuarios/`,usuario);
   }
 
 }

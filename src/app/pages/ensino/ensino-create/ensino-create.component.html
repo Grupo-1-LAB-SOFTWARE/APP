@@ -1,102 +1,227 @@
 <form class="form" [formGroup]="form">
-
   <!-- step 1 -->
   <ng-container *ngIf="step == 1">
+    <div>
+      <h2>1 - Atividade Letiva</h2>
+      <div class="d-flex justify-content-center align-items-start gap-5">
+        <div class="stepColunm">
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Código da Disciplina</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="3" formControlName="atividadeLetiva_codigoDisciplina" ></textarea>
+          </mat-form-field>
 
-    <mat-form-field [floatLabel]="this.floatLabelControl">
-      <mat-label>Código da Disciplina</mat-label>
-      <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-        cdkAutosizeMaxRows="3" formControlName="atividadeLetiva_codigoDisciplina" required></textarea>
-    </mat-form-field>
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Nome da Disciplina</mat-label>
+            <input matInput formControlName="atividadeLetiva_nomeDisciplina" >
+          </mat-form-field>
 
-    <mat-form-field [floatLabel]="this.floatLabelControl">
-      <mat-label>Nome da Disciplina</mat-label>
-      <input matInput formControlName="atividadeLetiva_nomeDisciplina" required>
-    </mat-form-field>
+          <mat-form-field>
+            <mat-label>Ano da Disciplina</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="atividadeLetiva_ano">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Ano da Disciplina</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="atividadeLetiva_ano">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+          <mat-form-field>
+            <mat-label>Semestre da Disciplina</mat-label>
+            <mat-select formControlName="atividadeLetiva_semestre">
+              <mat-option value="1">Primeiro semestre</mat-option>
+              <mat-option value="2">Segundo semestre</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Semestre da Disciplina</mat-label>
-      <mat-select formControlName="atividadeLetiva_semestre">
-        <mat-option value="1">Primeiro semestre</mat-option>
-        <mat-option value="2">Segundo semestre</mat-option>
-      </mat-select>
-    </mat-form-field>
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Nome do Curso</mat-label>
+            <input matInput formControlName="atividadeLetiva_cursoNome" >
+          </mat-form-field>
 
-    <mat-form-field [floatLabel]="this.floatLabelControl">
-      <mat-label>Nome do Curso</mat-label>
-      <input matInput formControlName="atividadeLetiva_cursoNome" required>
-    </mat-form-field>
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Nome da Cidade</mat-label>
+            <input matInput formControlName="atividadeLetiva_cursoCampos_Cidade" >
+          </mat-form-field>
 
-    <mat-form-field [floatLabel]="this.floatLabelControl">
-      <mat-label>Nome da Cidade</mat-label>
-      <input matInput formControlName="atividadeLetiva_cursoCampos_Cidade" required>
-    </mat-form-field>
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Nome do Campos</mat-label>
+            <input matInput formControlName="atividadeLetiva_cursoCampos_Nome" >
+          </mat-form-field>
 
-    <mat-form-field [floatLabel]="this.floatLabelControl">
-      <mat-label>Nome do Campos</mat-label>
-      <input matInput formControlName="atividadeLetiva_cursoCampos_Nome" required>
-    </mat-form-field>
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Nome do Diretor</mat-label>
+            <input matInput formControlName="atividadeLetiva_cursoCampos_Diretor" >
+          </mat-form-field>
+        </div>
+        <div class="stepColunm">
 
-    <mat-form-field [floatLabel]="this.floatLabelControl">
-      <mat-label>Nome do Diretor</mat-label>
-      <input matInput formControlName="atividadeLetiva_cursoCampos_Diretor" required>
-    </mat-form-field>
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Nome do Diretor do instituto</mat-label>
+            <input matInput formControlName="atividadeLetiva_cursoInstituto_Diretor" >
+          </mat-form-field>
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Nome do instituto</mat-label>
+            <input matInput formControlName="atividadeLetiva_cursoInstituto_Nome" >
+          </mat-form-field>
 
-    <mat-form-field [floatLabel]="this.floatLabelControl">
-      <mat-label>Nome do Diretor do instituto</mat-label>
-      <input matInput formControlName="atividadeLetiva_cursoInstituto_Diretor" required>
-    </mat-form-field>
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Sigla do Curso</mat-label>
+            <input matInput formControlName="atividadeLetiva_cursoInstituto_Sigla" >
+          </mat-form-field>
 
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Nível do curso</mat-label>
+            <input matInput formControlName="atividadeLetiva_cursoNivel" >
+          </mat-form-field>
 
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Nível do curso</mat-label>
+            <input matInput formControlName="atividadeLetiva_cursosigla" >
+          </mat-form-field>
 
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Nível do curso</mat-label>
+            <input matInput formControlName="atividadeLetiva_docentes_envolvidos" >
+          </mat-form-field>
 
-    <button mat-raised-button color="primary" (click)="goNext()">Próximo</button>
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Nível do curso</mat-label>
+            <input matInput formControlName="atividadeLetiva_carga_horaria_docentes_envolvidos" >
+          </mat-form-field>
+        </div>
+        <div>
+        </div>
+      </div>
+      <button mat-fab extended  (click)="goNext()"><span class="spans">Próximo</span></button>
+    </div>
   </ng-container>
 
   <!-- step 2 -->
   <ng-container *ngIf="step == 2">
-
-    <mat-form-field [floatLabel]="this.floatLabelControl">
-      <mat-label>Nome do instituto</mat-label>
-      <input matInput formControlName="atividadeLetiva_cursoInstituto_Nome" required>
-    </mat-form-field>
-
-    <mat-form-field [floatLabel]="this.floatLabelControl">
-      <mat-label>Sigla do Curso</mat-label>
-      <input matInput formControlName="atividadeLetiva_cursoInstituto_Sigla" required>
-    </mat-form-field>
-
-    <mat-form-field [floatLabel]="this.floatLabelControl">
-      <mat-label>Nível do curso</mat-label>
-      <input matInput formControlName="atividadeLetiva_cursoNivel" required>
-    </mat-form-field>
-
-    <!-- <div>
-      <button style="margin-right: 10px;" mat-raised-button color="primary" (click)="goBack()">Voltar</button>
-      <button mat-raised-button color="primary" (click)="goNext()">Próximo</button>
-    </div> -->
     <div>
-      <button style="margin-right: 10px;" mat-raised-button color="primary" (click)="goBack()">Voltar</button>
-      <button mat-raised-button color="primary" (click)="submit()">Salvar</button>
+      <h2>2 - Atividade Pedagógica Complementar</h2>
+      <div class="d-flex justify-content-center align-items-start gap-5">
+        <div class="stepColunm">
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Ano</mat-label>
+            <input matInput formControlName="atividadePedagogicaComplementar_ano" >
+          </mat-form-field>
+
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Semestre</mat-label>
+            <input matInput formControlName="atividadePedagogicaComplementar_semestre" >
+          </mat-form-field>
+
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Carga Horaria semanal</mat-label>
+            <input matInput formControlName="atividadePedagogicaComplementar_carga_horaria_semanal" >
+          </mat-form-field>
+
+        </div>
+        <div class="stepColunm">
+
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Docentes envolvidos</mat-label>
+            <input matInput formControlName="atividadePedagogicaComplementar_docentes_envolvidos" >
+          </mat-form-field>
+
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Carga Horaria docentes envolvidos</mat-label>
+            <input matInput formControlName="atividadePedagogicaComplementar_carga_horaria_docentes_envolvidos" >
+          </mat-form-field>
+
+        </div>
+      </div>
+      <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
+      <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
+    </div>
+  </ng-container>
+  <!-- step 3 -->
+
+  <ng-container *ngIf="step == 3">
+    <div>
+      <h2>3 - Orientado do Semestre </h2>
+      <div class="d-flex justify-content-center align-items-start gap-5">
+        <div class="stepColunm">
+
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Ano</mat-label>
+            <input matInput formControlName="orientado_ano" >
+          </mat-form-field>
+
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Semestre</mat-label>
+            <input matInput formControlName="orientado_semestre" >
+          </mat-form-field>
+
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Nome do Orientado</mat-label>
+            <input matInput formControlName="orientado_nome" >
+          </mat-form-field>
+
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Matricula do Orientado</mat-label>
+            <input matInput formControlName="orientado_matricula" >
+          </mat-form-field>
+
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Carga Horaria</mat-label>
+            <input matInput formControlName="orientado_atividade_carga_horaria" >
+          </mat-form-field>
+
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Tipo</mat-label>
+            <input matInput formControlName="orientado_atividade_tipo" >
+          </mat-form-field>
+
+        </div>
+      </div>
+      <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
+      <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
     </div>
   </ng-container>
 
+  <!-- step 4 -->
+  <ng-container *ngIf="step == 4">
+    <div>
+      <h2>4 - Banca de Examinação</h2>
+      <div class="d-flex justify-content-center align-items-start gap-5">
+        <div class="stepColunm">
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Nome do candidato</mat-label>
+            <input matInput formControlName="bancaExaminacao_nomeCandidato" >
+          </mat-form-field>
 
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Titulo do trabalho</mat-label>
+            <input matInput formControlName="bancaExaminacao_tituloTrabalho" >
+          </mat-form-field>
 
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>IES da banca</mat-label>
+            <input matInput formControlName="bancaExaminacao_ies" >
+          </mat-form-field>
 
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Tipo da banca</mat-label>
+            <input matInput formControlName="bancaExaminacao_tipo" >
+          </mat-form-field>
 
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Ano da banca</mat-label>
+            <input matInput formControlName="bancaExaminacao_ano" >
+          </mat-form-field>
 
-
-
-
-
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Semestre da banca</mat-label>
+            <input matInput formControlName="bancaExaminacao_semestre" >
+          </mat-form-field>
+        </div>
+        <div class="stepColunm">
+        </div>
+      </div>
+      <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
+      <button mat-fab extended (click)="submit()"><span class="spans">Salvar</span></button>
+    </div>
+  </ng-container>
 
 </form>

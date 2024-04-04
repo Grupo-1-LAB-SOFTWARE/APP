@@ -8,7 +8,17 @@ import { TelaConfirmarComponent } from './pages/tela-confirmar/tela-confirmar.co
 
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'perfil/painel',
+    pathMatch: 'full'
+  },
+  {
+    path: 'perfil',
+    redirectTo: 'perfil/painel',
+    pathMatch: 'full'
 
+  },
   {
     path:'login',
     component: LoginComponent
@@ -28,7 +38,13 @@ const routes: Routes = [
     children: [
       {
         path: 'perfil',
-        loadChildren: ()=> import('./pages/perfil/perfil.module').then(m => m.PerfilModule)
+        children: [
+          {
+            path: 'painel',
+            loadChildren: ()=> import('./pages/perfil/perfil.module').then(m => m.PerfilModule)
+          },
+
+        ]
       }
     ]
   },
@@ -42,20 +58,8 @@ const routes: Routes = [
         canActivate: [authGuard],
         children: [
           {
-            path: 'ensino',
-            loadChildren: () => import('./pages/ensino/ensino.module').then(m => m.EnsinoModule)
-          },
-          {
-            path: 'pesquisa',
-            loadChildren: () => import('./pages/pesquisa/pesquisa.module').then(m => m.PesquisaModule)
-          },
-          {
-            path: 'gestao',
-            loadChildren: () => import('./pages/gestao/gestao.module').then(m => m.GestaoModule)
-          },
-          {
-            path: 'extensao',
-            loadChildren: () => import('./pages/extensao/extensao.module').then(m => m.ExtensaoModule)
+            path: 'radoc',
+            loadChildren: () => import('./pages/radoc/radoc.module').then(m => m.RadocModule)
           },
         ]
       },
