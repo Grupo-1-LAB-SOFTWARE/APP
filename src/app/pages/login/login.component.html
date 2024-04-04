@@ -1,19 +1,27 @@
-<!-- login-form.component.html -->
-<h2 class="login-title">Login</h2>
-<button type="submit" class="btn-home">HOME</button>
-<figure class="login-container">
-  <form [formGroup]="form">
-      <label for="username" class="usuario-title">Nome de Usuário ou Email</label>
-      <input type="text" id="username" name="username" required>
+<app-container >
+  <div class="login">
+    <h1 class="title"><strong>Bem-vindo(a) ao SISRADOC - UFRA!</strong></h1>
+    <mat-card class="login-container">
+      <h1>Faça Seu Login</h1>
+      <form [formGroup]="form">
+        <mat-form-field [floatLabel]="this.floatLabelControl">
+          <mat-label>Nome de usuário ou e-mail</mat-label>
+          <input matInput type="text" formControlName="username" >
+        </mat-form-field>
+        <mat-form-field [floatLabel]="this.floatLabelControl">
+          <mat-label>Senha</mat-label>
+          <input matInput type="password" formControlName="password" >
+        </mat-form-field>
+        <div >
+          <a href="#" class="d-flex justify-content-end "><h4>Esqueci a senha?</h4></a><br>
+        </div>
 
-      <label for="password" class="senha-title">Senha</label>
-      <input type="password" id="password" name="password" required>
+          <button mat-fab extended [disabled]="form.invalid" style="border: 1px solid #115B2F;" type="submit" class="btn-entrar" (click)="login()">Entrar</button>
 
-      <button [disabled]="form.invalid" type="submit" class="btn-entrar">Entrar</button>
-
-      <a href="#" class="esqueci-senha">Esqueci a senha</a><br>
-
-      <a href="#" class="retangulo-cadastro">Realizar Cadastro</a>
-  </form>
-
-</figure>
+        </form>
+        <div >
+          <a><h2>Ainda não tem uma conta?<a [routerLink]="['/cadastro']">Cadastre-se.</a></h2></a>
+        </div>
+    </mat-card>
+  </div>
+</app-container>

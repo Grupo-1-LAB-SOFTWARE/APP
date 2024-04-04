@@ -12,7 +12,7 @@ import { PesquisaCreateComponent } from './pesquisa-create/pesquisa-create.compo
 @NgModule({
   declarations: [
     PesquisaComponent,
-    PesquisaCreateComponent
+  
   ],
   imports: [
     CommonModule,

@@ -1,44 +1,54 @@
-<div class="perfil">
+<div *ngIf="router.routerState.snapshot.url === '/perfil/painel'; else elseTemplate">
+  <mat-card class="matContainer">
     <div class="img">
-        <img mat-card-image src="assets/foto-perfil.png" alt="Foto de perfil" height="120px" width="120px">
+      <img mat-card-image src="assets/foto-perfil.png" alt="Foto de perfil" height="120px" width="120px">
     </div>
-
-    <div class="info">
-        Nome 
-        SIAGE 
-        Classe
-        Vínculo 
-        Titulação 
-        Instituto 
-        e-mail 
-    </div>
-    <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true"(closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    RADOC
-                </mat-panel-title>            
-            </mat-expansion-panel-header>
-            <div class="forms">
-                <p>2023.2 {{panelOpenState ? 'em andamento' : 'fnalizado'}}</p>
-                <button mat-button>
-                    <mat-icon role="img" aria-hidden="false" aria-label="Abrir formulário" fontIcon="file_open"></mat-icon>
-                </button>
-                <button mat-button>
-                    <mat-icon role="img" aria-hidden="false" aria-label="Gerar comprovante" fontIcon="assignment_turned_in"></mat-icon>
-                </button>
-                <mat-divider></mat-divider>
-                <p>2023.1 {{panelOpenState ? 'finalizado' : 'fnalizado'}}</p>
-                <button mat-button>
-                    <mat-icon role="img" aria-hidden="false" aria-label="Abrir formulário" fontIcon="file_open"></mat-icon>
-                </button>
-                <button mat-button>
-                    <mat-icon role="img" aria-hidden="false" aria-label="Gerar comprovante" fontIcon="assignment_turned_in"></mat-icon>
-                </button>
-                <mat-divider></mat-divider>
-            </div>
-            
+    <div class="info ">
+      <mat-accordion>
+        <mat-expansion-panel class="d-flex flex-column justify-content-start" [expanded]="step === 0" disabled="">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="d-flex gap-2 justify-content-between">
+              Informações Básicas
+            </mat-panel-title>
+            <mat-panel-description>
+              <button mat-icon-button color="primary" matTooltip="Editar perfil" (click)="chamarComponentePerfilCreate()">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="row" *ngFor="let item of saveData">
+            <strong>
+              <span class="row">Nome:{{item.nome_completo}}</span>
+              <span class="row">Titulação:</span>
+              <span class="row">Instituto:</span>
+              <span class="row">E-mail:</span>
+            </strong>
+          </div>
         </mat-expansion-panel>
-        
-    </mat-accordion>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Mais Informações
+              </mat-panel-title>
+              <mat-panel-description class="d-flex justify-content-end">
+                <mat-icon>account_circle</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="row" *ngFor="let item of saveData">
+              <span class="row">Classe</span>
+              <span class="row">SIAGE</span>
+              <span class="row">Vínculo</span>
+              <span class="row">Titulação</span>
+              <span class="row">Instituto</span>
+              <span class="row">e-mail</span>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-accordion>
+    </div>
+  </mat-card>
 </div>
+<ng-template #elseTemplate>
+  <router-outlet></router-outlet>
+</ng-template>
