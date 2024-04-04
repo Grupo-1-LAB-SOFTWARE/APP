@@ -39,12 +39,10 @@ registerLocaleData(localePT);
     MaterialModule
   ],
   bootstrap: [AppComponent],
-  providers: [{
-    provide: [HTTP_INTERCEPTORS,LOCALE_ID],
-    useClass: AutenticacaoInterceptor,
-    multi: true,
-    useValue: 'pt-br'
-  }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AutenticacaoInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'pt-BR' } // Fornecendo LOCALE_ID corretamente
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class AppModule {
@@ -52,6 +50,6 @@ export class AppModule {
   constructor(private tokenService: TokenService) { }
   @HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event: Event) {
-    this.tokenService.excluirToken(); 
+    this.tokenService.excluirToken();
   }
 }
