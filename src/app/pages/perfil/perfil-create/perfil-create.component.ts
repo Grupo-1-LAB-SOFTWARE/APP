@@ -20,7 +20,7 @@ export class PerfilCreateComponent {
 
     if(formCadastro?.valid) {
       console.log(formCadastro.value)
-      this.crudService.update('perfil',4, formCadastro.value).subscribe({
+      this.crudService.update('usuarios/', formCadastro.value).subscribe({
         next: (value) => {
           console.log('Cadastro realizado com sucesso', value);
         },

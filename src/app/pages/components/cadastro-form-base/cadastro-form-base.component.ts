@@ -23,7 +23,6 @@ export class CadastroFormBaseComponent implements OnInit{
     this.cadastroForm = this.formBuilder.group({
       username: ['', Validators.required],
       nome_completo: ['', Validators.required],
-      perfil: ['', Validators.required], // Mapeando para 'nome_completo'
       campus: ['', Validators.required], // Campos
       siape: ['', Validators.required], // Siape
       vinculo: ['', Validators.required],
@@ -37,6 +36,7 @@ export class CadastroFormBaseComponent implements OnInit{
       confirmar_senha: ['', [Validators.required, Validators.minLength(3), FormValidations.equalTo('password')]],
     });
     this.formularioService.setCadastro(this.cadastroForm);
+    this.cadastroForm.patchValue( this.cadastroForm);
   }
 
   executarAcao(){

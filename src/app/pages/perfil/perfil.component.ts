@@ -22,7 +22,7 @@ export class PerfilComponent implements OnInit{
     });
   }
   ngOnInit() {
-    this.crudService.getOne('usuarios', 2).subscribe( data => {
+    this.crudService.getAll('usuarios/').subscribe( data => {
       this.saveData = data
       console.log(this.saveData)
     })

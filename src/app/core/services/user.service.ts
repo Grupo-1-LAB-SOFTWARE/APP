@@ -1,36 +1,35 @@
 import { jwtDecode } from "jwt-decode";
 import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
-import { Usuario } from '../interfaces/usuario.interface';
 import { BehaviorSubject } from 'rxjs';
+interface Usuario {
+  id: number;
+  username: string;
+  password: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
 
   private userSubject = new BehaviorSubject<Usuario | null>(null);
 
-  constructor(private tokenService: TokenService) {
-    if(this.tokenService.possuiToken()) {
-      this.decodificarJWT();
-    }
-  }
+  constructor(private tokenService: TokenService) {}
 
-  private decodificarJWT() {
-    const token = this.tokenService.retornarToken();
-    const user = jwtDecode(token) as Usuario;
-    this.userSubject.next(user);
-}
+
 
   retornarUser() {
     return this.userSubject.asObservable();
   }
 
-  salvarToken(token: string) {
-    this.tokenService.salvarToken(token);
-    this.decodificarJWT();
-  }
+  salvarToken(token: string | null) {
+    if (token) {
+      this.tokenService.salvarToken(token);
 
+    }
+  }
   logout() {
     this.tokenService.excluirToken();
     this.userSubject.next(null);

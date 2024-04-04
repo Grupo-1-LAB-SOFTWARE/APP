@@ -161,7 +161,7 @@ export class PesquisaCreateComponent implements OnInit {
     try {
       this.isCreate ?
         await this.pesquisaService.create('pesquisa',formValue) :
-        await this.pesquisaService.update('pesquisa',this.pesquisaId, formValue);
+        await this.pesquisaService.update('pesquisa', formValue);
         this._snackbar.open('Relátorio de pesquisa salvo com sucesso.', 'OK', {
           duration: 5000
         });

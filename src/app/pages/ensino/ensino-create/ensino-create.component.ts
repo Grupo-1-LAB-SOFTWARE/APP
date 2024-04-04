@@ -141,7 +141,7 @@ export class EnsinoCreateComponent implements OnInit {
     try {
       this.isCreate ?
         await this.ensinoService.create('ensino',formValue) :
-        await this.ensinoService.update('ensino',this.ensinoId, formValue);
+        await this.ensinoService.update('ensino', formValue);
         this._snackbar.open('Relátorio de ensino salvo com sucesso.', 'OK', {
           duration: 5000
         });

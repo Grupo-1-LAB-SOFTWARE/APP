@@ -141,7 +141,7 @@ export class ExtensaoCreateComponent implements OnInit {
     try {
       this.isCreate ?
         await this.extensaoService.create('extensao',formValue) :
-        await this.extensaoService.update('extensao',this.extensaoId, formValue);
+        await this.extensaoService.update('extensao', formValue);
         this._snackbar.open('Relátorio de extensao salvo com sucesso.', 'OK', {
           duration: 5000
         });

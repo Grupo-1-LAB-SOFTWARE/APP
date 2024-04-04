@@ -16,12 +16,12 @@
               </button>
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <div class="row" *ngFor="let item of saveData">
+          <div class="row" >
             <strong>
-              <span class="row">Nome:{{item.nome_completo}}</span>
-              <span class="row">Titulação:</span>
-              <span class="row">Instituto:</span>
-              <span class="row">E-mail:</span>
+              <span class="row">Nome: {{ saveData.nome_completo }}</span>
+              <span class="row">Titulação: {{ saveData.titulacao }}</span>
+              <span class="row">Instituto: {{ saveData.instituto }}</span>
+              <span class="row">E-mail: {{ saveData.email }}</span>
             </strong>
           </div>
         </mat-expansion-panel>
@@ -35,13 +35,13 @@
                 <mat-icon>account_circle</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <div class="row" *ngFor="let item of saveData">
-              <span class="row">Classe</span>
-              <span class="row">SIAGE</span>
-              <span class="row">Vínculo</span>
-              <span class="row">Titulação</span>
-              <span class="row">Instituto</span>
-              <span class="row">e-mail</span>
+            <div class="row" >
+              <strong>
+                <span class="row">Classe: {{ saveData.classe }}</span>
+                <span class="row">SIAGE: {{ saveData.siape }}</span>
+                <span class="row">Vínculo: {{ saveData.vinculo }}</span>
+                
+              </strong>
             </div>
           </mat-expansion-panel>
         </mat-accordion>
