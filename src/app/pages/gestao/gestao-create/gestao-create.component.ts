@@ -141,7 +141,7 @@ export class GestaoCreateComponent implements OnInit {
     try {
       this.isCreate ?
         await this.gestaoService.create('gestao',formValue) :
-        await this.gestaoService.update('gestao',this.gestaoId, formValue);
+        await this.gestaoService.update('gestao', formValue);
         this._snackbar.open('Relátorio de gestao salvo com sucesso.', 'OK', {
           duration: 5000
         });

@@ -11,11 +11,6 @@
               cdkAutosizeMaxRows="3" formControlName="atividadeLetiva_codigoDisciplina" ></textarea>
           </mat-form-field>
 
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nome da Disciplina</mat-label>
-            <input matInput formControlName="atividadeLetiva_nomeDisciplina" >
-          </mat-form-field>
-
           <mat-form-field>
             <mat-label>Ano da Disciplina</mat-label>
             <input matInput [matDatepicker]="picker" formControlName="atividadeLetiva_ano">
@@ -30,6 +25,11 @@
               <mat-option value="1">Primeiro semestre</mat-option>
               <mat-option value="2">Segundo semestre</mat-option>
             </mat-select>
+          </mat-form-field>
+
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Nome da Disciplina</mat-label>
+            <input matInput formControlName="atividadeLetiva_nomeDisciplina" >
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
@@ -91,7 +91,7 @@
         <div>
         </div>
       </div>
-      <button mat-raised-button (click)="goNext()">Próximo</button>
+      <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
     </div>
   </ng-container>
 
@@ -131,8 +131,8 @@
 
         </div>
       </div>
-      <button style="margin-right: 10px;" mat-raised-button (click)="goBack()">Voltar</button>
-      <button mat-raised-button (click)="goNext()">Próximo</button>
+      <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
+      <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
     </div>
   </ng-container>
   <!-- step 3 -->
@@ -175,8 +175,8 @@
 
         </div>
       </div>
-      <button style="margin-right: 10px;" mat-raised-button (click)="goBack()">Voltar</button>
-      <button mat-raised-button (click)="goNext()">Próximo</button>
+      <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
+      <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
     </div>
   </ng-container>
 
@@ -217,11 +217,25 @@
           </mat-form-field>
         </div>
         <div class="stepColunm">
+
         </div>
       </div>
-      <button style="margin-right: 10px;" mat-raised-button (click)="goBack()">Voltar</button>
-      <button mat-raised-button (click)="submit()">Salvar</button>
+      <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
+      <button mat-fab extended (click)="submit()"><span class="spans">Salvar</span></button>
     </div>
   </ng-container>
 
 </form>
+
+<form [formGroup]="form">
+  <div formArrayName="atividadeLetiva_nomeDisciplina" *ngFor="let creds of form.controls['atividadeLetiva_nomeDisciplina']?.value; let i = index">
+    <ng-container [formGroupName]="i">
+      <input placeholder="Username" formControlName="atividadeLetiva_nomeDisciplina">
+
+    </ng-container>
+    <button mat-fab extended (click)="removeNomeDisciplina(i )">remove</button>
+  </div>
+
+</form>
+<button mat-fab extended (click)="adicionardisciplina()">add</button>
+<pre>{{ form.value | json }}</pre>

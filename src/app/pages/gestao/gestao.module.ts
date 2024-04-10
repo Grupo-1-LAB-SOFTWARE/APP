@@ -12,7 +12,7 @@ import { GestaoCreateComponent } from './gestao-create/gestao-create.component';
 @NgModule({
   declarations: [
     GestaoComponent,
-    GestaoCreateComponent
+   
   ],
   imports: [
     CommonModule,

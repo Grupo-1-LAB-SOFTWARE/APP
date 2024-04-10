@@ -9,8 +9,8 @@ import { FormularioService } from 'src/app/core/services/formulario.service';
   styleUrls: ['./perfil-create.component.scss']
 })
 export class PerfilCreateComponent {
-  perfilComponent:boolean = false;
-
+  perfilComponent:boolean = true;
+  title:string = 'Edite seu Perfil'
   constructor(
     private formularioService: FormularioService,
     private crudService: CrudService<Usuario>
@@ -20,7 +20,7 @@ export class PerfilCreateComponent {
 
     if(formCadastro?.valid) {
       console.log(formCadastro.value)
-      this.crudService.update('perfil',4, formCadastro.value).subscribe({
+      this.crudService.update('usuarios/', formCadastro.value).subscribe({
         next: (value) => {
           console.log('Cadastro realizado com sucesso', value);
         },

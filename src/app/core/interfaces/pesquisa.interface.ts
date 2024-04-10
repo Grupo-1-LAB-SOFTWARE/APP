@@ -25,7 +25,7 @@ export interface Campus {
   export interface atividadeLetiva {
     id: number;
     codigo_disciplina: string;
-    nome_disciplina: string;
+    nome_disciplina: string[];
     ano: Date;
     semestre: number;
     curso: Curso;

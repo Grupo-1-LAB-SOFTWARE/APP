@@ -15,7 +15,7 @@ export class TokenService {
     return localStorage.removeItem(KEY);
   }
 
-  retornarToken() {
+  retornarToken(): string {
     return localStorage.getItem(KEY) ?? "";
   }
 

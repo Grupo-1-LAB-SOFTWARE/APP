@@ -5,22 +5,23 @@
 /* Importing Datepicker SCSS file. */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-  background-color: rgba(255, 255, 255, 0.515) !important;
+  background-color: rgba(255, 255, 255, 0) !important;
 }
 mat-label, span{
   color: black !important;
 }
 table,mat-paginator,mat-card{
-  background-color: #9EF29C !important;
+  background-color: #ffffff00 !important;
   color: black !important;
 }
 th,td{
   color: black !important;
 }
 .mat-calendar{
-  background-color: #9EF29C !important;
+  background-color: #115B2F !important;
   color: black !important
 }
 .mat-calendar-arrow{
@@ -38,7 +39,7 @@ th,td{
   flex-direction: column;
 }
 .mat-mdc-fab.mat-primary, .mat-mdc-mini-fab.mat-primary {
-  --mdc-fab-container-color: #198754;
+  --mdc-fab-container-color: #115B2F;
   --mat-mdc-fab-color: #f8f9fa;
 }
 .mat-mdc-raised-button.mat-unthemed {
@@ -59,4 +60,83 @@ th,td{
 }
 .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
   color: #000 !important;
+}
+
+html{
+
+  --mdc-filled-text-field-caret-color: #000000 !important;
+      --mdc-filled-text-field-focus-active-indicator-color: #115B2F !important;
+      --mdc-filled-text-field-focus-label-text-color: #115B2F !important;
+      --mdc-filled-text-field-container-color: #115B2F !important;
+      --mdc-filled-text-field-disabled-container-color: #000000 !important;
+      --mdc-filled-text-field-label-text-color: rgb(0 0 0) !important;
+      --mdc-filled-text-field-disabled-label-text-color: #000000 !important;
+      --mdc-filled-text-field-input-text-color: #000 !important;
+      --mdc-filled-text-field-disabled-input-text-color: #ffc107 !important;
+      --mdc-filled-text-field-input-text-placeholder-color: #000000 !important;
+      --mdc-filled-text-field-error-focus-label-text-color: #115B2F !important ;
+      --mdc-filled-text-field-error-label-text-color: #115B2F  !important;
+      --mdc-filled-text-field-error-caret-color: #115B2F !important ;
+      --mdc-filled-text-field-active-indicator-color: rgb(0, 0, 0) !important;
+      --mdc-filled-text-field-disabled-active-indicator-color: rgba(255, 255, 255, 0.06) !important;
+      --mdc-filled-text-field-hover-active-indicator-color: rgb(0, 0, 0) !important;
+      --mdc-filled-text-field-error-active-indicator-color: #f44336 !important;
+      --mdc-filled-text-field-error-focus-active-indicator-color: #f44336 !important;
+      --mdc-filled-text-field-error-hover-active-indicator-color: #0096a4 !important;
+      --mdc-outlined-text-field-caret-color: #0d6efd !important;
+      --mdc-outlined-text-field-focus-outline-color: #0d6efd !important;
+      --mdc-outlined-text-field-focus-label-text-color: #0d6efd !important;
+      --mdc-outlined-text-field-label-text-color: #000 !important;
+      --mdc-outlined-text-field-disabled-label-text-color: #000 !important;
+      --mdc-outlined-text-field-input-text-color: #000 !important;
+      --mdc-outlined-text-field-disabled-input-text-color: #000 !important;
+      --mdc-outlined-text-field-input-text-placeholder-color: #000 !important;
+      --mdc-outlined-text-field-error-caret-color: #f44336 !important;
+      --mdc-outlined-text-field-error-focus-label-text-color: #f44336 !important;
+      --mdc-outlined-text-field-error-label-text-color: #f44336 !important;
+      --mdc-outlined-text-field-outline-color: rgba(255, 255, 255, 0.38) !important;
+      --mdc-outlined-text-field-disabled-outline-color: rgba(255, 255, 255, 0.06) !important;
+      --mdc-outlined-text-field-hover-outline-color: rgba(255, 255, 255, 0.87) !important;
+      --mdc-outlined-text-field-error-focus-outline-color: #f44336 !important;
+      --mdc-outlined-text-field-error-hover-outline-color: #f44336 !important;
+      --mdc-outlined-text-field-error-outline-color: #f44336 !important;
+      --mat-form-field-disabled-input-text-placeholder-color: #0dcaf0 !important;
+}
+
+$background-color-login: #115B2F;
+$background-color-profile: #FFA500;
+
+.app-login {
+  background-color: $background-color-login;
+}
+
+.app-perfil {
+  background-color: $background-color-profile;
+}
+
+.navbar-brand {
+  color: white !important;
+}
+.mat-mdc-fab.mat-accent, .mat-mdc-mini-fab.mat-accent {
+    --mdc-fab-container-color: #115B2F;
+    --mdc-fab-icon-color: black;
+    --mat-mdc-fab-color: #000;
+}
+.mat-mdc-tab-group, .mat-mdc-tab-nav-bar {
+  --mdc-tab-indicator-active-indicator-color: #198754;
+  --mat-tab-header-disabled-ripple-color: rgba(255, 255, 255, 0.5);
+  --mat-tab-header-pagination-icon-color: #fff;
+  --mat-tab-header-inactive-label-text-color: rgba(255, 255, 255, 0.6);
+  --mat-tab-header-active-label-text-color: #198754;
+  --mat-tab-header-active-ripple-color: #198754;
+  --mat-tab-header-inactive-ripple-color: #198754;
+  --mat-tab-header-inactive-focus-label-text-color: rgba(255, 255, 255, 0.6);
+  --mat-tab-header-inactive-hover-label-text-color: rgba(255, 255, 255, 0.6);
+  --mat-tab-header-active-focus-label-text-color: #198754;
+  --mat-tab-header-active-hover-label-text-color: #198754;
+  --mat-tab-header-active-focus-indicator-color: #198754;
+  --mat-tab-header-active-hover-indicator-color: #198754;
+}
+.spans{
+  color: white !important;
 }

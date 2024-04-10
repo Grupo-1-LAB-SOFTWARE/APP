@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { pesquisa } from 'src/app/core/interfaces/pesquisa.interface';
@@ -26,50 +26,54 @@ export class PesquisaCreateComponent implements OnInit {
 
   pesquisaId!: number;
 
-  initialForm = {
-    atividadeLetiva_codigoDisciplina: ['', [Validators.required]],
-    atividadeLetiva_nomeDisciplina: ['', [Validators.required]],
-    atividadeLetiva_ano: ['', [Validators.required]],
-    atividadeLetiva_semestre: ['', [Validators.required]],
-    atividadeLetiva_cursoNome: ['', [Validators.required]],
-    atividadeLetiva_cursoCampos_Cidade: ['', [Validators.required]],
-    atividadeLetiva_cursoCampos_Nome: ['', [Validators.required]],
-    atividadeLetiva_cursoCampos_Diretor: ['', [Validators.required]],
-    atividadeLetiva_cursoInstituto_Diretor: ['', [Validators.required]],
-    atividadeLetiva_cursoInstituto_Nome: ['', [Validators.required]],
-    atividadeLetiva_cursoInstituto_Sigla: ['', [Validators.required]],
-    atividadeLetiva_cursoNivel: ['', [Validators.required]],
-    atividadeLetiva_cursosigla: ['', [Validators.required]],
-    atividadeLetiva_docentes_envolvidos: ['', [Validators.required]],
-    atividadeLetiva_carga_horaria_docentes_envolvidos: ['', [Validators.required]],
-    atividadePedagogicaComplementar_ano: ['', [Validators.required]],
-    atividadePedagogicaComplementar_semestre: ['', [Validators.required]],
-    atividadePedagogicaComplementar_carga_horaria_semanal: ['', [Validators.required]],
-    atividadePedagogicaComplementar_docentes_envolvidos: ['', [Validators.required]],
-    atividadePedagogicaComplementar_carga_horaria_docentes_envolvidos: ['', [Validators.required]],
-    orientado_semestre: ['', [Validators.required]],
-    orientado_nome: ['', [Validators.required]],
-    orientado_matricula: ['', [Validators.required]],
-    orientado_atividade_carga_horaria: [''],
-    orientado_atividade_tipo: ['', [Validators.required]],
-    bancaExaminacao_nomeCandidato: ['', [Validators.required]],
-    bancaExaminacao_tituloTrabalho: ['', [Validators.required]],
-    bancaExaminacao_ies: ['', [Validators.required]],
-    bancaExaminacao_tipo: ['', [Validators.required]],
-    bancaExaminacao_ano: ['', [Validators.required]],
-    bancaExaminacao_semestre: ['', [Validators.required]],
+  initForm() {
+    this.form = this.formBuilder.group({
+      atividadeLetiva_codigoDisciplina: ['', [Validators.required]],
+      atividadeLetiva_nomeDisciplina: this.formBuilder.array([]),
+      atividadeLetiva_ano: ['', [Validators.required]],
+      atividadeLetiva_semestre: ['', [Validators.required]],
+      atividadeLetiva_cursoNome: ['', [Validators.required]],
+      atividadeLetiva_cursoCampos_Cidade: ['', [Validators.required]],
+      atividadeLetiva_cursoCampos_Nome: ['', [Validators.required]],
+      atividadeLetiva_cursoCampos_Diretor: ['', [Validators.required]],
+      atividadeLetiva_cursoInstituto_Diretor: ['', [Validators.required]],
+      atividadeLetiva_cursoInstituto_Nome: ['', [Validators.required]],
+      atividadeLetiva_cursoInstituto_Sigla: ['', [Validators.required]],
+      atividadeLetiva_cursoNivel: ['', [Validators.required]],
+      atividadeLetiva_cursosigla: ['', [Validators.required]],
+      atividadeLetiva_docentes_envolvidos: ['', [Validators.required]],
+      atividadeLetiva_carga_horaria_docentes_envolvidos: ['', [Validators.required]],
+      atividadePedagogicaComplementar_ano: ['', [Validators.required]],
+      atividadePedagogicaComplementar_semestre: ['', [Validators.required]],
+      atividadePedagogicaComplementar_carga_horaria_semanal: ['', [Validators.required]],
+      atividadePedagogicaComplementar_docentes_envolvidos: ['', [Validators.required]],
+      atividadePedagogicaComplementar_carga_horaria_docentes_envolvidos: ['', [Validators.required]],
+      orientado_semestre: ['', [Validators.required]],
+      orientado_nome: ['', [Validators.required]],
+      orientado_matricula: ['', [Validators.required]],
+      orientado_atividade_carga_horaria: [''],
+      orientado_atividade_tipo: ['', [Validators.required]],
+      bancaExaminacao_nomeCandidato: ['', [Validators.required]],
+      bancaExaminacao_tituloTrabalho: ['', [Validators.required]],
+      bancaExaminacao_ies: ['', [Validators.required]],
+      bancaExaminacao_tipo: ['', [Validators.required]],
+      bancaExaminacao_ano: ['', [Validators.required]],
+      bancaExaminacao_semestre: ['', [Validators.required]],
+    });
   }
 
   constructor(
     private readonly pesquisaService: CrudService<pesquisa>,
-    private formBuilder: NonNullableFormBuilder,
+    private formBuilder: FormBuilder,
     private _snackbar: MatSnackBar,
   ) {
   }
 
+
   ngOnInit(): void {
-    this.form = this.formBuilder.group(this.initialForm);
-    if(!this.isCreate && this.pesquisa){
+    this.initForm();
+
+    if (!this.isCreate && this.pesquisa) {
       this.pesquisaId = Number(this.pesquisa.id);
       this.fillForm(this.pesquisa);
     }
@@ -114,7 +118,22 @@ export class PesquisaCreateComponent implements OnInit {
       bancaExaminacao_tipo: pesquisa.banca_examinacao.tipo,
       bancaExaminacao_ano: pesquisa.banca_examinacao.ano,
       bancaExaminacao_semestre: pesquisa.banca_examinacao.semestre,
+
+
     })
+  }
+
+  adicionardisciplina() {
+    const creds = this.form.get('atividadeLetiva_nomeDisciplina') as FormArray;
+    creds.push(this.formBuilder.group({
+      atividadeLetiva_nomeDisciplina: '',
+    }));
+    console.log(creds)
+  }
+
+  removeNomeDisciplina( index : any) {
+    const control = this.form.get('atividadeLetiva_nomeDisciplina') as FormArray;
+    control.removeAt(index);
   }
 
   goBack() {
@@ -130,6 +149,7 @@ export class PesquisaCreateComponent implements OnInit {
   }
 
   async submit() {
+    console.log(this.form.getRawValue())
     const formValue = this.form.getRawValue();
     if (!this.form.valid) {
       this._snackbar.open('Preencha todos os campos.', 'OK', {
@@ -141,7 +161,7 @@ export class PesquisaCreateComponent implements OnInit {
     try {
       this.isCreate ?
         await this.pesquisaService.create('pesquisa',formValue) :
-        await this.pesquisaService.update('pesquisa',this.pesquisaId, formValue);
+        await this.pesquisaService.update('pesquisa', formValue);
         this._snackbar.open('Relátorio de pesquisa salvo com sucesso.', 'OK', {
           duration: 5000
         });
@@ -152,6 +172,7 @@ export class PesquisaCreateComponent implements OnInit {
         duration: 5000
       });
     }
+    console.log(formValue)
   }
 
 }
