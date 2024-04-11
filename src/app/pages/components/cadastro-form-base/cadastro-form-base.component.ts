@@ -36,7 +36,6 @@ export class CadastroFormBaseComponent implements OnInit{
       confirmar_senha: ['', [Validators.required, Validators.minLength(3), FormValidations.equalTo('password')]],
     });
     this.formularioService.setCadastro(this.cadastroForm);
-    this.cadastroForm.patchValue( this.cadastroForm);
   }
 
   executarAcao(){

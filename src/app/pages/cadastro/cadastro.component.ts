@@ -33,7 +33,7 @@ export class CadastroComponent {
 
         console.log(formCadastro?.value)
         formCadastro?.valid ?
-        this.crudService.create('usuarios/criar/', formCadastro?.value).subscribe({
+        this.crudService.create('usuarios/criar', formCadastro?.value).subscribe({
           next: () => {
             this._snackbar.open('usuário salvo com sucesso.', 'OK', {
               duration: 5000
