@@ -1,0 +1,18 @@
+
+<div class="mat-dialog-container">
+  <mat-dialog-content>
+  <p><strong>Atenção para prosseguir com o relatório é necessário preencher o nome do relatório e a data.</strong></p>
+  <mat-form-field>
+    <mat-label>Nome do relatório</mat-label>
+    <input matInput [(ngModel)]="data.nome">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Ano do relatório</mat-label>
+    <input matInput [(ngModel)]="data.ano_relatorio">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-fab extended (click)="onNoClick()"><span class="spans">Cancelar</span></button>
+  <button mat-fab extended [mat-dialog-close]="data" (click)="createRelatorio_Docente()" cdkFocusInitial><span class="spans">Continuar</span></button>
+</mat-dialog-actions>
+</div>
