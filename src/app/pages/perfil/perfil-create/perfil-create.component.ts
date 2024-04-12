@@ -21,7 +21,7 @@ export class PerfilCreateComponent implements OnInit {
 
 
     ngOnInit(): void {
-      this.crudService.getAll('usuarios/').subscribe (cadastro => {
+      this.crudService.getAll('usuarios').subscribe (cadastro => {
           this.cadastro = cadastro;
           console.log(this.cadastro);
           this.carregarForm();
@@ -51,7 +51,7 @@ export class PerfilCreateComponent implements OnInit {
 
     if(formCadastro?.valid) {
       console.log(formCadastro.value)
-      this.crudService.update('usuarios/', formCadastro.value).subscribe({
+      this.crudService.update('usuarios', formCadastro.value).subscribe({
         next: (value) => {
           console.log('Cadastro realizado com sucesso', value);
         },
