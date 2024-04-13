@@ -1,19 +1,25 @@
-.inicio-inventario{
+.inicio-radoc{
   margin-top: 3rem;
   margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .container-a{
   display: flex;
   flex-direction: column;
-  gap: 3rem;
   justify-content: center;
   align-items: center;
+  gap: 3rem;
+  text-align: center;
 }
 mat-card-header{
   display: flex;
   align-items: center;
   margin-top: 2rem;
   margin-left: 11rem;
+  text-align: center;
 }
 .tables{
   width: 150%;
@@ -23,3 +29,15 @@ mat-card-header{
 .mdc-data-table__cell, .mdc-data-table__header-cell {
   padding: 20px;
 }
+.mat-body, .mat-body-2, .mat-typography .mat-body, .mat-typography .mat-body-2, .mat-typography {
+
+  display: flex !important;
+  /* align-items: center; */
+  justify-content: center !important;
+}
+mat-card-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+

@@ -140,3 +140,27 @@ $background-color-profile: #FFA500;
 .spans{
   color: white !important;
 }
+.mat-mdc-dialog-container .mdc-dialog__content {
+  color: black !important;
+  background-color: white  !important;
+}
+.mat-body, .mat-body-2, .mat-typography .mat-body, .mat-typography .mat-body-2, .mat-typography {
+
+  display: flex !important;
+  /* align-items: center; */
+  justify-content: center !important;
+}
+.mdc-data-table__cell, .mdc-data-table__header-cell {
+  padding: 0 16px 0 16px !important;
+  text-align: center !important;
+}
+.mat-mdc-dialog-actions {
+  justify-content: center !important;
+  background-color: white !important;
+}
+.mdc-dialog__surface {
+  background-color: white !important;
+}
+.mat-mdc-dialog-container .mdc-dialog__title {
+  color: #000 !important;
+}

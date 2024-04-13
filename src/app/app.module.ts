@@ -18,11 +18,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interceptor';
-<<<<<<< HEAD
-import { TelaConfirmarComponent } from './pages/tela-confirmar/tela-confirmar.component';
-=======
 import { TokenService } from './core/services/token.service';
->>>>>>> 97cf8c3408b8b106db2991e123e74232ef93cd18
+import { TelaConfirmarComponent } from './pages/tela-confirmar/tela-confirmar.component';
 
 registerLocaleData(localePT);
 @NgModule({
@@ -31,7 +28,6 @@ registerLocaleData(localePT);
     LoginComponent,
     CadastroComponent,
     TelaConfirmarComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -46,7 +42,7 @@ registerLocaleData(localePT);
   bootstrap: [AppComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AutenticacaoInterceptor, multi: true },
-    { provide: LOCALE_ID, useValue: 'pt-BR' } // Fornecendo LOCALE_ID corretamente
+    { provide: LOCALE_ID, useValue: 'pt-BR' } 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
