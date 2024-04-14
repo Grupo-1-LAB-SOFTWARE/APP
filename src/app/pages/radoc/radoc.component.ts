@@ -13,6 +13,7 @@ import { ConfirmDialogComponent } from '../components/dialogs/confirm-dialog/con
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { SharedDataService } from 'src/app/core/services/shared-data.service';
 
 
 export interface DialogData {
@@ -28,6 +29,7 @@ export interface DialogData {
 })
 export class RadocComponent implements OnInit {
 
+    mostrandoSpinner: boolean = false;
     displayedColumns: string[] = ['tagName', 'sector', 'createdAt', 'edit', 'delete', 'download'];
 
     ensino: ensino | undefined;
@@ -49,6 +51,7 @@ export class RadocComponent implements OnInit {
       private _liveAnnouncer: LiveAnnouncer,
       public dialog: MatDialog,
       private crudService: CrudService<ensino>,
+      private sharedDataService: SharedDataService
     ) {
     }
 
@@ -84,17 +87,25 @@ export class RadocComponent implements OnInit {
     }
 
     edit(ensino: ensino) {
+      this.mostrandoSpinner = true;
       this.ensinoForm = true;
       this.isCreate = false;
       this.ensino = ensino;
+      if (ensino.nome) {
+        this.sharedDataService.atualizarNomeRelatorio(ensino.nome);
+      } else {
+        console.error("Nome do relatório não está definido.");
+      }
+      this.mostrandoSpinner = false;
     }
 
     async delete(radoc: DialogData) {
+      this.mostrandoSpinner = true;
       try {
         const result = await firstValueFrom(
           this.dialog
-            .open(ConfirmDialogComponent, { data: "Você quer deletar esse item?" })
-            .afterClosed()
+          .open(ConfirmDialogComponent, { data: "Você quer deletar esse item?" })
+          .afterClosed()
         );
         if (result && radoc.nome !== undefined) { // Verifique se radoc.id está definido
           await this.crudService.delete('relatorio_docente', radoc.nome).toPromise();
@@ -102,6 +113,7 @@ export class RadocComponent implements OnInit {
             duration: 5000
           });
           location.reload();
+          this.mostrandoSpinner = false;
         } else {
           console.error("ID do item não está definido.");
           // Aqui você pode lidar com o cenário em que radoc.id não está definido, por exemplo, exibindo uma mensagem para o usuário.
@@ -121,12 +133,16 @@ export class RadocComponent implements OnInit {
 
     download(radoc: DialogData) {
       try {
-        if( radoc.id !== undefined){
-          this.crudService.download('download_relatorio_docente',radoc.nome).subscribe(
-            (response) => {
+        if (radoc.id !== undefined) {
+          this.crudService.download('download_relatorio_docente', radoc.nome).subscribe(
+            (response: Blob) => {
               const blob = new Blob([response], { type: 'application/pdf' });
               const url = window.URL.createObjectURL(blob);
               window.open(url);
+            },
+            error => {
+              console.error(error);
+              this.onError("Não foi possível baixar o PDF");
             }
           );
         }
@@ -143,6 +159,7 @@ export class RadocComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
+        this.sharedDataService.atualizarNomeRelatorio(result.nome);
         this.data_do_relatorio = result;
       });
     }

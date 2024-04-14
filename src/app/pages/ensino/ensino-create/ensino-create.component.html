@@ -85,18 +85,21 @@
       <h2>2 - Atividade Pedagógica Complementar</h2>
       <div class="d-flex justify-content-center align-items-start gap-5">
         <div class="stepColunm">
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Semestre</mat-label>
-            <input matInput formControlName="semestre" >
+          <mat-form-field>
+            <mat-label>Semestre da Disciplina</mat-label>
+            <mat-select formControlName="semestre">
+              <mat-option value="1">Primeiro semestre</mat-option>
+              <mat-option value="2">Segundo semestre</mat-option>
+            </mat-select>
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
             <mat-label>Carga Horaria semanal graduação</mat-label>
-            <input matInput formControlName="ch_semanal_graduacao" >
+            <input matInput type="number" formControlName="ch_semanal_graduacao" >
           </mat-form-field>
           <mat-form-field [floatLabel]="this.floatLabelControl">
             <mat-label>Carga Horaria semanal pos graduação</mat-label>
-            <input matInput formControlName="ch_semanal_pos_graduacao" >
+            <input matInput type="number" formControlName="ch_semanal_pos_graduacao" >
           </mat-form-field>
 
         </div>
@@ -104,7 +107,7 @@
         </div>
       </div>
       <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
-      <button mat-fab extended (click)="submit()"><span class="spans">Salvar</span></button>
+      <button mat-fab extended (click)="submitAtividadePedagogica()"><span class="spans">Salvar</span></button>
       <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
     </div>
   </ng-container>
@@ -117,29 +120,36 @@
       <div class="d-flex justify-content-center align-items-start gap-5">
         <div class="stepColunm">
 
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Semestre</mat-label>
-            <input matInput formControlName="semestre" >
+          <mat-form-field>
+            <mat-label>Semestre da Disciplina</mat-label>
+            <mat-select formControlName="semestre">
+              <mat-option value="1">Primeiro semestre</mat-option>
+              <mat-option value="2">Segundo semestre</mat-option>
+            </mat-select>
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
             <mat-label>Carga Horaria semanal de Orientação</mat-label>
-            <input matInput formControlName="ch_semanal_orientacao" >
+            <input type="number" matInput formControlName="ch_semanal_orientacao" >
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
             <mat-label>Carga Horaria semanal de Coorientação</mat-label>
-            <input matInput formControlName="ch_semanal_coorientacao" >
+            <input type="number" matInput formControlName="ch_semanal_coorientacao" >
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
             <mat-label>Carga Horaria semanal de Supervisão</mat-label>
-            <input matInput formControlName="ch_semanal_preceptoria_e_ou_tutoria" >
+            <input type="number" matInput formControlName="ch_semanal_supervisao" >
+          </mat-form-field>
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Carga Horaria semanal de Preceptoria e ou Tutoria</mat-label>
+            <input type="number" matInput formControlName="ch_semanal_preceptoria_e_ou_tutoria" >
           </mat-form-field>
         </div>
       </div>
       <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
-      <button mat-fab extended (click)="submit()"><span class="spans">Salvar</span></button>
+      <button mat-fab extended (click)="submitAtividadeOrientacao()"><span class="spans">Salvar</span></button>
       <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
     </div>
   </ng-container>
@@ -178,18 +188,18 @@
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
             <mat-label>Carga Horaria Primeiro Semestre</mat-label>
-            <input matInput formControlName="ch_semanal_primeiro_semestre" >
+            <input type="number" matInput formControlName="ch_semanal_primeiro_semestre" >
           </mat-form-field>
           <mat-form-field [floatLabel]="this.floatLabelControl">
             <mat-label>Carga Horaria Segundo Semestre</mat-label>
-            <input matInput formControlName="ch_semanal_segundo_semestre" >
+            <input type="number" matInput formControlName="ch_semanal_segundo_semestre" >
           </mat-form-field>
         </div>
         <div class="stepColunm">
         </div>
       </div>
       <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
-      <button mat-fab extended (click)="submit()"><span class="spans">Salvar</span></button>
+      <button mat-fab extended (click)="submitDescricaoOrientacao()"><span class="spans">Salvar</span></button>
       <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
     </div>
   </ng-container>
@@ -239,7 +249,7 @@
         </div>
       </div>
       <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
-      <button mat-fab extended (click)="submit()"><span class="spans">Salvar</span></button>
+      <button mat-fab extended (click)="submitSupervisaoAcacademica()"><span class="spans">Salvar</span></button>
       <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
     </div>
   </ng-container>
@@ -278,7 +288,7 @@
         </div>
       </div>
       <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
-      <button mat-fab extended (click)="submit()"><span class="spans">Salvar</span></button>
+      <button mat-fab extended (click)="submitPreceptoriaTutoria()"><span class="spans">Salvar</span></button>
       <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
     </div>
   </ng-container>
@@ -327,7 +337,7 @@
         </div>
       </div>
       <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
-      <button mat-fab extended (click)="submit()"><span class="spans">Salvar</span></button>
+      <button mat-fab extended (click)="submitBancaExaminadora()"><span class="spans">Salvar</span></button>
       <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
     </div>
   </ng-container>
@@ -372,7 +382,7 @@
         </div>
       </div>
       <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
-      <button mat-fab extended (click)="submit()"><span class="spans">Salvar</span></button>
+      <button mat-fab extended (click)="submitAvaliacaoDiscente()"><span class="spans">Salvar</span></button>
     </div>
   </ng-container>
 </form>
