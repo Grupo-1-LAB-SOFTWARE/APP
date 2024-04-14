@@ -23,7 +23,7 @@ export class CrudService<T> {
   create(endpoint: string, data: T): Observable<T> {
     return this.http.post<T>(`${this.baseURL}/${endpoint}/`, data);
   }
-  createEnsino(endpoint: string, data: T, nome?: string | any): Observable<T> {
+  createEnsino(endpoint: string, data: T, nome: string): Observable<T> {
     return this.http.post<T>(`${this.baseURL}/${endpoint}/${nome}/`, data);
   }
 

@@ -76,11 +76,74 @@ export interface bancaExaminacao {
 
 export interface ensino {
   id: number,
+  nome: string,
   atividade_letiva: atividadeLetiva,
   atividade_pedagogica_complementar: atividadePedagogicaComplementar,
   orientado: Orientando,
   banca_examinacao: bancaExaminacao
 }
+
+export interface IatividadePedagogica {
+  semestre:                 number;
+  ch_semanal_graduacao:     number;
+  ch_semanal_pos_graduacao: number;
+}
+
+export interface IdescricaoOrientacao {
+  numero_doc:                   number;
+  nome_e_ou_matricula_discente: string;
+  curso:                        string;
+  tipo:                         string;
+  nivel:                        string;
+  ch_semanal_primeiro_semestre: number;
+  ch_semanal_segundo_semestre:  number;
+}
+
+export interface IsupervisaoAcademica {
+  numero_doc:                   number;
+  nome_e_ou_matricula_discente: string;
+  curso:                        string;
+  tipo:                         string;
+  nivel:                        string;
+  ch_semanal_primeiro_semestre: number;
+  ch_semanal_segundo_semestre:  number;
+}
+
+export interface IpreceptoriaTutoria {
+  numero_doc:                   number;
+  nome_e_ou_matricula_discente: string;
+  tipo:                         string;
+  ch_semanal_primeiro_semestre: number;
+  ch_semanal_segundo_semestre:  number;
+}
+export interface IavaliacaoDiscente {
+  numero_doc_primeiro_semestre:   number;
+  nota_primeiro_semestre:         number;
+  codigo_turma_primeiro_semestre: string;
+  numero_doc_segundo_semestre:    number;
+  nota_segundo_semestre:          number;
+  codigo_turma_segundo_semestre:  string;
+}
+export interface IbancaExaminadora {
+  numero_doc:                   number;
+  nome_candidato:               string;
+  titulo_trabalho:              string;
+  ies:                          string;
+  tipo:                         string;
+  ch_semanal_primeiro_semestre: number;
+  ch_semanal_segundo_semestre:  number;
+}
+
+
+
+export interface IatividadeOrientacao {
+  semestre:                            number;
+  ch_semanal_orientacao:               number;
+  ch_semanal_coorientacao:             number;
+  ch_semanal_supervisao:               number;
+  ch_semanal_preceptoria_e_ou_tutoria: number;
+}
+
 export interface IatividadeLetiva {
   semestre:                              number;
   codigo_disciplina:                     string;
@@ -94,6 +157,7 @@ export interface IatividadeLetiva {
   ch_turmas_pratico:                     number;
   docentes_envolvidos_e_cargas_horarias: DocentesEnvolvidosECargasHorarias;
 }
+
 
 export interface DocentesEnvolvidosECargasHorarias {
   lista: Lista[];

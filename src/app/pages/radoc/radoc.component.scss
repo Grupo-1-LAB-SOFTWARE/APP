@@ -41,3 +41,10 @@ mat-card-content{
   align-items: center;
 }
 
+mat-progress-spinner{
+  margin-top:20rem;
+  position: absolute;
+  margin-left:20rem;
+  z-index: 100;
+  color: white;
+}
