@@ -1,3 +1,4 @@
+import { userEmailService } from 'src/app/core/services/email.service';
 import { CUSTOM_ELEMENTS_SCHEMA, HostListener, LOCALE_ID, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -18,8 +19,10 @@ import { LoginComponent } from './pages/login/login.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interceptor';
-import { TokenService } from './core/services/token.service';
+
 import { TelaConfirmarComponent } from './pages/tela-confirmar/tela-confirmar.component';
+import { TokenService } from './core/services/token.service';
+import { EmailActivationService } from './core/services/ativadorEmail.service';
 
 registerLocaleData(localePT);
 @NgModule({
@@ -39,8 +42,12 @@ registerLocaleData(localePT);
     CoreModule,
     MaterialModule
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent,
+            TelaConfirmarComponent
+  ],
   providers: [
+    userEmailService,
+    EmailActivationService,
     { provide: HTTP_INTERCEPTORS, useClass: AutenticacaoInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'pt-BR' } 
   ],
