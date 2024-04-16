@@ -5,12 +5,12 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class SharedDataService {
-  private nomeRelatorioSubject = new BehaviorSubject<string>('');
+  private nomeRelatorioSubject = new BehaviorSubject<number>(0);
   nomeRelatorio$ = this.nomeRelatorioSubject.asObservable();
 
   constructor() { }
 
-  atualizarNomeRelatorio(nome: string) {
-    this.nomeRelatorioSubject.next(nome);
+  atualizaridEdicaoRelatorio(id: number) {
+    this.nomeRelatorioSubject.next(id);
   }
 }
