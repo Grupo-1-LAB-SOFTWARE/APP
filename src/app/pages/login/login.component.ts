@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AutenticacaoService } from 'src/app/core/services/autenticacao.service';
 import { TokenService } from 'src/app/core/services/token.service';
+import { ActivatedRoute } from '@angular/router';
 
 export interface Login {
   email: string;
@@ -18,6 +19,7 @@ export interface Login {
 export class LoginComponent implements OnInit {
   form!: FormGroup;
   isLogged: boolean = false;
+  ativacaoSucesso: boolean = false;
   floatLabelControl = 'always' as FloatLabelType;
   initialForm = {
     username: ['', [Validators.required, Validators.email]],
@@ -30,9 +32,15 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AutenticacaoService,
     private tokenService: TokenService,
+    private route: ActivatedRoute
   ) { }
   ngOnInit(): void {
     this.form = this.formBuilder.group(this.initialForm);
+
+    this.route.queryParams.subscribe(params => {
+      this.ativacaoSucesso = params['ativacao_sucesso'] === 'true';
+    });
+
   }
 
   fillForm(usuario: Login ) {

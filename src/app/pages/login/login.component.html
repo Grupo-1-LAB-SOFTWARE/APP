@@ -15,7 +15,9 @@
         <div >
           <a href="#" class="d-flex justify-content-end "><h4>Esqueci a senha?</h4></a><br>
         </div>
-
+        <div *ngIf="ativacaoSucesso">
+          <p>A sua conta foi ativada com sucesso! <br/>Você já pode fazer login.</p>
+        </div>
           <button mat-fab extended [disabled]="form.invalid" style="border: 1px solid #115B2F;" type="submit" class="btn-entrar" (click)="login()">Entrar</button>
 
         </form>

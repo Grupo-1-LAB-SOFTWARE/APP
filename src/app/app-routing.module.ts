@@ -28,7 +28,11 @@ const routes: Routes = [
     component: CadastroComponent
   },
   {
-    path:'tela-confirmar',
+    path: 'tela-confirmar',
+    component: TelaConfirmarComponent
+  },
+  {
+    path: 'tela-confirmar/:username',
     component: TelaConfirmarComponent
   },
   {

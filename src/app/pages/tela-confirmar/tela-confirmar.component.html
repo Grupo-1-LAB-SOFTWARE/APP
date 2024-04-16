@@ -3,11 +3,7 @@
     <h1>Confirme seu Email</h1>
   </div>
   <div>
-    <p class="texto">Você deve confirmar seu Email para autenticar o cadastro</p>
+    <p class="texto">Você deve autenticar seu cadastro acessando o Email: {{ userEmailService.getuserEmail() }}</p>
   </div>
-  <div calss="form">
-    <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
-     <button type="submit" [disabled]="emailForm.invalid">CONFIRMAR EMAIL</button>
-    </form>
-  </div>
+  <p class="autenticador">{{ confirmationMessage }}</p>
 </div>
