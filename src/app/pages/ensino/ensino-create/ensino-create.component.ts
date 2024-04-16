@@ -1,3 +1,4 @@
+import { DescricaoOrientacaoDialogComponent } from './../../components/dialogs/ensino/descricao-orientacao-dialog/descricao-orientacao-dialog';
 import { atividadePedagogicaComplementar } from './../../../core/interfaces/pesquisa.interface';
 import { CrudService } from './../../../core/services/crud.service';
 import { DialogData } from './../../radoc/radoc.component';
@@ -8,6 +9,14 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { FloatLabelType } from '@angular/material/form-field';
 import { SharedDataService } from 'src/app/core/services/shared-data.service';
 import { ActivatedRoute } from '@angular/router';
+import { AtividadeLetivaDialogComponent } from '../../components/dialogs/ensino/atividade-letiva-dialog/atividade-letiva-dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { AtividadePedagogicaDialogComponent } from '../../components/dialogs/ensino/atividade-pedagogica-dialog/atividade-pedagogica-dialog';
+import { AtividadeOrientacaoDialogComponent } from '../../components/dialogs/ensino/atividade-orientacao-dialog/atividade-orientacao-dialog';
+import { SupervisaoAcademicaDialogComponent } from '../../components/dialogs/ensino/supervisao-academica-dialog/supervisao-academica-dialog';
+import { PreceptoriaTutoriaDialogComponent } from '../../components/dialogs/ensino/preceptoria-tutoria-dialog/preceptoria-tutoria-dialog';
+import { BancaExaminadoraDialogComponent } from '../../components/dialogs/ensino/banca-examinadora-dialog/banca-examinadora-dialog';
+import { AvaliacaoDiscenteDialogComponent } from '../../components/dialogs/ensino/avaliacao-discente-dialog/avaliacao-discente-dialog';
 
 @Component({
   selector: 'app-ensino-create',
@@ -54,6 +63,7 @@ export class EnsinoCreateComponent implements OnInit {
     private avaliacaoDiscenteService: CrudService<IavaliacaoDiscente>,
     private CrudService: CrudService<any>,
     private sharedDataService: SharedDataService,
+    public dialog: MatDialog
   ) {}
 
   async ngOnInit(){
@@ -144,6 +154,110 @@ export class EnsinoCreateComponent implements OnInit {
     console.log(this.formBuilder.array([this.formBuilder.control('')]));
 
   }
+  openDialogAtividadeLetiva(){
+    const dialogRef = this.dialog.open(AtividadeLetivaDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogAtividadePedagogica(){
+    const dialogRef = this.dialog.open(AtividadePedagogicaDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogAtividadeOrientacao(){
+    const dialogRef = this.dialog.open(AtividadeOrientacaoDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogDescricaoOrientacao(){
+    const dialogRef = this.dialog.open(DescricaoOrientacaoDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogSupervisaoAcademica(){
+    const dialogRef = this.dialog.open(SupervisaoAcademicaDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogPreceptoriaTutoria(){
+    const dialogRef = this.dialog.open(PreceptoriaTutoriaDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogBancaExaminadora(){
+    const dialogRef = this.dialog.open(BancaExaminadoraDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogAvaliacaoDiscente(){
+    const dialogRef = this.dialog.open(AvaliacaoDiscenteDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 
 
   goBack() {
@@ -231,6 +345,7 @@ export class EnsinoCreateComponent implements OnInit {
         duration: 5000
       });
     }
+    this.formAtividadeLetiva.reset();
   }
   async submitAtividadePedagogica() {
     const formValue = this.formAtividadePedagogicaComplementar.getRawValue();
@@ -262,6 +377,7 @@ export class EnsinoCreateComponent implements OnInit {
         duration: 5000
       });
     }
+    this.formAtividadePedagogicaComplementar.reset();
   }
   async submitDescricaoOrientacao() {
     const formValue = this.formDescricao_orientacao.getRawValue();
@@ -293,6 +409,7 @@ export class EnsinoCreateComponent implements OnInit {
         duration: 5000
       });
     }
+    this.formDescricao_orientacao.reset();
   }
   async submitAtividadeOrientacao() {
     const formValue = this.formAtividadeOrientacao.getRawValue();
@@ -324,6 +441,7 @@ export class EnsinoCreateComponent implements OnInit {
         duration: 5000
       });
     }
+    this.formAtividadeOrientacao.reset();
   }
   async submitSupervisaoAcacademica() {
     const formValue = this.formsupervisao_academica.getRawValue();
@@ -355,6 +473,7 @@ export class EnsinoCreateComponent implements OnInit {
         duration: 5000
       });
     }
+    this.formsupervisao_academica.reset();
   }
   async submitPreceptoriaTutoria() {
     const formValue = this.formPreceptoriaTutoria.getRawValue();
@@ -386,6 +505,7 @@ export class EnsinoCreateComponent implements OnInit {
         duration: 5000
       });
     }
+    this.formPreceptoriaTutoria.reset();
   }
   async submitBancaExaminadora() {
     const formValue = this.formBanca_examinadora.getRawValue();
@@ -417,6 +537,7 @@ export class EnsinoCreateComponent implements OnInit {
         duration: 5000
       });
     }
+    this.formBanca_examinadora.reset();
   }
   async submitAvaliacaoDiscente() {
     const formValue = this.formAvaliacao_discente.getRawValue();
@@ -448,5 +569,6 @@ export class EnsinoCreateComponent implements OnInit {
         duration: 5000
       });
     }
+    this.formAvaliacao_discente.reset();
   }
 }
