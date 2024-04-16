@@ -214,6 +214,8 @@ export class DialogOverviewExampleDialog {
         // Adicione aqui uma lógica para lidar com erros, como exibir uma mensagem de erro ao usuário
       }
     );
+    this.router.navigate(['/radoc'])
+    window.location.reload();
   }
 
 }
