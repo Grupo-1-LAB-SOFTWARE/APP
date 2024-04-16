@@ -6,13 +6,13 @@
       <form [formGroup]="form">
         <mat-form-field [floatLabel]="this.floatLabelControl">
           <mat-label>Nome de usuário ou e-mail</mat-label>
-          <input matInput type="text" formControlName="username" >
+          <input matInput type="text" formControlName="login" >
         </mat-form-field>
         <mat-form-field [floatLabel]="this.floatLabelControl">
           <mat-label>Senha</mat-label>
           <input matInput type="password" formControlName="password" >
         </mat-form-field>
-      
+
           <button mat-fab extended [disabled]="form.invalid" style="border: 1px solid #115B2F;" type="submit" class="btn-entrar" (click)="login()">Entrar</button>
 
         </form>
