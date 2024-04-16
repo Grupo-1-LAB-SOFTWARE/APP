@@ -63,7 +63,7 @@ th,td{
 }
 
 html{
-
+  --mdc-filled-text-field-label-text-size: 20px !important;
   --mdc-filled-text-field-caret-color: #000000 !important;
       --mdc-filled-text-field-focus-active-indicator-color: #115B2F !important;
       --mdc-filled-text-field-focus-label-text-color: #115B2F !important;
@@ -139,4 +139,38 @@ $background-color-profile: #FFA500;
 }
 .spans{
   color: white !important;
+}
+.mat-mdc-dialog-container .mdc-dialog__content {
+  color: black !important;
+  background-color: white  !important;
+}
+.mat-body, .mat-body-2, .mat-typography .mat-body, .mat-typography .mat-body-2, .mat-typography {
+
+  display: flex !important;
+  /* align-items: center; */
+  justify-content: center !important;
+}
+.mdc-data-table__cell, .mdc-data-table__header-cell {
+  padding: 0 16px 0 16px !important;
+  text-align: center !important;
+}
+.mat-mdc-dialog-actions {
+  justify-content: center !important;
+  background-color: white !important;
+}
+.mdc-dialog__surface {
+  background-color: white !important;
+}
+.mat-mdc-dialog-container .mdc-dialog__title {
+  color: #000 !important;
+}
+mat-progress-spinner{
+  margin-top:20rem;
+  position: absolute;
+  margin-left:20rem;
+  z-index: 100;
+
+}
+.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle, .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: #198754 !important;
 }

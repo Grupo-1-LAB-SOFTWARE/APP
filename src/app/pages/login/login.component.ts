@@ -8,7 +8,7 @@ import { TokenService } from 'src/app/core/services/token.service';
 import { ActivatedRoute } from '@angular/router';
 
 export interface Login {
-  email: string;
+  login: string;
   password: string;
 }
 @Component({
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   ativacaoSucesso: boolean = false;
   floatLabelControl = 'always' as FloatLabelType;
   initialForm = {
-    username: ['', [Validators.required, Validators.email]],
+    login: ['', [Validators.required]],
     password: ['', [Validators.required,Validators.minLength(3)]],
   }
 
@@ -45,14 +45,14 @@ export class LoginComponent implements OnInit {
 
   fillForm(usuario: Login ) {
     this.form.patchValue({
-      username: usuario.email,
+      login: usuario.login,
       password: usuario.password
     });
   }
 
   login(){
     if(this.form.valid) {
-      const email = this.form.value.username || this.form.value.email;
+      const email = this.form.value.login || this.form.value.email;
       const senha = this.form.value.password;
       console.log(this.form.value);
 
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
           this._snackbar.open('Seu e-mail/username ou senha inválidos', 'OK', {
             duration: 5000
           })
-          console.log('error:' + err)
+          console.log('error:' + err.message);
         },
       })
     }

@@ -22,7 +22,7 @@ export class AutenticacaoService {
   autenticar(email: string, senha: string): Observable<HttpResponse<AuthResponse>> {
     return this.http.post<AuthResponse>(
       `${this.baseURL}/login/`,
-      { email:email, password:senha },
+      { login:email, password:senha },
       { observe: 'response'}).pipe(
       tap((response) => {
         const authToken = response.body?.token || '';

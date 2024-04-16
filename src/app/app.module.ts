@@ -19,6 +19,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interceptor';
+
 import { TelaConfirmarComponent } from './pages/tela-confirmar/tela-confirmar.component';
 import { TokenService } from './core/services/token.service';
 import { EmailActivationService } from './core/services/ativadorEmail.service';
@@ -30,7 +31,6 @@ registerLocaleData(localePT);
     LoginComponent,
     CadastroComponent,
     TelaConfirmarComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -49,7 +49,7 @@ registerLocaleData(localePT);
     userEmailService,
     EmailActivationService,
     { provide: HTTP_INTERCEPTORS, useClass: AutenticacaoInterceptor, multi: true },
-    { provide: LOCALE_ID, useValue: 'pt-BR' } // Fornecendo LOCALE_ID corretamente
+    { provide: LOCALE_ID, useValue: 'pt-BR' } 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })

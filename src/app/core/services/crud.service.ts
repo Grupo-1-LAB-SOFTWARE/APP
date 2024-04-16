@@ -13,25 +13,31 @@ export class CrudService<T> {
   constructor(private http: HttpClient) {}
 
   getAll(endpoint: string): Observable<T[]> {
-    return this.http.get<T[]>(`${this.baseURL}/${endpoint}`);
+    return this.http.get<T[]>(`${this.baseURL}/${endpoint}/`);
+  }
+  getAllEnsino(endpoint: string, nome: string): Observable<T[]> {
+    return this.http.get<T[]>(`${this.baseURL}/${endpoint}/${nome}/`);
   }
 
-  getOne(endpoint: string, id: number): Observable<T> {
-    return this.http.get<T>(`${this.baseURL}/${endpoint}/${id}`);
+  getOne(endpoint: string, id: number | string): Observable<T> {
+    return this.http.get<T>(`${this.baseURL}/${endpoint}/${id}/`);
   }
 
   create(endpoint: string, data: T): Observable<T> {
-    return this.http.post<T>(`${this.baseURL}/${endpoint}`, data);
+    return this.http.post<T>(`${this.baseURL}/${endpoint}/`, data);
+  }
+  createEnsino(endpoint: string, data: T, nome: string): Observable<T> {
+    return this.http.post<T>(`${this.baseURL}/${endpoint}/${nome}/`, data);
   }
 
-  update(endpoint: string, data: T): Observable<T> {
-    return this.http.put<T>(`${this.baseURL}/${endpoint}`, data);
+  update(endpoint: string, data: T, nome?: string): Observable<T> {
+    return this.http.put<T>(`${this.baseURL}/${endpoint}/${nome}/`, data);
   }
 
-  delete(endpoint: string, id: number | string): Observable<T> {
-    return this.http.delete<T>(`${this.baseURL}/${endpoint}/${id}`);
+  delete(endpoint: string, nome: string , id?: number): Observable<T> {
+    return this.http.delete<T>(`${this.baseURL}/${endpoint}/${nome}/${id}`);
   }
   download(endpoint: string,fileName: string | number) {
-    return this.http.get(`${this.baseURL}/${endpoint}/${fileName}`, { responseType: 'blob' });
+    return this.http.get(`${this.baseURL}/${endpoint}/${fileName}/`, { responseType: 'blob' });
   }
 }
