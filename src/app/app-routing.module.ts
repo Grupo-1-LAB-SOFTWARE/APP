@@ -43,14 +43,14 @@ const routes: Routes = [
         path: 'perfil',
         canActivate: [authGuard],
         data: {
-          perfil: 'Docente'
+          perfil: ['Docente', 'Administrador']
         },
         children: [
           {
             path: 'painel',
             loadChildren: ()=> import('./pages/perfil/perfil.module').then(m => m.PerfilModule)
           },
-
+          
         ]
       }
     ]
@@ -63,12 +63,31 @@ const routes: Routes = [
         path: 'documento',
         canActivate: [authGuard],
         data: {
-          perfil: 'Docente'
+          perfil: ['Docente', 'Administrador']
         },
         children: [
           {
             path: 'radoc',
             loadChildren: () => import('./pages/radoc/radoc.module').then(m => m.RadocModule)
+          },
+        ]
+      },
+    ]
+  },
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'painel',
+        canActivate: [authGuard],
+        data: {
+          perfil:'Administrador'
+        },
+        children: [
+          {
+            path: 'administrador',
+            loadChildren: () => import('./pages/painel-adm/painel-adm.module').then(m => m.PainelAdmModule)
           },
         ]
       },

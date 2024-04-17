@@ -1,0 +1,87 @@
+<mat-progress-spinner *ngIf="mostrandoSpinner" mode="indeterminate" diameter="100"></mat-progress-spinner>
+<div class="container painel-adm d-flex justify-content-center align-items-center"*ngIf="router.routerState.snapshot.url === '/painel/administrador'; else elseTemplate">
+  <div class="container-a d-flex justify-content-center align-items-center">
+    <mat-card-header>
+
+      <ng-container *ngIf="ensinoForm; else elseButton">
+        <h1><strong>Painel de Usúrios</strong></h1>
+        <button mat-fab extended matTooltip="Listar Radoc" style=" top: -2px; left: 13px; margin-bottom: 10px; color:white !important; "  (click)="viewList()">
+          <mat-icon>list</mat-icon> <span class="spans">Listar Relátorio</span>
+        </button>
+      </ng-container>
+      <ng-template #elseButton>
+        <h1><strong>Painel de Usúrios</strong></h1>
+      </ng-template>
+    </mat-card-header>
+    <mat-card-content class="text-center gap-1">
+      <ng-container *ngIf="ensinoForm; else elseTemplate">
+        <button mat-icon-button color="primary" matTooltip="Editar perfil" (click)="chamarComponentePerfilCreate()">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </ng-container>
+      <ng-template #elseTemplate>
+
+        <div class="tables mat-elevation-z8" matSort>
+          <table mat-table [dataSource]="ensinoData" style="background: none;">
+
+            <!-- Id Column -->
+            <!-- <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> Id </th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container> -->
+
+            <!-- Tag Name Column -->
+            <ng-container matColumnDef="tagName">
+              <th mat-header-cell *matHeaderCellDef> Tag </th>
+              <td  mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+
+            <!-- Sector Column -->
+            <ng-container matColumnDef="sector">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Setor"> Nome Completo </th>
+              <td mat-cell *matCellDef="let element"> {{element.nome_completo}} </td>
+            </ng-container>
+
+            <!-- Created Column -->
+            <ng-container matColumnDef="createdAt">
+              <th mat-header-cell *matHeaderCellDef>
+                Último Login
+              </th>
+              <td mat-cell *matCellDef="let element">{{element.last_login | date: 'dd/MM/yyyy HH:mm'}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="edit">
+              <th mat-header-cell *matHeaderCellDef> Editar </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" (click)="chamarComponentePerfilCreate()">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="delete">
+              <th mat-header-cell *matHeaderCellDef> Apagar </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="warn" (click)="delete(element)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>
+
+      </ng-template>
+
+    </mat-card-content>
+  </div>
+</div>
+<ng-template #elseTemplate>
+  <router-outlet></router-outlet>
+</ng-template>

@@ -58,7 +58,8 @@ import { AvaliacaoDiscenteDialogComponent } from './dialogs/ensino/avaliacao-dis
     SupervisaoAcademicaDialogComponent,
     PreceptoriaTutoriaDialogComponent,
     BancaExaminadoraDialogComponent,
-    AvaliacaoDiscenteDialogComponent
+    AvaliacaoDiscenteDialogComponent,
+    ContainerComponent
   ]
 })
 export class ComponentsModule { }
