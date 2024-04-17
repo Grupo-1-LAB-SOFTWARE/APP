@@ -4,10 +4,12 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { API_URL } from 'src/env/env-local';
 import { Usuario } from '../interfaces/usuario.interface';
+import { RoleService } from './role.service';
 
 
 interface AuthResponse {
   token: string;
+  perfil: string;
 }
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,7 @@ export class AutenticacaoService {
 
   private baseURL = API_URL;
 
-  constructor( private http:HttpClient , private UserService: UserService) { }
+  constructor( private http:HttpClient , private UserService: UserService, private roleService: RoleService) { }
 
   autenticar(email: string, senha: string): Observable<HttpResponse<AuthResponse>> {
     return this.http.post<AuthResponse>(
@@ -26,6 +28,8 @@ export class AutenticacaoService {
       { observe: 'response'}).pipe(
       tap((response) => {
         const authToken = response.body?.token || '';
+        const authRole = response.body?.perfil || '';
+        this.roleService.salvarRole(authRole);
         this.UserService.salvarToken(authToken);
       })
     );

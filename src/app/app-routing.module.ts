@@ -38,10 +38,13 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canActivate: [authGuard],
     children: [
       {
         path: 'perfil',
+        canActivate: [authGuard],
+        data: {
+          perfil: 'Docente'
+        },
         children: [
           {
             path: 'painel',
@@ -55,11 +58,13 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canActivate: [authGuard],
     children: [
       {
         path: 'documento',
         canActivate: [authGuard],
+        data: {
+          perfil: 'Docente'
+        },
         children: [
           {
             path: 'radoc',
