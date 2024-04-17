@@ -27,7 +27,7 @@ export class authGuard {
     console.log("perfil de acesso", perfil);
 
     // Verifica se user é definido e se tem a propriedade acesso
-    if (user?.includes(perfil)) {
+    if (perfil?.includes(user)) {
       console.log("autorizado");
       return true;
     } else {

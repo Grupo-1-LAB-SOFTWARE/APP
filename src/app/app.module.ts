@@ -23,6 +23,7 @@ import { TelaConfirmarComponent } from './pages/tela-confirmar/tela-confirmar.co
 import { TokenService } from './core/services/token.service';
 import { userEmailService } from '../../src/app/core/services/email.service'
 import { EmailActivationService } from './core/services/ativadorEmail.service';
+import { PainelAdmComponent } from './pages/painel-adm/painel-adm.component';
 
 registerLocaleData(localePT);
 @NgModule({
