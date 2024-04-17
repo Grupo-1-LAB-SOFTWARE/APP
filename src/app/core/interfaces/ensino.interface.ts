@@ -84,12 +84,14 @@ export interface ensino {
 }
 
 export interface IatividadePedagogica {
+  id:                       number;
   semestre:                 number;
   ch_semanal_graduacao:     number;
   ch_semanal_pos_graduacao: number;
 }
 
 export interface IdescricaoOrientacao {
+  id:                           number;
   numero_doc:                   number;
   nome_e_ou_matricula_discente: string;
   curso:                        string;
@@ -100,6 +102,7 @@ export interface IdescricaoOrientacao {
 }
 
 export interface IsupervisaoAcademica {
+  id:                           number;
   numero_doc:                   number;
   nome_e_ou_matricula_discente: string;
   curso:                        string;
@@ -110,6 +113,7 @@ export interface IsupervisaoAcademica {
 }
 
 export interface IpreceptoriaTutoria {
+  id:                           number;
   numero_doc:                   number;
   nome_e_ou_matricula_discente: string;
   tipo:                         string;
@@ -117,6 +121,7 @@ export interface IpreceptoriaTutoria {
   ch_semanal_segundo_semestre:  number;
 }
 export interface IavaliacaoDiscente {
+  id:                             number;
   numero_doc_primeiro_semestre:   number;
   nota_primeiro_semestre:         number;
   codigo_turma_primeiro_semestre: string;
@@ -125,6 +130,7 @@ export interface IavaliacaoDiscente {
   codigo_turma_segundo_semestre:  string;
 }
 export interface IbancaExaminadora {
+  id:                           number;
   numero_doc:                   number;
   nome_candidato:               string;
   titulo_trabalho:              string;
@@ -137,6 +143,7 @@ export interface IbancaExaminadora {
 
 
 export interface IatividadeOrientacao {
+  id: number;
   semestre:                            number;
   ch_semanal_orientacao:               number;
   ch_semanal_coorientacao:             number;
@@ -145,6 +152,7 @@ export interface IatividadeOrientacao {
 }
 
 export interface IatividadeLetiva {
+  id: number;
   semestre:                              number;
   codigo_disciplina:                     string;
   nome_disciplina:                       string;

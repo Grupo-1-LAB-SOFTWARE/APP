@@ -2,8 +2,20 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ensino, IatividadeLetiva, IatividadeOrientacao, IatividadePedagogica, IavaliacaoDiscente, IbancaExaminadora, IdescricaoOrientacao, IpreceptoriaTutoria, IsupervisaoAcademica } from 'src/app/core/interfaces/ensino.interface';
 import { pesquisa } from 'src/app/core/interfaces/pesquisa.interface';
 import { CrudService } from 'src/app/core/services/crud.service';
+import { DialogData } from '../../radoc/radoc.component';
+import { SharedDataService } from 'src/app/core/services/shared-data.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AtividadePedagogicaDialogComponent } from '../../components/dialogs/ensino/atividade-pedagogica-dialog/atividade-pedagogica-dialog';
+import { AtividadeLetivaDialogComponent } from '../../components/dialogs/ensino/atividade-letiva-dialog/atividade-letiva-dialog';
+import { AtividadeOrientacaoDialogComponent } from '../../components/dialogs/ensino/atividade-orientacao-dialog/atividade-orientacao-dialog';
+import { DescricaoOrientacaoDialogComponent } from '../../components/dialogs/ensino/descricao-orientacao-dialog/descricao-orientacao-dialog';
+import { SupervisaoAcademicaDialogComponent } from '../../components/dialogs/ensino/supervisao-academica-dialog/supervisao-academica-dialog';
+import { PreceptoriaTutoriaDialogComponent } from '../../components/dialogs/ensino/preceptoria-tutoria-dialog/preceptoria-tutoria-dialog';
+import { BancaExaminadoraDialogComponent } from '../../components/dialogs/ensino/banca-examinadora-dialog/banca-examinadora-dialog';
+import { AvaliacaoDiscenteDialogComponent } from '../../components/dialogs/ensino/avaliacao-discente-dialog/avaliacao-discente-dialog';
 
 @Component({
   selector: 'app-pesquisa-create',
@@ -14,127 +26,238 @@ export class PesquisaCreateComponent implements OnInit {
 
   @Input() isCreate!: boolean;
 
-  @Input() pesquisa: pesquisa | undefined;
+  @Input() ensino: pesquisa | undefined;
+  atividadeLetiva: IatividadeLetiva | undefined;
 
-  @Input() pesquisaSize: number | undefined;
+  @Input() ensinoSize: number | undefined;
 
   floatLabelControl = 'always' as FloatLabelType;
-
-  form!: FormGroup;
+  //forms
+  formAtividadeLetiva!: any;
+  formAtividadePedagogicaComplementar!: any;
+  formAtividadeOrientacao!: any;
+  formDescricao_orientacao!: any;
+  formsupervisao_academica!: any;
+  formPreceptoriaTutoria!: any;
+  formBanca_examinadora!: any;
+  formAvaliacao_discente!: any;
 
   step: number = 1;
+  atividadeNAME:any | undefined;
+  ensinoId!: number;
 
-  pesquisaId!: number;
+  dialogData!: DialogData | undefined;
+  nomeRelatorio: string = '';
+  constructor(
+    private readonly ensinoService: CrudService<pesquisa>,
+    private readonly formBuilder: FormBuilder,
+    private _snackbar: MatSnackBar,
+    private atividadeLetivaService: CrudService<IatividadeLetiva>,
+    private atividadePedagogicaService: CrudService<IatividadePedagogica>,
+    private atividadeOrientacaoService: CrudService<IatividadeOrientacao>,
+    private descricaoOrientacaoService: CrudService<IdescricaoOrientacao>,
+    private supervisaoAcademicaService: CrudService<IsupervisaoAcademica>,
+    private preceptoriaTutoriaService: CrudService<IpreceptoriaTutoria>,
+    private bancaExaminadoraService: CrudService<IbancaExaminadora>,
+    private avaliacaoDiscenteService: CrudService<IavaliacaoDiscente>,
+    private CrudService: CrudService<any>,
+    private sharedDataService: SharedDataService,
+    public dialog: MatDialog
+  ) {}
 
-  initForm() {
-    this.form = this.formBuilder.group({
-      atividadeLetiva_codigoDisciplina: ['', [Validators.required]],
-      atividadeLetiva_nomeDisciplina: this.formBuilder.array([]),
-      atividadeLetiva_ano: ['', [Validators.required]],
-      atividadeLetiva_semestre: ['', [Validators.required]],
-      atividadeLetiva_cursoNome: ['', [Validators.required]],
-      atividadeLetiva_cursoCampos_Cidade: ['', [Validators.required]],
-      atividadeLetiva_cursoCampos_Nome: ['', [Validators.required]],
-      atividadeLetiva_cursoCampos_Diretor: ['', [Validators.required]],
-      atividadeLetiva_cursoInstituto_Diretor: ['', [Validators.required]],
-      atividadeLetiva_cursoInstituto_Nome: ['', [Validators.required]],
-      atividadeLetiva_cursoInstituto_Sigla: ['', [Validators.required]],
-      atividadeLetiva_cursoNivel: ['', [Validators.required]],
-      atividadeLetiva_cursosigla: ['', [Validators.required]],
-      atividadeLetiva_docentes_envolvidos: ['', [Validators.required]],
-      atividadeLetiva_carga_horaria_docentes_envolvidos: ['', [Validators.required]],
-      atividadePedagogicaComplementar_ano: ['', [Validators.required]],
-      atividadePedagogicaComplementar_semestre: ['', [Validators.required]],
-      atividadePedagogicaComplementar_carga_horaria_semanal: ['', [Validators.required]],
-      atividadePedagogicaComplementar_docentes_envolvidos: ['', [Validators.required]],
-      atividadePedagogicaComplementar_carga_horaria_docentes_envolvidos: ['', [Validators.required]],
-      orientado_semestre: ['', [Validators.required]],
-      orientado_nome: ['', [Validators.required]],
-      orientado_matricula: ['', [Validators.required]],
-      orientado_atividade_carga_horaria: [''],
-      orientado_atividade_tipo: ['', [Validators.required]],
-      bancaExaminacao_nomeCandidato: ['', [Validators.required]],
-      bancaExaminacao_tituloTrabalho: ['', [Validators.required]],
-      bancaExaminacao_ies: ['', [Validators.required]],
-      bancaExaminacao_tipo: ['', [Validators.required]],
-      bancaExaminacao_ano: ['', [Validators.required]],
-      bancaExaminacao_semestre: ['', [Validators.required]],
+  async ngOnInit(){
+    this.sharedDataService.nomeRelatorio$.subscribe(nome => {
+      this.nomeRelatorio = nome;
+    });
+    this.formAtividadeLetiva = this.formBuilder.group({
+      semestre:['',[Validators.required]],
+      codigo_disciplina:['',[Validators.required]],
+      nome_disciplina:['',[Validators.required]],
+      ano_e_semestre:['',[Validators.required]],
+      curso:['',[Validators.required]],
+      nivel:['',[Validators.required]],
+      numero_turmas_teorico:['',[Validators.required]],
+      numero_turmas_pratico:['',[Validators.required]],
+      ch_turmas_teorico:['',[Validators.required]],
+      ch_turmas_pratico:['',[Validators.required]],
+      docentes_envolvidos_e_cargas_horarias: this.formBuilder.group({
+        lista: this.formBuilder.array([this.createFormGroup()])
+      }), // Corrigido para utilizar array
+    });
+    this.formAtividadePedagogicaComplementar = this.formBuilder.group({
+      semestre: ['', [Validators.required]],
+      ch_semanal_graduacao: ['', [Validators.required]],
+      ch_semanal_pos_graduacao: ['', [Validators.required]],
+    })
+      //atidadePedagogicaComplementar
+    this.formAtividadeOrientacao = this.formBuilder.group({
+      semestre: ['', [Validators.required]],
+      ch_semanal_orientacao: ['', [Validators.required]],
+      ch_semanal_coorientacao: ['', [Validators.required]],
+      ch_semanal_supervisao: [''],
+      ch_semanal_preceptoria_e_ou_tutoria: ['', [Validators.required]],
+    })
+    //Descrição Orientacao
+    this.formDescricao_orientacao = this.formBuilder.group({
+      numero_doc: ['', [Validators.required]],
+      nome_e_ou_matricula_discente: ['', [Validators.required]],
+      curso: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
+      nivel: ['', [Validators.required]],
+      ch_semanal_primeiro_semestre: ['', [Validators.required]],
+      ch_semanal_segundo_semestre: ['', [Validators.required]],
+    })
+    //SupervisaoAcademica
+    this.formsupervisao_academica = this.formBuilder.group({
+      numero_doc: ['', [Validators.required]],
+      nome_e_ou_matricula_discente: ['', [Validators.required]],
+      curso: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
+      nivel: ['', [Validators.required]],
+      ch_semanal_primeiro_semestre: ['', [Validators.required]],
+      ch_semanal_segundo_semestre: ['', [Validators.required]],
+    })
+    //PreceptoriaTutoria
+    this.formPreceptoriaTutoria = this.formBuilder.group({
+      numero_doc: ['', [Validators.required]],
+      nome_e_ou_matricula_discente: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
+      ch_semanal_primeiro_semestre: ['', [Validators.required]],
+      ch_semanal_segundo_semestre: ['', [Validators.required]],
+    })
+    //BancaExaminadora
+    this.formBanca_examinadora = this.formBuilder.group({
+      numero_doc: ['', [Validators.required]],
+      nome_candidato: ['', [Validators.required]],
+      titulo_trabalho: ['', [Validators.required]],
+      ies: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
+      ch_semanal_primeiro_semestre: ['', [Validators.required]],
+      ch_semanal_segundo_semestre: ['', [Validators.required]],
+    })
+    //AvaliacaoDiscente
+    this.formAvaliacao_discente = this.formBuilder.group({
+      numero_doc_primeiro_semestre: ['', [Validators.required]],
+      nota_primeiro_semestre: ['', [Validators.required]],
+      codigo_turma_primeiro_semestre: ['', [Validators.required]],
+      numero_doc_segundo_semestre: ['', [Validators.required]],
+      nota_segundo_semestre: ['', [Validators.required]],
+      codigo_turma_segundo_semestre: ['', [Validators.required]],
+    })
+
+    if(!this.isCreate){
+      this.ensinoId = Number(this.ensino?.id);
+    }
+    console.log(this.ensino)
+    console.log(this.atividadeLetiva)
+    console.log(this.formBuilder.array([this.formBuilder.control('')]));
+
+  }
+  openDialogAtividadeLetiva(){
+    const dialogRef = this.dialog.open(AtividadeLetivaDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogAtividadePedagogica(){
+    const dialogRef = this.dialog.open(AtividadePedagogicaDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogAtividadeOrientacao(){
+    const dialogRef = this.dialog.open(AtividadeOrientacaoDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogDescricaoOrientacao(){
+    const dialogRef = this.dialog.open(DescricaoOrientacaoDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogSupervisaoAcademica(){
+    const dialogRef = this.dialog.open(SupervisaoAcademicaDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogPreceptoriaTutoria(){
+    const dialogRef = this.dialog.open(PreceptoriaTutoriaDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogBancaExaminadora(){
+    const dialogRef = this.dialog.open(BancaExaminadoraDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogAvaliacaoDiscente(){
+    const dialogRef = this.dialog.open(AvaliacaoDiscenteDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
   }
 
-  constructor(
-    private readonly pesquisaService: CrudService<pesquisa>,
-    private formBuilder: FormBuilder,
-    private _snackbar: MatSnackBar,
-  ) {
-  }
-
-
-  ngOnInit(): void {
-    this.initForm();
-
-    if (!this.isCreate && this.pesquisa) {
-      this.pesquisaId = Number(this.pesquisa.id);
-      this.fillForm(this.pesquisa);
-    }
-  }
-
-  fillForm(pesquisa: pesquisa) {
-    this.form.patchValue({
-      atividadeLetiva_codigoDisciplina: pesquisa.atividade_letiva.codigo_disciplina,
-      atividadeLetiva_nomeDisciplina: pesquisa.atividade_letiva.nome_disciplina,
-      atividadeLetiva_ano: pesquisa.atividade_letiva.ano,
-      atividadeLetiva_semestre: pesquisa.atividade_letiva.semestre,
-      atividadeLetiva_cursoNome: pesquisa.atividade_letiva.curso.nome,
-      atividadeLetiva_cursoCampos_Cidade: pesquisa.atividade_letiva.curso.campus.cidade,
-      atividadeLetiva_cursoCampos_Nome: pesquisa.atividade_letiva.curso.campus.nome,
-      atividadeLetiva_cursoCampos_Diretor: pesquisa.atividade_letiva.curso.campus.diretor,
-      atividadeLetiva_cursoInstituto_Diretor: pesquisa.atividade_letiva.curso.instituto.diretor,
-      atividadeLetiva_cursoInstituto_Nome: pesquisa.atividade_letiva.curso.instituto.nome,
-      atividadeLetiva_cursoInstituto_Sigla: pesquisa.atividade_letiva.curso.instituto.sigla,
-      atividadeLetiva_cursoInstituto_Campus: pesquisa.atividade_letiva.curso.instituto.campus,
-      atividadeLetiva_cursoNivel: pesquisa.atividade_letiva.curso.nivel,
-      atividadeLetiva_cursosigla: pesquisa.atividade_letiva.curso.sigla,
-      atividadeLetiva_docentes_envolvidos: pesquisa.atividade_letiva.docentes_envolvidos,
-      atividadeLetiva_carga_horaria_docentes_envolvidos: pesquisa.atividade_letiva.carga_horaria_docentes_envolvidos,
-      atividadePedagogicaComplementar_ano: pesquisa.atividade_pedagogica_complementar.ano,
-      atividadePedagogicaComplementar_semestre: pesquisa.atividade_pedagogica_complementar.semestre,
-      atividadePedagogicaComplementar_carga_horaria_semanal: pesquisa.atividade_pedagogica_complementar.carga_horaria_semanal,
-      atividadePedagogicaComplementar_docentes_envolvidos: pesquisa.atividade_pedagogica_complementar.docentes_envolvidos,
-      atividadePedagogicaComplementar_carga_horaria_docentes_envolvidos: pesquisa.atividade_pedagogica_complementar.carga_horaria_docentes_envolvidos,
-      orientado_ano: pesquisa.orientado.ano,
-      orientado_semestre: pesquisa.orientado.semestre,
-      orientado_nome: pesquisa.orientado.nome,
-      orientado_matricula: pesquisa.orientado.matricula,
-      orientado_curso: pesquisa.orientado.curso,
-      orientado_tipo: pesquisa.orientado.tipo,
-      orientado_atividade_ano: pesquisa.orientado.atividade.ano,
-      orientado_atividade_semestre: pesquisa.orientado.atividade.semestre,
-      orientado_atividade_carga_horaria: pesquisa.orientado.atividade.carga_horaria,
-      orientado_atividade_tipo: pesquisa.orientado.atividade.tipo,
-      bancaExaminacao_nomeCandidato: pesquisa.banca_examinacao.nome_candidato,
-      bancaExaminacao_tituloTrabalho: pesquisa.banca_examinacao.titulo_trabalho,
-      bancaExaminacao_ies: pesquisa.banca_examinacao.ies,
-      bancaExaminacao_tipo: pesquisa.banca_examinacao.tipo,
-      bancaExaminacao_ano: pesquisa.banca_examinacao.ano,
-      bancaExaminacao_semestre: pesquisa.banca_examinacao.semestre,
-
-
-    })
-  }
-
-  adicionardisciplina() {
-    const creds = this.form.get('atividadeLetiva_nomeDisciplina') as FormArray;
-    creds.push(this.formBuilder.group({
-      atividadeLetiva_nomeDisciplina: '',
-    }));
-    console.log(creds)
-  }
-
-  removeNomeDisciplina( index : any) {
-    const control = this.form.get('atividadeLetiva_nomeDisciplina') as FormArray;
-    control.removeAt(index);
-  }
 
   goBack() {
     if (this.step > 1) {
@@ -143,15 +266,14 @@ export class PesquisaCreateComponent implements OnInit {
   }
 
   goNext() {
-    if (this.step < 5) {
+    if (this.step < 8) {
       this.step++;
     }
   }
 
   async submit() {
-    console.log(this.form.getRawValue())
-    const formValue = this.form.getRawValue();
-    if (!this.form.valid) {
+    const formValue = this.formAtividadeLetiva.getRawValue();
+    if (!this.formAtividadeLetiva.valid) {
       this._snackbar.open('Preencha todos os campos.', 'OK', {
         duration: 5000
       });
@@ -160,21 +282,292 @@ export class PesquisaCreateComponent implements OnInit {
 
     try {
       this.isCreate ?
-        await this.pesquisaService.create('pesquisa',formValue) :
-        await this.pesquisaService.update('pesquisa', formValue);
-        this._snackbar.open('Relátorio de pesquisa salvo com sucesso.', 'OK', {
+        await this.ensinoService.create('ensino',formValue) :
+        await this.ensinoService.update('ensino', formValue);
+        this._snackbar.open('Relatório de ensino salvo com sucesso.', 'OK', {
           duration: 5000
         });
-      location.reload();
+      // Evitando o uso de location.reload() para atualizar a interface do usuário
     } catch (error) {
       console.error(error);
-      this._snackbar.open('Erro ao salvar Relátorio de pesquisa.', 'OK', {
+      this._snackbar.open('Erro ao salvar Relatório de ensino.', 'OK', {
         duration: 5000
       });
     }
-    console.log(formValue)
   }
 
+  createFormGroup() {
+    return this.formBuilder.group({
+      nome_docente: ['',[Validators.required]],
+      carga_horaria: ['',[Validators.required]],
+    });
+  }
+  addlista() {
+    this.lista.push(this.createFormGroup())
+    console.log(this.formAtividadeLetiva.value);
+  }
+  get lista(): FormArray {
+    return this.formAtividadeLetiva.get('docentes_envolvidos_e_cargas_horarias.lista') as FormArray;
+  }
+
+  removerDocente(index: number): void {
+    this.lista.removeAt(index);
+  }
+  //buttonsSubmit
+  async submitAtividadeLetiva() {
+    const formValue = this.formAtividadeLetiva.getRawValue();
+    console.log(formValue);
+
+    if (!this.formAtividadeLetiva.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.atividadeLetivaService.createEnsino('atividade_letiva', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.atividadeLetivaService.update('atividade_letiva', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formAtividadeLetiva.reset();
+  }
+  async submitAtividadePedagogica() {
+    const formValue = this.formAtividadePedagogicaComplementar.getRawValue();
+    console.log(formValue);
+
+    if (!this.formAtividadePedagogicaComplementar.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.atividadePedagogicaService.createEnsino('atividade_pedagogica_complementar', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.atividadePedagogicaService.update('atividade_pedagogica_complementar', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formAtividadePedagogicaComplementar.reset();
+  }
+  async submitDescricaoOrientacao() {
+    const formValue = this.formDescricao_orientacao.getRawValue();
+    console.log(formValue);
+
+    if (!this.formDescricao_orientacao.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.descricaoOrientacaoService.createEnsino('descricao_orientacao_coorientacao_academica', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.descricaoOrientacaoService.update('descricao_orientacao_coorientacao_academica', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formDescricao_orientacao.reset();
+  }
+  async submitAtividadeOrientacao() {
+    const formValue = this.formAtividadeOrientacao.getRawValue();
+    console.log(formValue);
+
+    if (!this.formAtividadeOrientacao.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.atividadeOrientacaoService.createEnsino('atividade_orientacao_supervisao_preceptoria_tutoria', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.atividadeOrientacaoService.update('atividade_orientacao_supervisao_preceptoria_tutoria', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formAtividadeOrientacao.reset();
+  }
+  async submitSupervisaoAcacademica() {
+    const formValue = this.formsupervisao_academica.getRawValue();
+    console.log(formValue);
+
+    if (!this.formsupervisao_academica.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.supervisaoAcademicaService.createEnsino('supervisao_academica', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.supervisaoAcademicaService.update('supervisao_academica', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formsupervisao_academica.reset();
+  }
+  async submitPreceptoriaTutoria() {
+    const formValue = this.formPreceptoriaTutoria.getRawValue();
+    console.log(formValue);
+
+    if (!this.formPreceptoriaTutoria.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.preceptoriaTutoriaService.createEnsino('preceptoria_tutoria_residencia', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.preceptoriaTutoriaService.update('preceptoria_tutoria_residencia', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formPreceptoriaTutoria.reset();
+  }
+  async submitBancaExaminadora() {
+    const formValue = this.formBanca_examinadora.getRawValue();
+    console.log(formValue);
+
+    if (!this.formBanca_examinadora.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.bancaExaminadoraService.createEnsino('banca_examinadora', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.bancaExaminadoraService.update('banca_examinadora', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formBanca_examinadora.reset();
+  }
+  async submitAvaliacaoDiscente() {
+    const formValue = this.formAvaliacao_discente.getRawValue();
+    console.log(formValue);
+
+    if (!this.formAvaliacao_discente.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.avaliacaoDiscenteService.createEnsino('avaliacao_discente', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.avaliacaoDiscenteService.update('avaliacao_discente', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formAvaliacao_discente.reset();
+  }
 }
-
-

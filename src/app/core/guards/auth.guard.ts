@@ -1,15 +1,40 @@
-import { inject } from "@angular/core"
-import { UserService } from "../services/user.service"
-import { Router } from "@angular/router"
+import { Injectable } from "@angular/core";
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import { UserService } from "../services/user.service";
+import { RoleService } from "../services/role.service";
 
-export const authGuard = () => {
-  const userService = inject(UserService)
-  const router = inject(Router)
+@Injectable({
+  providedIn: 'root'
+})
+export class authGuard {
 
-  if(userService.estaLogado()) {
-    return true
-  }else{
-    router.navigate(['/login'])
-    return false
+  constructor(
+    private userService: UserService,
+    private roleService: RoleService,
+    private router: Router
+  ) {}
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (!this.userService.estaLogado()) {
+      this.router.navigate(['/login']);
+      return false;
+    }
+
+    const perfil = route.data["perfil"];
+    const user = this.roleService.retornarRole();
+
+    console.log("user", user);
+    console.log("perfil de acesso", perfil);
+
+    // Verifica se user é definido e se tem a propriedade acesso
+    if (user?.includes(perfil)) {
+      console.log("autorizado");
+      return true;
+    } else {
+      this.roleService.excluirRole();
+      this.userService.logout();
+      this.router.navigate(['/login']);
+      return false;
+    }
   }
 }
