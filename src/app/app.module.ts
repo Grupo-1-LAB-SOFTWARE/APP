@@ -1,4 +1,3 @@
-import { userEmailService } from 'src/app/core/services/email.service';
 import { CUSTOM_ELEMENTS_SCHEMA, HostListener, LOCALE_ID, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -22,6 +21,7 @@ import { AutenticacaoInterceptor } from './core/interceptors/autenticacao.interc
 
 import { TelaConfirmarComponent } from './pages/tela-confirmar/tela-confirmar.component';
 import { TokenService } from './core/services/token.service';
+import { userEmailService } from '../../src/app/core/services/email.service'
 import { EmailActivationService } from './core/services/ativadorEmail.service';
 
 registerLocaleData(localePT);
@@ -49,7 +49,7 @@ registerLocaleData(localePT);
     userEmailService,
     EmailActivationService,
     { provide: HTTP_INTERCEPTORS, useClass: AutenticacaoInterceptor, multi: true },
-    { provide: LOCALE_ID, useValue: 'pt-BR' } 
+    { provide: LOCALE_ID, useValue: 'pt-BR' }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
