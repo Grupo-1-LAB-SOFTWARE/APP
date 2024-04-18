@@ -1,54 +1,12 @@
 {
-    "providers": ["node"],
-    "buildImage": "ghcr.io/railwayapp/nixpacks:latest",
-    "variables": {
-      "CI": "true",
-      "NIXPACKS_METADATA": "node",
-      "NODE_ENV": "production",
-      "NPM_CONFIG_PRODUCTION": "false"
+    "$schema": "https://railway.app/railway.schema.json",
+    "build": {
+        "builder": "NIXPACKS",
+        "buildCommand": "npm install"
     },
-    "phases": {
-      "build": {
-        "dependsOn": [
-          "nixpacks"
-        ],
-        "cmds": [
-          "npm install"
-        ],
-        "cacheDirectories": [
-          "node_modules/.cache"
-        ]
-      },
-      "install": {
-        "dependsOn": [
-          "setup"
-        ],
-        "cmds": [
-          "npm install"
-        ],
-        "cacheDirectories": [
-          "/root/.npm"
-        ],
-        "paths": [
-          "/app/node_modules/.bin"
-        ]
-      },
-      "setup": {
-        "nixPkgs": [
-          "nodejs_18",
-          "npm-9_x"
-        ],
-        "nixLibs": [
-          "libuuid",
-          "libGL"
-        ],
-        "nixOverlays": [
-          "https://github.com/railwayapp/nix-npm-overlay/archive/main.tar.gz"      
-        ],
-        "nixpkgsArchive": "bf744fe90419885eefced41b3e5ae442d732712d"
-      }
-    },
-    "start": {
-      "cmd": "npm start"
+    "deploy": {
+        "startCommand": "npm start",
+        "restartPolicyType": "NEVER",
+        "restartPolicyMaxRetries": 10
     }
-  }
+}
