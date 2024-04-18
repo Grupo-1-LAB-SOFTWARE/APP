@@ -1,3 +1,9 @@
+import { SupervisaoServiceName } from './../../components/dialogs/ensino/supervisao-academica-dialog/supervisaoName.service';
+import { PreceptoriaServiceName } from './../../components/dialogs/ensino/preceptoria-tutoria-dialog/preceptoriaName.service';
+import { descricaoServiceName } from './../../components/dialogs/ensino/descricao-orientacao-dialog/descricaoName.service';
+import { bancaServiceName } from './../../components/dialogs/ensino/banca-examinadora-dialog/bancaName.service';
+import { avDiscenteServiceName } from './../../components/dialogs/ensino/avaliacao-discente-dialog/avDiscenteName.service';
+import { avPedagogicaServiceName } from './../../components/dialogs/ensino/atividade-pedagogica-dialog/avPedagogicaName.service';
 import { DescricaoOrientacaoDialogComponent } from './../../components/dialogs/ensino/descricao-orientacao-dialog/descricao-orientacao-dialog';
 import { atividadePedagogicaComplementar } from './../../../core/interfaces/pesquisa.interface';
 import { CrudService } from './../../../core/services/crud.service';
@@ -5,10 +11,10 @@ import { DialogData } from './../../radoc/radoc.component';
 import { ensino, IatividadeLetiva, IatividadeOrientacao, IatividadePedagogica, IavaliacaoDiscente, IbancaExaminadora, IdescricaoOrientacao, IpreceptoriaTutoria, IsupervisaoAcademica } from './../../../core/interfaces/ensino.interface';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { SharedDataService } from 'src/app/core/services/shared-data.service';
-import { ActivatedRoute } from '@angular/router';
+import {  Router } from '@angular/router';
 import { AtividadeLetivaDialogComponent } from '../../components/dialogs/ensino/atividade-letiva-dialog/atividade-letiva-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { AtividadePedagogicaDialogComponent } from '../../components/dialogs/ensino/atividade-pedagogica-dialog/atividade-pedagogica-dialog';
@@ -17,6 +23,8 @@ import { SupervisaoAcademicaDialogComponent } from '../../components/dialogs/ens
 import { PreceptoriaTutoriaDialogComponent } from '../../components/dialogs/ensino/preceptoria-tutoria-dialog/preceptoria-tutoria-dialog';
 import { BancaExaminadoraDialogComponent } from '../../components/dialogs/ensino/banca-examinadora-dialog/banca-examinadora-dialog';
 import { AvaliacaoDiscenteDialogComponent } from '../../components/dialogs/ensino/avaliacao-discente-dialog/avaliacao-discente-dialog';
+import { SharedDataServiceName } from 'src/app/core/services/shared-dataName.service';
+import { avOrientacaoServiceName } from '../../components/dialogs/ensino/atividade-orientacao-dialog/avOrientacaoName.service';
 
 @Component({
   selector: 'app-ensino-create',
@@ -49,27 +57,87 @@ export class EnsinoCreateComponent implements OnInit {
 
   dialogData!: DialogData | undefined;
   nomeRelatorio: string = '';
+
+  AtividadeLetivaId: any;
+  AtividadePedagogicaId: any;
+  AtividadeOrientacaoId: any;
+  AtividadeDiscenteId: any;
+  bancaId: any;
+  descricaoId: any;
+  preceptoriaId: any;
+  supervisaoId: any;
   constructor(
     private readonly ensinoService: CrudService<ensino>,
     private readonly formBuilder: FormBuilder,
     private _snackbar: MatSnackBar,
     private atividadeLetivaService: CrudService<IatividadeLetiva>,
-    private atividadePedagogicaService: CrudService<IatividadePedagogica>,
-    private atividadeOrientacaoService: CrudService<IatividadeOrientacao>,
-    private descricaoOrientacaoService: CrudService<IdescricaoOrientacao>,
-    private supervisaoAcademicaService: CrudService<IsupervisaoAcademica>,
-    private preceptoriaTutoriaService: CrudService<IpreceptoriaTutoria>,
-    private bancaExaminadoraService: CrudService<IbancaExaminadora>,
-    private avaliacaoDiscenteService: CrudService<IavaliacaoDiscente>,
-    private CrudService: CrudService<any>,
+    private atividadePedagogicaService: CrudService<any>,
+    private atividadeOrientacaoService: CrudService<any>,
+    private descricaoOrientacaoService: CrudService<any>,
+    private supervisaoAcademicaService: CrudService<any>,
+    private preceptoriaTutoriaService: CrudService<any>,
+    private bancaExaminadoraService: CrudService<any>,
+    private avaliacaoDiscenteService: CrudService<any>,
+    private crudService: CrudService<any>,
     private sharedDataService: SharedDataService,
-    public dialog: MatDialog
+    private sharedDataServiceName: SharedDataServiceName,
+    private avPedagogicaServiceName: avPedagogicaServiceName,
+    private avOrientacaoServiceName: avOrientacaoServiceName,
+    private avDiscenteServiceName: avDiscenteServiceName,
+    private bancaServiceName: bancaServiceName,
+    private descricaoServiceName: descricaoServiceName,
+    private PreceptoriaServiceName: PreceptoriaServiceName,
+    private SupervisaoServiceName: SupervisaoServiceName,
+    public dialog: MatDialog,
+    private router: Router
   ) {}
 
   async ngOnInit(){
+    this.sharedDataServiceName.nomeRelatorio$.subscribe(name => {
+      this.AtividadeLetivaId = name;
+      this.carregarDadosDoBackendAtividadeLetiva()
+      this.dialog.closeAll()
+    })
+    this.avPedagogicaServiceName.avPedagogica$.subscribe(id => {
+      this.AtividadePedagogicaId = id;
+      this.carregarDadosDoBackendAtividadePedagogica()
+      this.dialog.closeAll()
+    })
+    this.avOrientacaoServiceName.avOrientacao$.subscribe(id => {
+      this.AtividadeOrientacaoId = id;
+      this.carregarDadosDoBackendAtividadeOrientacao()
+      this.dialog.closeAll()
+    })
+    this.avDiscenteServiceName.avDiscente$.subscribe(id => {
+      this.AtividadeDiscenteId = id;
+      this.carregarDadosDoBackendAvaliacaoDiscente()
+      this.dialog.closeAll()
+    })
+    this.bancaServiceName.banca$.subscribe(id => {
+      this.bancaId = id;
+      this.carregarDadosDoBackendBancaExaminadora()
+      this.dialog.closeAll()
+    })
+    this.SupervisaoServiceName.Supervisao$.subscribe(id => {
+      this.supervisaoId = id;
+      this.carregarDadosDoBackendSupervisaoAcademica()
+      this.dialog.closeAll()
+    })
+    this.PreceptoriaServiceName.preceptoria$.subscribe(id => {
+      this.preceptoriaId = id;
+      this.carregarDadosDoBackendPreceptoriaPreceptoria()
+      this.dialog.closeAll()
+    })
+    this.descricaoServiceName.descricao$.subscribe(id => {
+      this.descricaoId = id;
+      this.carregarDadosDoBackendDescricaoOrientacao()
+      this.dialog.closeAll()
+    })
     this.sharedDataService.nomeRelatorio$.subscribe(nome => {
       this.nomeRelatorio = nome;
+      console.log(this.nomeRelatorio + "teste nome relatorio");
     });
+
     this.formAtividadeLetiva = this.formBuilder.group({
       semestre:['',[Validators.required]],
       codigo_disciplina:['',[Validators.required]],
@@ -83,7 +151,7 @@ export class EnsinoCreateComponent implements OnInit {
       ch_turmas_pratico:['',[Validators.required]],
       docentes_envolvidos_e_cargas_horarias: this.formBuilder.group({
         lista: this.formBuilder.array([this.createFormGroup()])
-      }), // Corrigido para utilizar array
+      }),
     });
     this.formAtividadePedagogicaComplementar = this.formBuilder.group({
       semestre: ['', [Validators.required]],
@@ -154,7 +222,137 @@ export class EnsinoCreateComponent implements OnInit {
     console.log(this.formBuilder.array([this.formBuilder.control('')]));
 
   }
-  openDialogAtividadeLetiva(){
+  carregarDadosDoBackendAtividadeLetiva() {
+    this.crudService.getOneEnsino('atividade_letiva', this.nomeRelatorio,this.AtividadeLetivaId).subscribe((dados: any) => {
+      // Preencha os campos do formulário com os dados recebidos do backend
+      this.formAtividadeLetiva.patchValue({
+        semestre: dados.semestre,
+        codigo_disciplina: dados.codigo_disciplina,
+        nome_disciplina: dados.nome_disciplina,
+        ano_e_semestre: dados.ano_e_semestre,
+        curso: dados.curso,
+        nivel: dados.nivel,
+        numero_turmas_teorico: dados.numero_turmas_teorico,
+        numero_turmas_pratico: dados.numero_turmas_pratico,
+        ch_turmas_teorico: dados.ch_turmas_teorico,
+        ch_turmas_pratico: dados.ch_turmas_pratico,
+      });
+
+      // Para preencher os docentes envolvidos e suas cargas horárias
+      const docentesCargas = dados.docentes_envolvidos_e_cargas_horarias.lista.map((docente: any) => {
+        return this.formBuilder.group({
+          nome_docente: docente.nome_docente,
+          carga_horaria: docente.carga_horaria
+        });
+      });
+
+      // Remova os controles anteriores antes de adicionar os novos
+      const lista = this.formAtividadeLetiva.get('docentes_envolvidos_e_cargas_horarias.lista') as FormArray;
+      lista.clear();
+
+      // Adicione os novos controles ao FormArray
+      docentesCargas.forEach((control: any) => {
+        lista.push(control);
+      });
+    });
+  }
+
+  carregarDadosDoBackendAtividadePedagogica() {
+    this.crudService.getOneEnsino('atividade_pedagogica_complementar', this.nomeRelatorio,this.AtividadePedagogicaId).subscribe((dados: any) => {
+      // Preencha os campos do formulário com os dados recebidos do backend
+      this.formAtividadePedagogicaComplementar.patchValue({
+        semestre: dados.semestre,
+        ch_semanal_graduacao: dados.ch_semanal_graduacao,
+        ch_semanal_pos_graduacao: dados.ch_semanal_pos_graduacao,
+
+      });
+    });
+  }
+
+  carregarDadosDoBackendAtividadeOrientacao() {
+    this.crudService.getOneEnsino('atividade_orientacao_supervisao_preceptoria_tutoria', this.nomeRelatorio,this.AtividadeOrientacaoId).subscribe((dados: any) => {
+      // Preencha os campos do formulário com os dados recebidos do backend
+      this.formAtividadeOrientacao.patchValue({
+        semestre: dados.semestre,
+        ch_semanal_orientacao: dados.ch_semanal_orientacao,
+        ch_semanal_coorientacao: dados.ch_semanal_coorientacao,
+        ch_semanal_supervisao: dados.ch_semanal_supervisao,
+        ch_semanal_preceptoria_e_ou_tutoria: dados.ch_semanal_preceptoria_e_ou_tutoria,
+      });
+    });
+  }
+
+  carregarDadosDoBackendDescricaoOrientacao() {
+    this.crudService.getOneEnsino('descricao_orientacao_coorientacao_academica', this.nomeRelatorio,this.AtividadeOrientacaoId).subscribe((dados: any) => {
+      this.formDescricao_orientacao.patchValue({
+        numero_doc: dados.numero_doc,
+        nome_e_ou_matricula_discente: dados.nome_e_ou_matricula_discente,
+        curso: dados.curso,
+        tipo: dados.tipo,
+        nivel: dados.nivel,
+        ch_semanal_primeiro_semestre: dados.ch_semanal_primeiro_semestre,
+        ch_semanal_segundo_semestre: dados.ch_semanal_segundo_semestre,
+      });
+    });
+  }
+
+  carregarDadosDoBackendSupervisaoAcademica() {
+    this.crudService.getOneEnsino('supervisao_academica', this.nomeRelatorio,this.supervisaoId).subscribe((dados: any) => {
+      this.formsupervisao_academica.patchValue({
+        numero_doc: dados.numero_doc,
+        nome_e_ou_matricula_discente: dados.nome_e_ou_matricula_discente,
+        curso: dados.curso,
+        tipo: dados.tipo,
+        nivel: dados.nivel,
+        ch_semanal_primeiro_semestre: dados.ch_semanal_primeiro_semestre,
+        ch_semanal_segundo_semestre: dados.ch_semanal_segundo_semestre,
+      });
+    });
+  }
+
+  carregarDadosDoBackendPreceptoriaPreceptoria() {
+    this.crudService.getOneEnsino('preceptoria_tutoria_residencia', this.nomeRelatorio,this.preceptoriaId).subscribe((dados: any) => {
+      // Preencha os campos do formulário com os dados recebidos do backend
+      this.formPreceptoriaTutoria.patchValue({
+        numero_doc: dados.numero_doc,
+        nome_e_ou_matricula_discente: dados.nome_e_ou_matricula_discente,
+        tipo: dados.tipo,
+        ch_semanal_primeiro_semestre: dados.ch_semanal_primeiro_semestre,
+        ch_semanal_segundo_semestre: dados.ch_semanal_segundo_semestre,
+      });
+    });
+  }
+
+  carregarDadosDoBackendBancaExaminadora() {
+    this.crudService.getOneEnsino('banca_examinadora', this.nomeRelatorio,this.bancaId).subscribe((dados: any) => {
+      this.formBanca_examinadora.patchValue({
+        numero_doc: dados.numero_doc,
+        nome_candidato: dados.nome_candidato,
+        titulo_trabalho: dados.titulo_trabalho,
+        ies: dados.ies,
+        tipo: dados.tipo,
+        ch_semanal_primeiro_semestre: dados.ch_semanal_primeiro_semestre,
+        ch_semanal_segundo_semestre: dados.ch_semanal_segundo_semestre,
+      });
+    });
+  }
+
+
+  carregarDadosDoBackendAvaliacaoDiscente() {
+    this.crudService.getOneEnsino('avaliacao_discente', this.nomeRelatorio,this.AtividadeDiscenteId).subscribe((dados: any) => {
+      // Preencha os campos do formulário com os dados recebidos do backend
+      this.formAvaliacao_discente.patchValue({
+        numero_doc_primeiro_semestre: dados.numero_doc_primeiro_semestre,
+        nota_primeiro_semestre: dados.nota_primeiro_semestre,
+        codigo_turma_primeiro_semestre: dados.codigo_turma_primeiro_semestre,
+        numero_doc_segundo_semestre: dados.numero_doc_segundo_semestre,
+        nota_segundo_semestre: dados.nota_segundo_semestre,
+        codigo_turma_segundo_semestre: dados.codigo_turma_segundo_semestre,
+      });
+    });
+  }
+
+  openDialogAtividadeLetiva() {
     const dialogRef = this.dialog.open(AtividadeLetivaDialogComponent, {
       width: '800px',
       data: {
@@ -318,6 +516,7 @@ export class EnsinoCreateComponent implements OnInit {
   async submitAtividadeLetiva() {
     const formValue = this.formAtividadeLetiva.getRawValue();
     console.log(formValue);
+    formValue.nome_disciplina = formValue.nome_disciplina.toUpperCase();
 
     if (!this.formAtividadeLetiva.valid) {
       this._snackbar.open('Preencha todos os campos.', 'OK', {
@@ -327,13 +526,13 @@ export class EnsinoCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.AtividadeLetivaId == 0) { // Verifique se é uma criação
         await this.atividadeLetivaService.createEnsino('atividade_letiva', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
           duration: 5000
         });
-      } else {
-        await this.atividadeLetivaService.update('atividade_letiva', formValue, this.nomeRelatorio).toPromise();
+      } else { // Se não for uma criação, é uma atualização
+        await this.atividadeLetivaService.updateEnsino('atividade_letiva', formValue, this.nomeRelatorio, this.AtividadeLetivaId).toPromise();
         this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
           duration: 5000
         });
@@ -359,13 +558,13 @@ export class EnsinoCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.AtividadePedagogicaId == 0) {
         await this.atividadePedagogicaService.createEnsino('atividade_pedagogica_complementar', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.atividadePedagogicaService.update('atividade_pedagogica_complementar', formValue, this.nomeRelatorio).toPromise();
+        await this.atividadePedagogicaService.updateEnsino('atividade_pedagogica_complementar', formValue, this.nomeRelatorio, this.AtividadePedagogicaId).toPromise();
         this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
           duration: 5000
         });
@@ -391,13 +590,13 @@ export class EnsinoCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.descricaoId == 0) {
         await this.descricaoOrientacaoService.createEnsino('descricao_orientacao_coorientacao_academica', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.descricaoOrientacaoService.update('descricao_orientacao_coorientacao_academica', formValue, this.nomeRelatorio).toPromise();
+        await this.descricaoOrientacaoService.updateEnsino('descricao_orientacao_coorientacao_academica', formValue, this.nomeRelatorio, this.descricaoId).toPromise();
         this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
           duration: 5000
         });
@@ -423,13 +622,13 @@ export class EnsinoCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.AtividadeOrientacaoId == 0) {
         await this.atividadeOrientacaoService.createEnsino('atividade_orientacao_supervisao_preceptoria_tutoria', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.atividadeOrientacaoService.update('atividade_orientacao_supervisao_preceptoria_tutoria', formValue, this.nomeRelatorio).toPromise();
+        await this.atividadeOrientacaoService.updateEnsino('atividade_orientacao_supervisao_preceptoria_tutoria', formValue, this.nomeRelatorio, this.AtividadeOrientacaoId).toPromise();
         this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
           duration: 5000
         });
@@ -455,13 +654,13 @@ export class EnsinoCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.supervisaoId == 0) {
         await this.supervisaoAcademicaService.createEnsino('supervisao_academica', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.supervisaoAcademicaService.update('supervisao_academica', formValue, this.nomeRelatorio).toPromise();
+        await this.supervisaoAcademicaService.updateEnsino('supervisao_academica', formValue, this.nomeRelatorio, this.supervisaoId).toPromise();
         this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
           duration: 5000
         });
@@ -487,13 +686,13 @@ export class EnsinoCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.preceptoriaId == 0) {
         await this.preceptoriaTutoriaService.createEnsino('preceptoria_tutoria_residencia', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.preceptoriaTutoriaService.update('preceptoria_tutoria_residencia', formValue, this.nomeRelatorio).toPromise();
+        await this.preceptoriaTutoriaService.updateEnsino('preceptoria_tutoria_residencia', formValue, this.nomeRelatorio, this.preceptoriaId).toPromise();
         this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
           duration: 5000
         });
@@ -519,13 +718,13 @@ export class EnsinoCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.bancaId == 0) {
         await this.bancaExaminadoraService.createEnsino('banca_examinadora', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.bancaExaminadoraService.update('banca_examinadora', formValue, this.nomeRelatorio).toPromise();
+        await this.bancaExaminadoraService.updateEnsino('banca_examinadora', formValue,this.nomeRelatorio, this.bancaId).toPromise();
         this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
           duration: 5000
         });
@@ -551,13 +750,14 @@ export class EnsinoCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.AtividadeDiscenteId == 0) {
         await this.avaliacaoDiscenteService.createEnsino('avaliacao_discente', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
           duration: 5000
         });
+        this.formAvaliacao_discente.reset();
       } else {
-        await this.avaliacaoDiscenteService.update('avaliacao_discente', formValue, this.nomeRelatorio).toPromise();
+        await this.avaliacaoDiscenteService.updateEnsino('avaliacao_discente', formValue,this.nomeRelatorio, this.AtividadeDiscenteId).toPromise();
         this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
           duration: 5000
         });
@@ -569,6 +769,5 @@ export class EnsinoCreateComponent implements OnInit {
         duration: 5000
       });
     }
-    this.formAvaliacao_discente.reset();
   }
 }

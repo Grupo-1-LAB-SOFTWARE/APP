@@ -30,7 +30,7 @@ export interface DialogData {
 export class RadocComponent implements OnInit {
 
     mostrandoSpinner: boolean = false;
-    displayedColumns: string[] = ['tagName', 'sector', 'createdAt', 'edit', 'delete', 'download'];
+    displayedColumns: string[] = ['tagName', 'sector', 'createdAt', 'edit', 'delete', 'download','upload'];
 
     ensino: ensino | undefined;
     ensinoForm = false;
@@ -108,12 +108,11 @@ export class RadocComponent implements OnInit {
           .afterClosed()
         );
         if (result && radoc.nome !== undefined) { // Verifique se radoc.id está definido
-          await this.crudService.delete('relatorio_docente', radoc.nome).toPromise();
+          await this.crudService.deleteradoc('relatorio_docente', radoc.nome).toPromise();
           this._snackbar.open("Item deletado com sucesso", "Fechar", {
             duration: 5000
           });
           location.reload();
-          this.mostrandoSpinner = false;
         } else {
           console.error("ID do item não está definido.");
           // Aqui você pode lidar com o cenário em que radoc.id não está definido, por exemplo, exibindo uma mensagem para o usuário.
@@ -122,6 +121,7 @@ export class RadocComponent implements OnInit {
         console.error(error);
         this.onError("Não foi possível deletar o item");
       }
+      this.mostrandoSpinner = false;
     }
 
 
@@ -200,7 +200,7 @@ export class DialogOverviewExampleDialog {
       ano_relatorio: this.data.ano_relatorio,
 
     };
-    console.log(this.data)
+    console.log(this.data + "teste data")
     this.crudService.create('relatorio_docente', relatorioData).subscribe(
       (response) => {
         // Aqui você pode tratar a resposta se necessário

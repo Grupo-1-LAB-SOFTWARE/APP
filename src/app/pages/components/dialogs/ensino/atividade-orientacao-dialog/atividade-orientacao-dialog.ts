@@ -7,9 +7,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { CrudService } from 'src/app/core/services/crud.service';
-import { SharedDataService } from 'src/app/core/services/shared-dataName.service';
+import { SharedDataServiceName } from 'src/app/core/services/shared-dataName.service';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { IatividadeOrientacao } from 'src/app/core/interfaces/ensino.interface';
+import { avOrientacaoServiceName } from './avOrientacaoName.service';
 @Component({
   selector: 'app-atividade-orientacao-dialog',
   templateUrl: './atividade-orientacao-dialog.html',
@@ -35,7 +36,7 @@ export class AtividadeOrientacaoDialogComponent  implements OnInit {
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
     private crudService: CrudService<IatividadeOrientacao>,
-    private sharedDataService: SharedDataService,
+    private sharedDataService: avOrientacaoServiceName,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
   }
@@ -80,6 +81,8 @@ export class AtividadeOrientacaoDialogComponent  implements OnInit {
     this.atividadeLetiva = ensino;
     if (ensino.id) {
       this.sharedDataService.atualizaridEdicaoRelatorio(this.atividadeLetiva.id);
+      console.log('/ensino/atividade-orientacao/' + this.atividadeLetiva.id);
+
     } else {
       console.error("Nome do relatório não está definido.");
     }

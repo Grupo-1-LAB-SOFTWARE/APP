@@ -7,9 +7,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { CrudService } from 'src/app/core/services/crud.service';
-import { SharedDataService } from 'src/app/core/services/shared-dataName.service';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { IdescricaoOrientacao } from 'src/app/core/interfaces/ensino.interface';
+import { descricaoServiceName } from './descricaoName.service';
 
 @Component({
   selector: 'app-descricao-orientacao-dialog',
@@ -36,7 +36,7 @@ export class DescricaoOrientacaoDialogComponent  implements OnInit {
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
     private crudService: CrudService<IdescricaoOrientacao>,
-    private sharedDataService: SharedDataService,
+    private sharedDataService: descricaoServiceName,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
   }
