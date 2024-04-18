@@ -1,4 +1,4 @@
-<div *ngIf="router.routerState.snapshot.url === '/perfil/painel'; else elseTemplate">
+<div *ngIf="saveData && router.routerState.snapshot.url === '/perfil/painel'; else elseTemplate">
   <mat-card class="matContainer">
     <div class="img">
       <img mat-card-image src="assets/foto-perfil.png" alt="Foto de perfil" height="120px" width="120px">
@@ -40,7 +40,7 @@
                 <span class="row">Classe: {{ saveData.classe }}</span>
                 <span class="row">SIAGE: {{ saveData.siape }}</span>
                 <span class="row">Vínculo: {{ saveData.vinculo }}</span>
-                
+
               </strong>
             </div>
           </mat-expansion-panel>

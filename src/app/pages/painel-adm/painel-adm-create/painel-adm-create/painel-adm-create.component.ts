@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { FormularioService } from 'src/app/core/services/formulario.service';
+import { SharedDataADMService } from 'src/app/core/services/shared-admin-data.service';
 
 @Component({
   selector: 'app-painel-adm-create',
@@ -11,16 +14,24 @@ import { FormularioService } from 'src/app/core/services/formulario.service';
 export class PainelAdmCreateComponent  implements OnInit{
   cadastroForm!: FormGroup;
   estadoControl = new FormControl<any | null>(null, Validators.required);
-  @Input() perfilComponent!:boolean;
-  @Input() title:string = 'Editar cadastro';
-  @Output() acaoClick: EventEmitter<any> = new EventEmitter<any>();
+  title:string = 'Editar cadastro';
+  nomeRelatorio!: string;
   constructor(
     private formBuilder: FormBuilder,
     private formularioService: FormularioService,
-    private crudService: CrudService<any>
+    private crudService: CrudService<any>,
+    private sharedDataService: SharedDataADMService,
+    private router: Router,
+    private _snackbar: MatSnackBar
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.sharedDataService.nomeAdminUser$.subscribe(nome => {
+      console.log(nome + "teste nome");
+      this.nomeRelatorio = nome;
+      console.log(this.nomeRelatorio + "teste nome");
+      this.carregarDadosUsuario()
+    });
     this.cadastroForm = this.formBuilder.group({
       username: ['', Validators.required],
       nome_completo: ['', Validators.required],
@@ -31,27 +42,53 @@ export class PainelAdmCreateComponent  implements OnInit{
       regime_de_trabalho: ['', Validators.required], // Regime de Trabalho
       titulacao: ['', Validators.required],
       instituto: ['', Validators.required], // Titulacao Academica
-      email: ['', [Validators.required, Validators.email]], // Email
-      password: ['', [Validators.required, Validators.minLength(3)]], // Senha
+      email: ['', [Validators.required, Validators.email]], // Email // Senha
     });
-    this.formularioService.setCadastro(this.cadastroForm);
   }
 
-  executarAcao(){
+  async executarAcao() {
+    if (this.cadastroForm?.valid) {
+      console.log(this.cadastroForm.value);
+      const idUsuario = this.nomeRelatorio; // Supondo que `nomeRelatorio` seja o ID do usuário
 
-      const formCadastro = this.formularioService.getCadastro()
-
-      if(formCadastro?.valid) {
-        console.log(formCadastro.value)
-        this.crudService.update('usuarios/admin/', formCadastro.value).subscribe({
+      if (idUsuario) {
+        this.crudService.updatePainelADM('usuarios/admin/' + idUsuario, this.cadastroForm.value).subscribe({
           next: (value) => {
-            console.log('Cadastro realizado com sucesso', value);
+            this._snackbar.open('Edição realizada com sucesso', 'OK');
+             // Recarregar após a atualização ser concluída
           },
           error: (err) => {
-            console.log('Erro ao realizar cadastro', err)
+            console.error(err);
           }
-        })
+        });
+      } else {
+        console.error('ID do usuário não está definido.');
       }
-
+      this.router.navigateByUrl('/painel/administrador')
+      window.location.reload();
+    }
   }
+
+
+  carregarDadosUsuario() {
+    if(this.nomeRelatorio){
+
+      this.crudService.getOne('usuarios/admin', this.nomeRelatorio).subscribe({
+
+        next: (userData: any) => {
+          // Preenche o formulário com os dados do usuário obtidos
+          this.cadastroForm.patchValue(userData);
+        },
+        error: (err) => {
+          console.log(err)
+          this.router.navigateByUrl('/painel/administrador/editar')
+        }
+        // Chama o serviço para obter os dados do usuário pelo nome do relatório
+      });
+    }else {
+      console.error('ID do usuário não está definido.');
+      this.router.navigateByUrl('/painel/administrador')
+    }
+  }
+
 }

@@ -1,8 +1,10 @@
+import { SharedDataADMService } from 'src/app/core/services/shared-admin-data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Usuario } from 'src/app/core/interfaces/usuario.interface';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { FormularioService } from 'src/app/core/services/formulario.service';
+import { SharedDataperfilService } from 'src/app/core/services/shared-perfil-data.service';
 
 @Component({
   selector: 'app-perfil-create',
@@ -14,6 +16,7 @@ export class PerfilCreateComponent implements OnInit {
   title:string = 'Edite seu Perfil'
   form!: FormGroup <any> | null;
   cadastro!: any;
+  atualizarNomeDoADM!:string
   constructor(
     private formularioService: FormularioService,
     private crudService: CrudService<Usuario>,
@@ -51,7 +54,7 @@ export class PerfilCreateComponent implements OnInit {
 
     if(formCadastro?.valid) {
       console.log(formCadastro.value)
-      this.crudService.update('usuarios', formCadastro.value).subscribe({
+      this.crudService.updatePerfil('usuarios', formCadastro.value).subscribe({
         next: (value) => {
           console.log('Cadastro realizado com sucesso', value);
         },
