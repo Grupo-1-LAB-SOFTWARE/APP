@@ -10,10 +10,10 @@
     "phases": {
       "build": {
         "dependsOn": [
-          "nixpacks"
+          "npm ci"
         ],
         "cmds": [
-          "nixpacks build"
+          "npm install"
         ],
         "cacheDirectories": [
           "node_modules/.cache"
@@ -21,7 +21,7 @@
       },
       "install": {
         "dependsOn": [
-          "setup"
+          "nixpacks"
         ],
         "cmds": [
           "npm install"
