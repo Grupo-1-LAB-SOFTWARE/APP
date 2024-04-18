@@ -49,6 +49,9 @@ export class CrudService<T> {
   delete(endpoint: string, nome: string , id?: number): Observable<T> {
     return this.http.delete<T>(`${this.baseURL}/${endpoint}/${nome}/${id}`);
   }
+  deleteADM(endpoint: string, id: number): Observable<T> {
+    return this.http.delete<T>(`${this.baseURL}/${endpoint}/${id}`);
+  }
   deleteradoc(endpoint: string, nome: string): Observable<T> {
     return this.http.delete<T>(`${this.baseURL}/${endpoint}/${nome}/`);
   }

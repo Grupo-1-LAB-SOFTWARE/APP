@@ -24,6 +24,8 @@ import { TokenService } from './core/services/token.service';
 import { userEmailService } from '../../src/app/core/services/email.service'
 import { EmailActivationService } from './core/services/ativadorEmail.service';
 import { PainelAdmComponent } from './pages/painel-adm/painel-adm.component';
+import { ProfileService } from './core/services/profile.service';
+import { UserService } from './core/services/user.service';
 
 registerLocaleData(localePT);
 @NgModule({
@@ -44,7 +46,7 @@ registerLocaleData(localePT);
     MaterialModule
   ],
   bootstrap: [AppComponent,
-            TelaConfirmarComponent
+            
   ],
   providers: [
     userEmailService,
@@ -56,9 +58,10 @@ registerLocaleData(localePT);
 })
 export class AppModule {
 
-  constructor(private tokenService: TokenService) { }
+  constructor(private userService: UserService, private profileService: ProfileService) { }
   @HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event: Event) {
-    this.tokenService.excluirToken();
+    this.userService.logout();
+    this.profileService.logout();
   }
 }

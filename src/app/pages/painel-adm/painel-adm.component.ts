@@ -1,3 +1,4 @@
+import { ADMDataServiceID } from './../../core/services/shared-dataName.service copy';
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -27,13 +28,14 @@ export class PainelAdmComponent {
     ensinoData!: MatTableDataSource<ensino>;
     ensinoSize = 0;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
-
+    idUser!:any;
     constructor(
         public router: Router,
         private _snackbar: MatSnackBar,
         private sharedDataService: SharedDataADMService,
         public dialog: MatDialog,
-        private crudService: CrudService<Usuario>
+        private crudService: CrudService<Usuario>,
+        private ADMDataServiceID: ADMDataServiceID
     ){}
 
     async ngOnInit() {
@@ -84,6 +86,11 @@ export class PainelAdmComponent {
 
     async delete(radoc: Usuario) {
       this.mostrandoSpinner = true;
+      this.ADMDataServiceID.atualizaridEdicaoRelatorio(radoc.username);
+      this.ADMDataServiceID.nomeRelatorio$.subscribe(data => {
+        this.idUser = data
+      })
+
       try {
         const result = await firstValueFrom(
           this.dialog
@@ -91,7 +98,7 @@ export class PainelAdmComponent {
           .afterClosed()
         );
         if (result && radoc.username !== undefined) { // Verifique se radoc.id está definido
-          await this.crudService.delete('usuarios/admin', radoc.username).toPromise();
+          await this.crudService.deleteADM('usuarios/admin', this.idUser).toPromise();
           this._snackbar.open("Item deletado com sucesso", "Fechar", {
             duration: 5000
           });
