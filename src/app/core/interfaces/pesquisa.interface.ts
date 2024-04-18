@@ -1,81 +1,90 @@
-export interface Campus {
-    id: number;
-    nome: string;
-    cidade: string;
-    diretor: string;
-  }
+export interface projetoPesquisaProducaoIntelectual {
+  numero_doc:               number;
+  titulo:                   string;
+  funcao:                   string;
+  cadastro_proped:          string;
+  situacao_atual:           string;
+}
 
-  export interface Instituto {
-    id: number;
-    nome: string;
-    sigla: string;
-    campus: Campus;
-    diretor: string;
-  }
+export interface trabalhoCompletoPublicadoPeriodicoBoletimTecnico {
+  numero_doc:               number;
+  descricao:                string;
+}
 
-  export interface Curso {
-    id: number;
-    nome: string;
-    sigla: string;
-    campus: Campus;
-    instituto: Instituto;
-    nivel: string
-  }
+export interface livroCapituloVerbetePublicado {
+  numero_doc:               number;
+  descricao:                string;
+}
 
-  export interface atividadeLetiva {
-    id: number;
-    codigo_disciplina: string;
-    nome_disciplina: string[];
-    ano: Date;
-    semestre: number;
-    curso: Curso;
-    carga_horaria_disciplina: number;
-    docentes_envolvidos: string[];
-    carga_horaria_docentes_envolvidos: string[];
-  }
+export interface trabalhoCompletoResumoPublicadoApresentadoCongressos {
+  numero_doc:               number;
+  descricao:                string;
+}
 
-  export interface atividadePedagogicaComplementar {
-    id: number;
-    ano: Date;
-    semestre: number;
-    carga_horaria_semanal: number;
-    docentes_envolvidos: string[];
-    carga_horaria_docentes_envolvidos: string[];
-  }
+export interface outraAtividadePesquisaProducaoIntelectual {
+  numero_doc:               number;
+  descricao:                string;
+}
 
-  export interface atividadeOrientacao {
-    id: number;
-    ano: Date;
-    semestre: number;
-    carga_horaria: number;
-    tipo: string;
-  }
+export interface chSemanalAtividadesPesquisa {
+  ch_semanal_primeiro_semestre:  number;
+  ch_semanal_segundo_semestre:   number;
+}
 
-  export interface Orientando {
-    id:number,
-    ano: Date,
-    semestre: number,
-    nome: string,
-    matricula: string,
-    curso: string,
-    tipo: string,
-    atividade: atividadeOrientacao
-  }
+export interface IprojetoPesquisaProducaoIntelectual {
+  id:                       number;
+  numero_doc:               number;
+  titulo:                   string;
+  funcao:                   string;
+  cadastro_proped:          string;
+  situacao_atual:           string;
+}
 
-  export interface bancaExaminacao {
-    id: number,
-    nome_candidato: string,
-    titulo_trabalho: string,
-    ies: string,
-    tipo: string,
-    ano: number,
-    semestre: number,
-  }
+export interface ItrabalhoCompletoPublicadoPeriodicoBoletimTecnico {
+  id:                       number;
+  numero_doc:               number;
+  descricao:                string;
+}
 
-  export interface pesquisa {
-    id: number,
-    atividade_letiva: atividadeLetiva,
-    atividade_pedagogica_complementar: atividadePedagogicaComplementar,
-    orientado: Orientando,
-    banca_examinacao: bancaExaminacao
-  }
+export interface IlivroCapituloVerbetePublicado {
+  id:                       number;
+  numero_doc:               number;
+  descricao:                string;
+}
+
+export interface ItrabalhoCompletoResumoPublicadoApresentadoCongressos {
+  id:                       number;
+  numero_doc:               number;
+  descricao:                string;
+}
+
+export interface IoutraAtividadePesquisaProducaoIntelectual {
+  id:                       number;
+  numero_doc:               number;
+  descricao:                string;
+}
+
+export interface IchSemanalAtividadesPesquisa {
+  id:                            number;
+  ch_semanal_primeiro_semestre:  number;
+  ch_semanal_segundo_semestre:   number;
+}
+
+export interface pesquisa {
+  id: number,
+
+  nome: string,
+
+  projetos_pesquisa_producao_intelectual: projetoPesquisaProducaoIntelectual,
+
+  trabalho_completo_publicado_periodico_boletim_tecnico: trabalhoCompletoPublicadoPeriodicoBoletimTecnico,
+
+  livro_capitulo_verbete_publicado: livroCapituloVerbetePublicado,
+
+  trabalho_completo_resumo_publicado_apresentado_congressos: trabalhoCompletoResumoPublicadoApresentadoCongressos,
+
+  outra_atividade_pesquisa_producao_intelectual: outraAtividadePesquisaProducaoIntelectual,
+
+  ch_semanal_atividades_pesquisa: chSemanalAtividadesPesquisa,
+}
+
