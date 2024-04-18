@@ -1,6 +1,6 @@
 {
     "providers": [],
-    "buildImage": "ghcr.io/railwayapp/nixpacks:ubuntu-1711411379",
+    "buildImage": "ghcr.io/railwayapp/nixpacks:latest",
     "variables": {
       "CI": "true",
       "NIXPACKS_METADATA": "node",
@@ -10,10 +10,10 @@
     "phases": {
       "build": {
         "dependsOn": [
-          "install"
+          "npm ci"
         ],
         "cmds": [
-          "npm run build"
+          "nixpacks build"
         ],
         "cacheDirectories": [
           "node_modules/.cache"
@@ -49,6 +49,6 @@
       }
     },
     "start": {
-      "cmd": "npm run start"
+      "cmd": "npm start"
     }
   }
