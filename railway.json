@@ -1,5 +1,5 @@
 {
-    "providers": [],
+    "providers": ["node"],
     "buildImage": "ghcr.io/railwayapp/nixpacks:latest",
     "variables": {
       "CI": "true",
@@ -10,7 +10,7 @@
     "phases": {
       "build": {
         "dependsOn": [
-          "npm ci"
+          "nixpacks"
         ],
         "cmds": [
           "nixpacks build"
