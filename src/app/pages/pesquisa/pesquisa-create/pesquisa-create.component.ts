@@ -11,7 +11,7 @@ import { ProjetoPesquisaProducaoIntelectualDialogComponent } from '../../compone
 import { TrabalhoCompletoPublicadoDialogComponent } from '../../components/dialogs/pesquisa/trabalho-publicado-dialog/trabalho-publicado-dialog';
 import { LivroCapituloVerbetePublicadoDialogComponent } from '../../components/dialogs/pesquisa/livro-capitulo-verbete-publicado-dialog/livro-capitulo-verbete-publicado-dialog';
 import { TrabalhoCompletoResumoPublicadoDialogComponent } from '../../components/dialogs/pesquisa/trabalho-resumo-dialog/trabalho-resumo-dialog';
-import { OutraAtividadePesquisaDialogComponent } from '../../components/dialogs/pesquisa/outra-atividade-pesquisa-dialog/outra-atividade-pesquisa-dialog.html';
+import { OutraAtividadePesquisaDialogComponent } from '../../components/dialogs/pesquisa/outra-atividade-pesquisa-dialog/outra-atividade-pesquisa-dialog';
 import { CHSemanalAtividadesPesquisaDialogComponent } from '../../components/dialogs/pesquisa/ch-semanal-atividades-pesquisa-dialog/ch-semanal-atividades-pesquisa-dialog';
 
 @Component({
@@ -388,12 +388,12 @@ export class PesquisaCreateComponent implements OnInit {
     try {
       if (!this.isCreate) {
         await this.chSemanalAtividadesPesquisaService.createEnsino('ch_semanal_atividades_pesquisa', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+        this._snackbar.open('CH semanal de pesquisa criada com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
         await this.chSemanalAtividadesPesquisaService.update('ch_semanal_atividades_pesquisa', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+        this._snackbar.open('CH semanal de pesquisa atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }

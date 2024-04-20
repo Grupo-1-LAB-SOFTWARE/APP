@@ -1,4 +1,3 @@
-import { DialogData } from 'src/app/pages/radoc/radoc.component';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { firstValueFrom } from 'rxjs';
@@ -7,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import {  MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CrudService } from 'src/app/core/services/crud.service';
-import { SharedDataService } from 'src/app/core/services/shared-dataName.service';
+import { SharedDataServiceName } from 'src/app/core/services/shared-dataName.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { IchSemanalAtividadesPesquisa } from 'src/app/core/interfaces/pesquisa.interface';
@@ -38,7 +37,7 @@ export class CHSemanalAtividadesPesquisaDialogComponent implements OnInit {
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
     private crudService: CrudService<IchSemanalAtividadesPesquisa>,
-    private sharedDataService: SharedDataService,
+    private sharedDataService: SharedDataServiceName,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ConfirmDialogComponent>
   ) {
