@@ -489,7 +489,7 @@ export class EnsinoCreateComponent implements OnInit {
       // Evitando o uso de location.reload() para atualizar a interface do usuário
     } catch (error) {
       console.error(error);
-      this._snackbar.open('Erro ao salvar Relatório de ensino.', 'OK', {
+      this._snackbar.open('Erro ao salvar relatório de ensino.', 'OK', {
         duration: 5000
       });
     }
@@ -528,12 +528,12 @@ export class EnsinoCreateComponent implements OnInit {
     try {
       if (this.AtividadeLetivaId == 0) { // Verifique se é uma criação
         await this.atividadeLetivaService.createEnsino('atividade_letiva', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+        this._snackbar.open('Atividade letiva criada com sucesso.', 'OK', {
           duration: 5000
         });
       } else { // Se não for uma criação, é uma atualização
         await this.atividadeLetivaService.updateEnsino('atividade_letiva', formValue, this.nomeRelatorio, this.AtividadeLetivaId).toPromise();
-        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+        this._snackbar.open('Atividade letiva atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
@@ -560,12 +560,12 @@ export class EnsinoCreateComponent implements OnInit {
     try {
       if (this.AtividadePedagogicaId == 0) {
         await this.atividadePedagogicaService.createEnsino('atividade_pedagogica_complementar', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+        this._snackbar.open('Atividade pedagógica criada com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
         await this.atividadePedagogicaService.updateEnsino('atividade_pedagogica_complementar', formValue, this.nomeRelatorio, this.AtividadePedagogicaId).toPromise();
-        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+        this._snackbar.open('Atividade pedagógica atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
@@ -592,12 +592,12 @@ export class EnsinoCreateComponent implements OnInit {
     try {
       if (this.descricaoId == 0) {
         await this.descricaoOrientacaoService.createEnsino('descricao_orientacao_coorientacao_academica', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+        this._snackbar.open('Descrição criada com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
         await this.descricaoOrientacaoService.updateEnsino('descricao_orientacao_coorientacao_academica', formValue, this.nomeRelatorio, this.descricaoId).toPromise();
-        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+        this._snackbar.open('Descriação atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
@@ -624,12 +624,12 @@ export class EnsinoCreateComponent implements OnInit {
     try {
       if (this.AtividadeOrientacaoId == 0) {
         await this.atividadeOrientacaoService.createEnsino('atividade_orientacao_supervisao_preceptoria_tutoria', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+        this._snackbar.open('Atividade de orientação/supervisão criada com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
         await this.atividadeOrientacaoService.updateEnsino('atividade_orientacao_supervisao_preceptoria_tutoria', formValue, this.nomeRelatorio, this.AtividadeOrientacaoId).toPromise();
-        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+        this._snackbar.open('Atividade de orientação/supervisão atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
@@ -656,12 +656,12 @@ export class EnsinoCreateComponent implements OnInit {
     try {
       if (this.supervisaoId == 0) {
         await this.supervisaoAcademicaService.createEnsino('supervisao_academica', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+        this._snackbar.open('Supervisão acadêmica criada com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
         await this.supervisaoAcademicaService.updateEnsino('supervisao_academica', formValue, this.nomeRelatorio, this.supervisaoId).toPromise();
-        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+        this._snackbar.open('Supervisão acadêmica atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
@@ -688,12 +688,12 @@ export class EnsinoCreateComponent implements OnInit {
     try {
       if (this.preceptoriaId == 0) {
         await this.preceptoriaTutoriaService.createEnsino('preceptoria_tutoria_residencia', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+        this._snackbar.open('Preceptoria e/ou tutoria de residência criada com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
         await this.preceptoriaTutoriaService.updateEnsino('preceptoria_tutoria_residencia', formValue, this.nomeRelatorio, this.preceptoriaId).toPromise();
-        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+        this._snackbar.open('Preceptoria e/ou tutoria de residência atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
@@ -720,12 +720,12 @@ export class EnsinoCreateComponent implements OnInit {
     try {
       if (this.bancaId == 0) {
         await this.bancaExaminadoraService.createEnsino('banca_examinadora', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+        this._snackbar.open('Banca Examinadora criada com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
         await this.bancaExaminadoraService.updateEnsino('banca_examinadora', formValue,this.nomeRelatorio, this.bancaId).toPromise();
-        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+        this._snackbar.open('Banca Examinadora atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
@@ -752,13 +752,13 @@ export class EnsinoCreateComponent implements OnInit {
     try {
       if (this.AtividadeDiscenteId == 0) {
         await this.avaliacaoDiscenteService.createEnsino('avaliacao_discente', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+        this._snackbar.open('Avaliação de Discente criada com sucesso.', 'OK', {
           duration: 5000
         });
         this.formAvaliacao_discente.reset();
       } else {
         await this.avaliacaoDiscenteService.updateEnsino('avaliacao_discente', formValue,this.nomeRelatorio, this.AtividadeDiscenteId).toPromise();
-        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+        this._snackbar.open('Avaliação de Discente atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
