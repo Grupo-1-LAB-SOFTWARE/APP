@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Todas as Atividades Letivas</h2>
+<h2 mat-dialog-title>Supervisões Acadêmicas</h2>
 <mat-dialog-content>
 
     <div class="tables mat-elevation-z8" matSort>
@@ -18,7 +18,7 @@
 
         <!-- Sector Column -->
         <ng-container matColumnDef="sector">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Setor"> Nome e a matricula do discente </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Setor"> Nome e/ou matrícula do discente </th>
           <td mat-cell *matCellDef="let element"> {{element.nome_e_ou_matricula_discente}} </td>
         </ng-container>
 
