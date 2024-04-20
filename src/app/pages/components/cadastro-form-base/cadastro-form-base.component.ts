@@ -29,7 +29,7 @@ export class CadastroFormBaseComponent implements OnInit{
       classe: ['', Validators.required], // Vinculo
       regime_de_trabalho: ['', Validators.required], // Regime de Trabalho
       titulacao: ['', Validators.required],
-      instituto: ['', Validators.required], // Titulacao Academica
+      instituto: [''], // Titulacao Academica
       email: ['', [Validators.required, Validators.email]], // Email
       password: ['', [Validators.required, Validators.minLength(3)]], // Senha
       confirmar_email: ['', [Validators.required, Validators.email, FormValidations.equalTo('email')]],

@@ -1,3 +1,4 @@
 <app-header [isLogged]="isLogged"></app-header>
+<mat-progress-spinner color="Warn" *ngIf="mostrandoSpinner" mode="indeterminate" diameter="100"></mat-progress-spinner>
 <app-cadastro-form-base  [perfilComponent]="perfilComponent"
   (acaoClick)="cadastrar()" class="cadastro"></app-cadastro-form-base>

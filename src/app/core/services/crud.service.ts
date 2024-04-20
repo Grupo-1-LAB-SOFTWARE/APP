@@ -26,6 +26,9 @@ export class CrudService<T> {
   getOne(endpoint: string, id: number | string): Observable<T> {
     return this.http.get<T>(`${this.baseURL}/${endpoint}/${id}/`);
   }
+  getOneEnsino(endpoint: string, nome: string ,id: number | string): Observable<T> {
+    return this.http.get<T>(`${this.baseURL}/${endpoint}/${nome}/${id}/`);
+  }
 
   create(endpoint: string, data: T): Observable<T> {
     return this.http.post<T>(`${this.baseURL}/${endpoint}/`, data);
@@ -37,9 +40,24 @@ export class CrudService<T> {
   update(endpoint: string, data: T, nome?: string): Observable<T> {
     return this.http.put<T>(`${this.baseURL}/${endpoint}/${nome}/`, data);
   }
+  updateEnsino(endpoint: string, data: T, nome: string, id: number): Observable<T> {
+    return this.http.put<T>(`${this.baseURL}/${endpoint}/${nome}/${id}/`, data);
+  }
+  updatePerfil(endpoint: string, data: T): Observable<T> {
+    return this.http.put<T>(`${this.baseURL}/${endpoint}/`, data);
+  }
+  updatePainelADM(endpoint: string, data: T ): Observable<T> {
+    return this.http.put<T>(`${this.baseURL}/${endpoint}/`, data);
+  }
 
   delete(endpoint: string, nome: string , id?: number): Observable<T> {
     return this.http.delete<T>(`${this.baseURL}/${endpoint}/${nome}/${id}`);
+  }
+  deleteADM(endpoint: string, id: number): Observable<T> {
+    return this.http.delete<T>(`${this.baseURL}/${endpoint}/${id}`);
+  }
+  deleteradoc(endpoint: string, nome: string): Observable<T> {
+    return this.http.delete<T>(`${this.baseURL}/${endpoint}/${nome}/`);
   }
   download(endpoint: string,fileName: string | number) {
     return this.http.get(`${this.baseURL}/${endpoint}/${fileName}/`, { responseType: 'blob' });

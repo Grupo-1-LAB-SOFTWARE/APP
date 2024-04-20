@@ -93,7 +93,7 @@ mat-card{
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #115B2F !important;
+  background-color:  rgb(25,122,64) !important;
   color: #ffffff !important;
 }
 mat-form-field{
@@ -103,4 +103,21 @@ mat-form-field{
 
 mat-label, span {
   color: #fff !important;
+}
+html{
+  --mdc-outlined-text-field-input-text-color: #ffffff !important;
+  --mdc-outlined-text-field-input-text-placeholder-color: #ffffff !important;
+}
+input,select,mat-form-field,mat-select,mat-option{
+  color: #ffffff !important;
+}
+button{
+  width: 25vw;
+  background-color: #ffffff;
+  color: #000000 !important;
+}
+button:disabled{
+  background-color: #000000;
+  color: #ffffff !important;
+  border: none;
 }

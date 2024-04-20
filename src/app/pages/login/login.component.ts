@@ -20,12 +20,12 @@ export class LoginComponent implements OnInit {
   form!: FormGroup;
   isLogged: boolean = false;
   ativacaoSucesso: boolean = false;
-  floatLabelControl = 'always' as FloatLabelType;
+  floatLabelControl = 'auto' as FloatLabelType;
   initialForm = {
     login: ['', [Validators.required]],
     password: ['', [Validators.required,Validators.minLength(3)]],
   }
-
+  hide = true;
   constructor(
     private formBuilder: FormBuilder,
     private _snackbar: MatSnackBar,

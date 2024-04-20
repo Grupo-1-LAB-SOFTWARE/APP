@@ -4,11 +4,6 @@
       <mat-card-title>
        {{title}}
       </mat-card-title>
-      <section>
-        <div class="acoesPerfil" *ngIf="perfilComponent">
-          <h2>Dados pessoais</h2>
-        </div>
-      </section>
       <mat-card-content>
         <div class="grid-container">
           <div class="grid-item">
@@ -41,8 +36,6 @@
               </mat-select>
               <mat-error *ngIf="cadastroForm.get('classe')?.errors">Classe é obrigatório</mat-error>
             </mat-form-field>
-          </div>
-          <div class="grid-item">
             <mat-form-field appearance="outline">
               <mat-label>Selecione seu regime de trabalho</mat-label>
               <mat-select formControlName="regime_de_trabalho">
@@ -52,6 +45,8 @@
               </mat-select>
               <mat-error *ngIf="cadastroForm.get('regime_de_trabalho')?.errors">Regime de Trabalho é obrigatório</mat-error>
             </mat-form-field>
+          </div>
+          <div class="grid-item">
             <mat-form-field appearance="outline">
               <mat-label>Selecione sua Titulação</mat-label>
               <mat-select formControlName="titulacao">
@@ -86,27 +81,13 @@
               </mat-select>
               <mat-error *ngIf="cadastroForm.get('campus')?.errors">Campus é obrigatório</mat-error>
             </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>E-mail</mat-label>
+              <input matInput formControlName="email" type="email" placeholder="Digite seu e-mail">
+              <mat-error *ngIf="cadastroForm.get('email')?.errors?.['required']">E-mail é obrigatório</mat-error>
+              <mat-error *ngIf="cadastroForm.get('email')?.errors?.['email']">E-mail inválido</mat-error>
+            </mat-form-field>
           </div>
-        </div>
-      </mat-card-content>
-      <mat-divider  *ngIf="perfilComponent"></mat-divider>
-      <div class="acessoPerfil"  *ngIf="perfilComponent">
-        <h2>Dados de acesso</h2>
-      </div>
-      <mat-card-content>
-        <div class="grid-container">
-          <mat-form-field appearance="outline">
-            <mat-label>E-mail</mat-label>
-            <input matInput formControlName="email" type="email" placeholder="Digite seu e-mail">
-            <mat-error *ngIf="cadastroForm.get('email')?.errors?.['required']">E-mail é obrigatório</mat-error>
-            <mat-error *ngIf="cadastroForm.get('email')?.errors?.['email']">E-mail inválido</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Senha</mat-label>
-            <input matInput formControlName="password" type="password" placeholder="Digite sua Senha">
-            <mat-error *ngIf="cadastroForm.get('password')?.errors?.['required']">Senha é obrigatória</mat-error>
-            <mat-error *ngIf="cadastroForm.get('password')?.errors?.['minlength']">Senha deve ter pelo menos 3 caracteres</mat-error>
-          </mat-form-field>
         </div>
       </mat-card-content>
 

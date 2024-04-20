@@ -1,30 +1,30 @@
-<app-container >
-  <div class="login">
-    <h1 class="title"><strong>Bem-vindo(a) ao SISRADOC - UFRA!</strong></h1>
-    <mat-card class="login-container">
-      <h1>Faça Seu Login</h1>
-      <form [formGroup]="form">
-        <mat-form-field [floatLabel]="this.floatLabelControl">
-          <mat-label>Nome de usuário ou e-mail</mat-label>
-          <input matInput type="text" formControlName="login" >
-        </mat-form-field>
-        <mat-form-field [floatLabel]="this.floatLabelControl">
-          <mat-label>Senha</mat-label>
-          <input matInput type="password" formControlName="password" >
-        </mat-form-field>
-        <div >
-          <a href="#" class="d-flex justify-content-end "><h4>Esqueci a senha?</h4></a><br>
-        </div>
-        <div *ngIf="ativacaoSucesso">
-          <p>A sua conta foi ativada com sucesso! <br/>Você já pode fazer login.</p>
-        </div>
 
-          <button mat-fab extended [disabled]="form.invalid" style="border: 1px solid #115B2F;" type="submit" class="btn-entrar" (click)="login()">Entrar</button>
+<div class="login">
+  <img class="img-radoc" src="../../../assets/034d5c35-f1fb-4c38-adcf-aed070a71c18.png" alt="Bem-vindo(a) ao SISRADOC - UFRA!"/>
+  <mat-card class="login-container">
+    <h1>Faça Seu Login</h1>
+    <form [formGroup]="form">
+      <mat-form-field appearance="outline" [floatLabel]="this.floatLabelControl">
+        <mat-label>Nome de usuário ou e-mail</mat-label>
+        <input matInput type="text" formControlName="login" >
+      </mat-form-field>
+      <mat-form-field appearance="outline" [floatLabel]="this.floatLabelControl">
+        <mat-label>Senha</mat-label>
+        <input matInput formControlName="password"  [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <div *ngIf="ativacaoSucesso">
+        <p>A sua conta foi ativada com sucesso! <br/>Você já pode fazer login.</p>
+      </div>
 
-        </form>
-        <div >
-          <a><h2>Ainda não tem uma conta?<a [routerLink]="['/cadastro']">Cadastre-se.</a></h2></a>
-        </div>
-    </mat-card>
-  </div>
-</app-container>
+        <button mat-fab extended [disabled]="form.invalid" type="submit" class="btn-entrar" (click)="login()"><span class="spans">Entrar</span></button>
+
+      </form>
+      <div >
+        <a><h2>Ainda não tem uma conta?<a [routerLink]="['/cadastro']">Cadastre-se.</a></h2></a>
+      </div>
+  </mat-card>
+</div>
+

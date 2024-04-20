@@ -7,9 +7,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { CrudService } from 'src/app/core/services/crud.service';
-import { SharedDataService } from 'src/app/core/services/shared-dataName.service';
+import { SharedDataServiceName} from 'src/app/core/services/shared-dataName.service';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { IbancaExaminadora } from 'src/app/core/interfaces/ensino.interface';
+import { bancaServiceName } from './bancaName.service';
 @Component({
   selector: 'app-banca-examinadora-dialog',
   templateUrl: './banca-examinadora-dialog.html',
@@ -35,7 +36,7 @@ export class BancaExaminadoraDialogComponent  implements OnInit {
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
     private crudService: CrudService<IbancaExaminadora>,
-    private sharedDataService: SharedDataService,
+    private sharedDataService: bancaServiceName,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
   }

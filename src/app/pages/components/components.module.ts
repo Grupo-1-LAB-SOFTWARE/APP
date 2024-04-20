@@ -44,6 +44,7 @@ import { AvaliacaoDiscenteDialogComponent } from './dialogs/ensino/avaliacao-dis
     MaterialModule,
     SharedModule,
 
+
   ],
   exports: [
     HeaderComponent,
@@ -59,7 +60,8 @@ import { AvaliacaoDiscenteDialogComponent } from './dialogs/ensino/avaliacao-dis
     PreceptoriaTutoriaDialogComponent,
     BancaExaminadoraDialogComponent,
     AvaliacaoDiscenteDialogComponent,
-    ContainerComponent
+    ContainerComponent,
+  
   ]
 })
 export class ComponentsModule { }

@@ -1,4 +1,4 @@
-import { SharedDataService } from './../../core/services/shared-data.service';
+import { ADMDataServiceID } from './../../core/services/shared-dataName.service copy';
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -6,11 +6,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ensino } from 'src/app/core/interfaces/ensino.interface';
 import { ConfirmDialogComponent } from '../components/dialogs/confirm-dialog/confirm-dialog.component';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, window } from 'rxjs';
 import { DialogData } from '../radoc/radoc.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { Usuario } from 'src/app/core/interfaces/usuario.interface';
+import { SharedDataADMService } from 'src/app/core/services/shared-admin-data.service';
 
 @Component({
   selector: 'app-painel-adm',
@@ -20,20 +21,21 @@ import { Usuario } from 'src/app/core/interfaces/usuario.interface';
 export class PainelAdmComponent {
     mostrandoSpinner: boolean = false;
     displayedColumns: string[] = ['tagName', 'sector', 'createdAt', 'edit', 'delete'];
-    ensino: ensino | undefined;
+    ensino: Usuario | undefined;
     ensinoForm = false;
     isCreate = false;
 
     ensinoData!: MatTableDataSource<ensino>;
     ensinoSize = 0;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
-
+    idUser!:any;
     constructor(
         public router: Router,
         private _snackbar: MatSnackBar,
-        private sharedDataService: SharedDataService,
+        private sharedDataService: SharedDataADMService,
         public dialog: MatDialog,
-        private crudService: CrudService<Usuario>
+        private crudService: CrudService<Usuario>,
+        private ADMDataServiceID: ADMDataServiceID
     ){}
 
     async ngOnInit() {
@@ -54,11 +56,6 @@ export class PainelAdmComponent {
       }
     }
 
-    chamarComponentePerfilCreate() {
-      this.router.navigateByUrl('/painel/administrador', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['/painel/administrador/editar']);
-      });
-    }
 
     viewList() {
       this.ensinoForm = false;
@@ -71,29 +68,37 @@ export class PainelAdmComponent {
       this.isCreate = true;
     }
 
-    edit(ensino: ensino) {
+    edit(ensino: Usuario) {
       this.mostrandoSpinner = true;
       this.ensinoForm = true;
       this.isCreate = false;
       this.ensino = ensino;
-      if (ensino.nome) {
-        this.sharedDataService.atualizarNomeRelatorio(ensino.nome);
-      } else {
+      if (ensino.username) {
+        this.sharedDataService.atualizarNomeDoADM(ensino.username);
+        console.log('ensino name'+ensino.username)
+        this.router.navigateByUrl('/painel/administrador/editar')
+      }
+      else {
         console.error("Nome do relatório não está definido.");
       }
       this.mostrandoSpinner = false;
     }
 
-    async delete(radoc: DialogData) {
+    async delete(radoc: Usuario) {
       this.mostrandoSpinner = true;
+      this.ADMDataServiceID.atualizaridEdicaoRelatorio(radoc.username);
+      this.ADMDataServiceID.nomeRelatorio$.subscribe(data => {
+        this.idUser = data
+      })
+
       try {
         const result = await firstValueFrom(
           this.dialog
           .open(ConfirmDialogComponent, { data: "Você quer deletar esse item?" })
           .afterClosed()
         );
-        if (result && radoc.nome !== undefined) { // Verifique se radoc.id está definido
-          await this.crudService.delete('relatorio_docente', radoc.nome).toPromise();
+        if (result && radoc.username !== undefined) { // Verifique se radoc.id está definido
+          await this.crudService.deleteADM('usuarios/admin', this.idUser).toPromise();
           this._snackbar.open("Item deletado com sucesso", "Fechar", {
             duration: 5000
           });

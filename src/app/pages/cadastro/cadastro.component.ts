@@ -14,7 +14,7 @@ import { userEmailService } from 'src/app/core/services/email.service'; // Impor
 export class CadastroComponent {
   perfilComponent: boolean = false;
   isLogged: boolean = false;
-
+  mostrandoSpinner: boolean = false;
   constructor(
     private formularioService: FormularioService,
     private crudService: CrudService<Usuario>,
@@ -24,6 +24,7 @@ export class CadastroComponent {
   ) {}
 
   cadastrar() {
+    this.mostrandoSpinner = true;
     const formCadastro = this.formularioService.getCadastro();
 
     if (!formCadastro?.valid) {
@@ -36,7 +37,6 @@ export class CadastroComponent {
     if (formCadastro?.value) {
       const email = formCadastro.value.email; // Obtenha o valor do email do formulário
       this.EmailService.setuserEmail(email); // Armazene o email no serviço de email
-
       console.log(formCadastro?.value);
       formCadastro?.valid ?
         this.crudService.create('usuarios/criar', formCadastro?.value).subscribe({
@@ -57,6 +57,7 @@ export class CadastroComponent {
         this._snackbar.open('Preencha todos os campos.', 'OK', {
           duration: 5000
         });
+      }
+      this.mostrandoSpinner = false;
     }
-  }
 }

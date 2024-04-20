@@ -4,13 +4,13 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class SharedDataServiceName {
-  private nomeRelatorioSubject = new BehaviorSubject<number>(0);
+export class ADMDataServiceID {
+  private nomeRelatorioSubject = new BehaviorSubject<string>('');
   nomeRelatorio$ = this.nomeRelatorioSubject.asObservable();
 
   constructor() { }
 
-  atualizaridEdicaoRelatorio(id: number) {
+  atualizaridEdicaoRelatorio(id: string) {
     this.nomeRelatorioSubject.next(id);
   }
 }

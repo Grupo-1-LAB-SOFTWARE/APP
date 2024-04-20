@@ -13,4 +13,10 @@ mat-card{
 mat-form-field{
   width: 25vw;
 }
-
+.add-button{
+  height: 2rem;
+  border-radius: 0.3rem;
+}
+html{
+  --mdc-filled-text-field-error-label-text-color: #000 !important;
+}

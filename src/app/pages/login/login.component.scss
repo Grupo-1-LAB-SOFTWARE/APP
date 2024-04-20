@@ -6,16 +6,18 @@
   font-size: xx-large;
 }
 h1{
-  font-weight:480;
-  font-size: 25px;
-
+  font-size: 30px;
+  font-weight: bold;
 }
 .login{
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 8rem;
+  background: rgb(25,122,64);
+  background: radial-gradient(circle, rgba(25,122,64,1) 0%, rgba(17,91,47,1) 100%);
+  height: 100vh;
+  width: 100vw;
+  padding-top: 4rem;
 }
 .login-container{
   display: flex;
@@ -36,7 +38,8 @@ form{
 }
 
 a {
-  color: #000;
+  color: #115B2F;
+  text-decoration: none;
 }
 
 .matContainer{
@@ -62,9 +65,9 @@ app-container{
 
 mat-form-field{
   width: 20vw;
+  border-radius: 1px;
   color: #000 !important;
   background-color: #FFFF !important;
-  border-radius: 0.5rem solid #000 !important;
 }
 .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
   color: #000 !important;
@@ -98,4 +101,21 @@ mat-card{
 }
 .mat-form-field.mat-focused .mat-input-element {
   color: #115B2F !important;
+}
+.img-radoc {
+  height: 140px;
+  margin-bottom: 1rem;
+}
+.btn-entrar{
+  width: 20vw;
+  border: 1px solid #000000;
+  border-radius: 0.5rem;
+  background-color: #115B2F;
+}
+button:disabled{
+  background-color: #000000;
+}
+
+mat-mdc-button-touch-target{
+  background-color: transparent !important;
 }
