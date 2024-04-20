@@ -4,15 +4,15 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse
+  HttpInterceptor
 } from '@angular/common/http';
-import { catchError, Observable, throwError, window } from 'rxjs';
-import { RoleService } from '../services/role.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AutenticacaoInterceptor implements HttpInterceptor {
-  constructor(private tokenService: TokenService, private roleService: RoleService) {}
+
+  constructor(private tokenService: TokenService) {}
+
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if(this.tokenService.possuiToken()) {
       const token = this.tokenService.retornarToken();
@@ -23,17 +23,6 @@ export class AutenticacaoInterceptor implements HttpInterceptor {
       });
     }
 
-    return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
-          // Chama a função de logout do serviço de token
-          this.tokenService.excluirToken();
-          this.roleService.excluirRole();
-
-          // Você pode redirecionar para a página de login ou mostrar uma mensagem de erro aqui
-        }
-        return throwError(error);
-      })
-    );
+    return next.handle(request);
   }
 }
