@@ -5,4 +5,3 @@ const API_PROD = 'https://api-sisradoc.up.railway.app';
 
 //export const API_URL = `${API_HOST}:${API_PORT}`;
 export const API_URL = `${API_PROD}`;
-export const ANGULAR_OUTPUT_PATH = `/app/dist/lab-app`
