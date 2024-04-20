@@ -40,7 +40,7 @@ export class EnsinoCreateComponent implements OnInit {
 
   @Input() ensinoSize: number | undefined;
 
-  floatLabelControl = 'always' as FloatLabelType;
+  floatLabelControl = 'auto' as FloatLabelType;
   //forms
   formAtividadeLetiva!: any;
   formAtividadePedagogicaComplementar!: any;
@@ -96,42 +96,42 @@ export class EnsinoCreateComponent implements OnInit {
     this.sharedDataServiceName.nomeRelatorio$.subscribe(name => {
       this.AtividadeLetivaId = name;
       this.carregarDadosDoBackendAtividadeLetiva()
-      this.dialog.closeAll()
+
     })
     this.avPedagogicaServiceName.avPedagogica$.subscribe(id => {
       this.AtividadePedagogicaId = id;
       this.carregarDadosDoBackendAtividadePedagogica()
-      this.dialog.closeAll()
+
     })
     this.avOrientacaoServiceName.avOrientacao$.subscribe(id => {
       this.AtividadeOrientacaoId = id;
       this.carregarDadosDoBackendAtividadeOrientacao()
-      this.dialog.closeAll()
+
     })
     this.avDiscenteServiceName.avDiscente$.subscribe(id => {
       this.AtividadeDiscenteId = id;
       this.carregarDadosDoBackendAvaliacaoDiscente()
-      this.dialog.closeAll()
+
     })
     this.bancaServiceName.banca$.subscribe(id => {
       this.bancaId = id;
       this.carregarDadosDoBackendBancaExaminadora()
-      this.dialog.closeAll()
+
     })
     this.SupervisaoServiceName.Supervisao$.subscribe(id => {
       this.supervisaoId = id;
       this.carregarDadosDoBackendSupervisaoAcademica()
-      this.dialog.closeAll()
+
     })
     this.PreceptoriaServiceName.preceptoria$.subscribe(id => {
       this.preceptoriaId = id;
       this.carregarDadosDoBackendPreceptoriaPreceptoria()
-      this.dialog.closeAll()
+
     })
     this.descricaoServiceName.descricao$.subscribe(id => {
       this.descricaoId = id;
       this.carregarDadosDoBackendDescricaoOrientacao()
-      this.dialog.closeAll()
+
     })
     this.sharedDataService.nomeRelatorio$.subscribe(nome => {
       this.nomeRelatorio = nome;
