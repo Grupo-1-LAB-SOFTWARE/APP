@@ -12,14 +12,14 @@
 
       <!-- Tag Name Column -->
       <ng-container matColumnDef="tagName">
-        <th mat-header-cell *matHeaderCellDef> Num Doc </th>
+        <th mat-header-cell *matHeaderCellDef> Número do Documento </th>
         <td mat-cell *matCellDef="let element"> {{element.numero_doc}} </td>
       </ng-container>
 
       <!-- Sector Column -->
       <ng-container matColumnDef="sector">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Setor"> Ano do Relátorio </th>
-        <td mat-cell *matCellDef="let element"> {{element.ano_e_semestre}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Setor"> Descrição </th>
+        <td mat-cell *matCellDef="let element"> {{element.descricao}} </td>
       </ng-container>
 
       <!-- Created Column -->
