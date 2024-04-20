@@ -5,7 +5,7 @@ import { bancaServiceName } from './../../components/dialogs/ensino/banca-examin
 import { avDiscenteServiceName } from './../../components/dialogs/ensino/avaliacao-discente-dialog/avDiscenteName.service';
 import { avPedagogicaServiceName } from './../../components/dialogs/ensino/atividade-pedagogica-dialog/avPedagogicaName.service';
 import { DescricaoOrientacaoDialogComponent } from './../../components/dialogs/ensino/descricao-orientacao-dialog/descricao-orientacao-dialog';
-import { atividadePedagogicaComplementar } from './../../../core/interfaces/pesquisa.interface';
+import { atividadePedagogicaComplementar } from './../../../core/interfaces/ensino.interface';
 import { CrudService } from './../../../core/services/crud.service';
 import { DialogData } from './../../radoc/radoc.component';
 import { ensino, IatividadeLetiva, IatividadeOrientacao, IatividadePedagogica, IavaliacaoDiscente, IbancaExaminadora, IdescricaoOrientacao, IpreceptoriaTutoria, IsupervisaoAcademica } from './../../../core/interfaces/ensino.interface';
@@ -356,8 +356,8 @@ export class EnsinoCreateComponent implements OnInit {
     const dialogRef = this.dialog.open(AtividadeLetivaDialogComponent, {
       width: '800px',
       data: {
-        nomeRelatorio: this.nomeRelatorio
 
+        nomeRelatorio: this.nomeRelatorio
       }
     });
 

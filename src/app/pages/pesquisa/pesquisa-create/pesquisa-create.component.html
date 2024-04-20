@@ -1,115 +1,77 @@
-<form class="form" [formGroup]="formAtividadeLetiva">
+<form class="form" [formGroup]="formProjetoPesquisaProducaoIntelectual">
   <!-- step 1 -->
 
   <ng-container *ngIf="step == 1">
     <div>
       <div style="display: flex; justify-content: center; gap: 1rem;">
-        <h2>1 - Atividade Letiva</h2>
-        <button  mat-mini-fab (click)="openDialogAtividadeLetiva()"><mat-icon style="color: white;" fontIcon="post_add"></mat-icon></button>
+        <h2>1 - Projeto de Pesquisa ou de Produção Intelectual</h2>
+        <button  mat-mini-fab (click)="openDialogProjetoDePesquisaOuProducaoIntelectual()"><mat-icon style="color: white;" fontIcon="post_add"></mat-icon></button>
       </div>
       <div class="d-flex justify-content-center align-items-start gap-5">
         <div class="stepColunm">
-          <mat-form-field>
-            <mat-label>Semestre da Disciplina</mat-label>
-            <mat-select formControlName="semestre">
-              <mat-option value="1">Primeiro semestre</mat-option>
-              <mat-option value="2">Segundo semestre</mat-option>
-            </mat-select>
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Número do documento</mat-label>
+            <input matInput formControlName="numero_doc" >
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Código da Disciplina</mat-label>
+            <mat-label>Título</mat-label>
             <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-              cdkAutosizeMaxRows="3" formControlName="codigo_disciplina"></textarea>
+              cdkAutosizeMaxRows="3" formControlName="titulo"></textarea>
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nome da Disciplina</mat-label>
-            <input matInput formControlName="nome_disciplina" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Ano e Semestre da Disciplina</mat-label>
-            <input matInput formControlName="ano_e_semestre" >
-          </mat-form-field>
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nome do Curso</mat-label>
-            <input matInput formControlName="curso" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nível</mat-label>
-            <mat-select formControlName="nivel">
-              <mat-option value="GRA">GRA</mat-option>
-              <mat-option value="POS">POS</mat-option>
-              <mat-option value="MES">MES</mat-option>
-              <mat-option value="DOC">DOC</mat-option>
+            <mat-label>Função</mat-label>
+            <mat-select formControlName="funcao">
+              <mat-option value="Coordenador">Coordenador</mat-option>
+              <mat-option value="Colaborador">Colaborador</mat-option>
             </mat-select>
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Numero de turmas teorico</mat-label>
-            <input matInput formControlName="numero_turmas_teorico" >
-          </mat-form-field>
-
-        </div>
-        <div class="stepColunm">
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Numero de turmas pratico</mat-label>
-            <input matInput formControlName="numero_turmas_pratico" >
+            <mat-label>Cadastro PROPED</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="3" formControlName="cadastro_proped"></textarea>
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria das Turmas Teóricas</mat-label>
-            <input matInput formControlName="ch_turmas_teorico" >
-          </mat-form-field>
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria das Turmas Práticas</mat-label>
-            <input matInput formControlName="ch_turmas_pratico" >
-          </mat-form-field>
-          <mat-label>Docentes envolvidos e carga horárias</mat-label>
-          <ng-container *ngFor="let item of lista.controls; let i = index;">
-            <div [formGroup]="$any(item)">
-              <input matInput id="lista-{{ i }}" class="form-control" formControlName="nome_docente" type="text" matInput  placeholder="Nome completo do docente">
-              <input matInput id="lista-{{ i }}" class="form-control" formControlName="carga_horaria" type="number" matInput  placeholder="Carga horária">
-            </div>
-          </ng-container>
-          <button type="button" (click)="addlista()">Adicionar mais um Docente</button>
+            <mat-label>Situação Atual</mat-label>
+            <mat-select formControlName="situacao_atual">
+              <mat-option value="Concluída">Concluída</mat-option>
+              <mat-option value="Em andamento">Em andamento</mat-option>
+              <mat-option value="Em pausa">Em pausa</mat-option>
+            </mat-select>
+          </mat-form-field>          
+          
         </div>
         <div>
         </div>
       </div>
 
       <button mat-fab extended  (click)="goNext()"><span class="spans">Próximo</span></button>
-      <button mat-fab extended type="button" (click)="submitAtividadeLetiva()"><span class="spans">Salvar</span></button>
+      <button mat-fab extended type="button" (click)="submitProjetoPesquisaProducaoIntelectual()"><span class="spans">Salvar</span></button>
     </div>
   </ng-container>
 </form>
-<form [formGroup]="formAtividadePedagogicaComplementar">
+<form [formGroup]="formTrabalhoCompletoPublicadoPeriodicoBoletimTecnico">
   <!-- step 2 -->
   <ng-container *ngIf="step == 2">
     <div>
       <div style="display: flex; justify-content: center; gap: 1rem;">
-        <h2>2 - Atividade Pedagógica Complementar</h2>
-        <button  mat-mini-fab (click)="openDialogAtividadePedagogica()"><mat-icon style="color: white;" fontIcon="post_add"></mat-icon></button>
+        <h2>2 - Trabalho completo publicado em periódicos, boletins técnicos e outros</h2>
+        <button  mat-mini-fab (click)="openDialogTrabalhoCompletoPublicadoPeriodicoBoletimTecnico()"><mat-icon style="color: white;" fontIcon="post_add"></mat-icon></button>
       </div>
       <div class="d-flex justify-content-center align-items-start gap-5">
         <div class="stepColunm">
-          <mat-form-field>
-            <mat-label>Semestre da Disciplina</mat-label>
-            <mat-select formControlName="semestre">
-              <mat-option value="1">Primeiro semestre</mat-option>
-              <mat-option value="2">Segundo semestre</mat-option>
-            </mat-select>
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Número do documento</mat-label>
+            <input matInput formControlName="numero_doc" >
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria semanal graduação</mat-label>
-            <input matInput type="number" formControlName="ch_semanal_graduacao" >
-          </mat-form-field>
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria semanal pos graduação</mat-label>
-            <input matInput type="number" formControlName="ch_semanal_pos_graduacao" >
+            <mat-label>Descrição</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="3" formControlName="descricao"></textarea>
           </mat-form-field>
 
         </div>
@@ -117,121 +79,80 @@
         </div>
       </div>
       <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
-      <button mat-fab extended (click)="submitAtividadePedagogica()"><span class="spans">Salvar</span></button>
+      <button mat-fab extended (click)="submitTrabalhoCompletoPublicadoPeriodicoBoletimTecnico()"><span class="spans">Salvar</span></button>
       <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
     </div>
   </ng-container>
   <!-- step 3 -->
 </form>
-<form [formGroup]="formAtividadeOrientacao">
+<form [formGroup]="formLivroCapituloVerbetePublicado">
   <ng-container *ngIf="step == 3">
     <div>
       <div style="display: flex; justify-content: center; gap: 1rem;">
-        <h2>3 - Orientado do Semestre </h2>
-        <button  mat-mini-fab (click)="openDialogAtividadeOrientacao()"><mat-icon style="color: white;" fontIcon="post_add"></mat-icon></button>
+        <h2>3 - Livro, Capítulo de Livro ou Verbete publicado </h2>
+        <button  mat-mini-fab (click)="openDialogLivroCapituloVerbetePublicado()"><mat-icon style="color: white;" fontIcon="post_add"></mat-icon></button>
       </div>
       <div class="d-flex justify-content-center align-items-start gap-5">
         <div class="stepColunm">
 
-          <mat-form-field>
-            <mat-label>Semestre da Disciplina</mat-label>
-            <mat-select formControlName="semestre">
-              <mat-option value="1">Primeiro semestre</mat-option>
-              <mat-option value="2">Segundo semestre</mat-option>
-            </mat-select>
+          <mat-form-field [floatLabel]="this.floatLabelControl">
+            <mat-label>Número do documento</mat-label>
+            <input matInput formControlName="numero_doc" >
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria semanal de Orientação</mat-label>
-            <input type="number" matInput formControlName="ch_semanal_orientacao" >
+            <mat-label>Descrição</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="3" formControlName="descricao"></textarea>
           </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria semanal de Coorientação</mat-label>
-            <input type="number" matInput formControlName="ch_semanal_coorientacao" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria semanal de Supervisão</mat-label>
-            <input type="number" matInput formControlName="ch_semanal_supervisao" >
-          </mat-form-field>
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria semanal de Preceptoria e ou Tutoria</mat-label>
-            <input type="number" matInput formControlName="ch_semanal_preceptoria_e_ou_tutoria" >
-          </mat-form-field>
+          
         </div>
       </div>
       <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
-      <button mat-fab extended (click)="submitAtividadeOrientacao()"><span class="spans">Salvar</span></button>
+      <button mat-fab extended (click)="submitLivroCapituloVerbetePublicado()"><span class="spans">Salvar</span></button>
       <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
     </div>
   </ng-container>
 </form>
   <!-- step 4 -->
-<form [formGroup]="formDescricao_orientacao">
+<form [formGroup]="formTrabalhoCompletoResumoPublicadoApresentadoCongressos">
   <ng-container *ngIf="step == 4">
     <div>
       <div style="display: flex; justify-content: center; gap: 1rem;">
-        <h2>4 - Descrição da Orientação Coorientação Acadêmica</h2>
-        <button  mat-mini-fab (click)="openDialogDescricaoOrientacao()"><mat-icon style="color: white;" fontIcon="post_add"></mat-icon></button>
+        <h2>4 - Trabalho completo e resumo publicado e/ou apresentado em Congressos ou similares</h2>
+        <button  mat-mini-fab (click)="openDialogTrabalhoCompletoResumoPublicadoApresentadoCongressos()"><mat-icon style="color: white;" fontIcon="post_add"></mat-icon></button>
       </div>
       <div class="d-flex justify-content-center align-items-start gap-5">
         <div class="stepColunm">
+
           <mat-form-field [floatLabel]="this.floatLabelControl">
             <mat-label>Número do documento</mat-label>
             <input matInput formControlName="numero_doc" >
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nome e a matricula do discente</mat-label>
-            <input matInput formControlName="nome_e_ou_matricula_discente" >
+            <mat-label>Descrição</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="3" formControlName="descricao"></textarea>
           </mat-form-field>
 
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Curso</mat-label>
-            <input matInput formControlName="curso" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Tipo</mat-label>
-            <input matInput formControlName="tipo" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nível</mat-label>
-            <mat-select formControlName="nivel">
-              <mat-option value="GRA">GRA</mat-option>
-              <mat-option value="POS">POS</mat-option>
-              <mat-option value="MES">MES</mat-option>
-              <mat-option value="DOC">DOC</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria Primeiro Semestre</mat-label>
-            <input type="number" matInput formControlName="ch_semanal_primeiro_semestre" >
-          </mat-form-field>
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria Segundo Semestre</mat-label>
-            <input type="number" matInput formControlName="ch_semanal_segundo_semestre" >
-          </mat-form-field>
         </div>
         <div class="stepColunm">
         </div>
       </div>
       <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
-      <button mat-fab extended (click)="submitDescricaoOrientacao()"><span class="spans">Salvar</span></button>
+      <button mat-fab extended (click)="submitTrabalhoCompletoResumoPublicadoApresentadoCongressos()"><span class="spans">Salvar</span></button>
       <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
     </div>
   </ng-container>
 </form>
 
-<form [formGroup]="formsupervisao_academica">
+<form [formGroup]="formOutraAtividadePesquisaProducaoIntelectual">
   <ng-container *ngIf="step == 5">
     <div>
       <div style="display: flex; justify-content: center; gap: 1rem;">
-        <h2>5 - Supervisão Acadêmica</h2>
-        <button  mat-mini-fab (click)="openDialogSupervisaoAcademica()"><mat-icon style="color: white;" fontIcon="post_add"></mat-icon></button>
+        <h2>5 - Outra atividade de Pesquisa/Produção Intelectual</h2>
+        <button  mat-mini-fab (click)="openDialogOutraAtividadePesquisaProducaoIntelectual()"><mat-icon style="color: white;" fontIcon="post_add"></mat-icon></button>
       </div>
       <div class="d-flex justify-content-center align-items-start gap-5">
         <div class="stepColunm">
@@ -241,71 +162,30 @@
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nome e a matricula do discente</mat-label>
-            <input matInput formControlName="nome_e_ou_matricula_discente" >
+            <mat-label>Descrição</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="3" formControlName="descricao"></textarea>
           </mat-form-field>
 
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Curso</mat-label>
-            <input matInput formControlName="curso" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Tipo</mat-label>
-            <input matInput formControlName="tipo" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nível</mat-label>
-            <mat-select formControlName="nivel">
-              <mat-option value="GRA">GRA</mat-option>
-              <mat-option value="POS">POS</mat-option>
-              <mat-option value="MES">MES</mat-option>
-              <mat-option value="DOC">DOC</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria Primeiro Semestre</mat-label>
-            <input matInput formControlName="ch_semanal_primeiro_semestre" >
-          </mat-form-field>
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria Segundo Semestre</mat-label>
-            <input matInput formControlName="ch_semanal_segundo_semestre" >
-          </mat-form-field>
         </div>
         <div class="stepColunm">
         </div>
       </div>
       <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
-      <button mat-fab extended (click)="submitSupervisaoAcacademica()"><span class="spans">Salvar</span></button>
+      <button mat-fab extended (click)="submitOutraAtividadePesquisaProducaoIntelectual()"><span class="spans">Salvar</span></button>
       <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
     </div>
   </ng-container>
 </form>
-<form [formGroup]="formPreceptoriaTutoria">
+<form [formGroup]="formCHSemanalAtividadesPesquisa">
   <ng-container *ngIf="step == 6">
     <div>
       <div style="display: flex; justify-content: center; gap: 1rem;">
-        <h2>6 - Preceptoria e Tutoria</h2>
-        <button  mat-mini-fab (click)="openDialogPreceptoriaTutoria()"><mat-icon style="color: white;" fontIcon="post_add"></mat-icon></button>
+        <h2>6 - Carga Horária Semanal para Atividades de Pesquisa</h2>
+        <button  mat-mini-fab (click)="openDialogCHSemanalAtividadesPesquisa()"><mat-icon style="color: white;" fontIcon="post_add"></mat-icon></button>
       </div>
       <div class="d-flex justify-content-center align-items-start gap-5">
         <div class="stepColunm">
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Número do documento</mat-label>
-            <input matInput formControlName="numero_doc" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nome e a matricula do discente</mat-label>
-            <input matInput formControlName="nome_e_ou_matricula_discente" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Tipo</mat-label>
-            <input matInput formControlName="tipo" >
-          </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
             <mat-label>Carga Horaria Primeiro Semestre</mat-label>
@@ -320,109 +200,7 @@
         </div>
       </div>
       <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
-      <button mat-fab extended (click)="submitPreceptoriaTutoria()"><span class="spans">Salvar</span></button>
-      <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
+      <button mat-fab extended (click)="submitCHSemanalAtividadesPesquisa()"><span class="spans">Salvar</span></button>
     </div>
   </ng-container>
 </form>
-<form [formGroup]="formBanca_examinadora">
-  <ng-container *ngIf="step == 7">
-    <div>
-      <div style="display: flex; justify-content: center; gap: 1rem;">
-        <h2>7 - Banca de Examinação</h2>
-        <button  mat-mini-fab (click)="openDialogBancaExaminadora()"><mat-icon style="color: white;" fontIcon="post_add"></mat-icon></button>
-      </div>
-      <div class="d-flex justify-content-center align-items-start gap-5">
-        <div class="stepColunm">
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Número do documento</mat-label>
-            <input matInput formControlName="numero_doc" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nome do candidato</mat-label>
-            <input matInput formControlName="nome_candidato" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Titulo do Trabalho</mat-label>
-            <input matInput formControlName="titulo_trabalho" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Ies</mat-label>
-            <input matInput formControlName="ies" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Tipo</mat-label>
-            <input matInput formControlName="tipo" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria Primeiro Semestre</mat-label>
-            <input matInput formControlName="ch_semanal_primeiro_semestre" >
-          </mat-form-field>
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria Segundo Semestre</mat-label>
-            <input matInput formControlName="ch_semanal_segundo_semestre" >
-          </mat-form-field>
-        </div>
-        <div class="stepColunm">
-        </div>
-      </div>
-      <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
-      <button mat-fab extended (click)="submitBancaExaminadora()"><span class="spans">Salvar</span></button>
-      <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
-    </div>
-  </ng-container>
-</form>
-<form [formGroup]="formAvaliacao_discente">
-  <ng-container *ngIf="step == 8">
-    <div>
-      <div style="display: flex; justify-content: center; gap: 1rem;">
-        <h2>8 - Avaliação do Discente</h2>
-        <button  mat-mini-fab (click)="openDialogAvaliacaoDiscente()"><mat-icon style="color: white;" fontIcon="post_add"></mat-icon></button>
-      </div>
-      <div class="d-flex justify-content-center align-items-start gap-5">
-        <div class="stepColunm">
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Número do documento do primeiro semestre</mat-label>
-            <input matInput formControlName="numero_doc_primeiro_semestre" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>nota do primeiro semestre</mat-label>
-            <input matInput formControlName="nota_primeiro_semestre" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Codigo da turma do primeiro semestre</mat-label>
-            <input matInput formControlName="codigo_turma_primeiro_semestre" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Número do documento do segundo semestre</mat-label>
-            <input matInput formControlName="numero_doc_segundo_semestre" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>nota do segundo semestre</mat-label>
-            <input matInput formControlName="nota_segundo_semestre" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Codigo da turma do segundo semestre</mat-label>
-            <input matInput formControlName="codigo_turma_segundo_semestre" >
-          </mat-form-field>
-        </div>
-        <div class="stepColunm">
-        </div>
-      </div>
-      <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
-      <button mat-fab extended (click)="submitAvaliacaoDiscente()"><span class="spans">Salvar</span></button>
-    </div>
-  </ng-container>
-</form>
-
-

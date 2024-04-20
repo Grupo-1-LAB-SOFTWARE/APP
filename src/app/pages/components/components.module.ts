@@ -17,8 +17,12 @@ import { SupervisaoAcademicaDialogComponent } from './dialogs/ensino/supervisao-
 import { PreceptoriaTutoriaDialogComponent } from './dialogs/ensino/preceptoria-tutoria-dialog/preceptoria-tutoria-dialog';
 import { BancaExaminadoraDialogComponent } from './dialogs/ensino/banca-examinadora-dialog/banca-examinadora-dialog';
 import { AvaliacaoDiscenteDialogComponent } from './dialogs/ensino/avaliacao-discente-dialog/avaliacao-discente-dialog';
-
-
+import { CHSemanalAtividadesPesquisaDialogComponent } from './dialogs/pesquisa/ch-semanal-atividades-pesquisa-dialog/ch-semanal-atividades-pesquisa-dialog';
+import { LivroCapituloVerbetePublicadoDialogComponent } from './dialogs/pesquisa/livro-capitulo-verbete-publicado-dialog/livro-capitulo-verbete-publicado-dialog';
+import { OutraAtividadePesquisaDialogComponent } from './dialogs/pesquisa/outra-atividade-pesquisa-dialog/outra-atividade-pesquisa-dialog';
+import { ProjetoPesquisaProducaoIntelectualDialogComponent } from './dialogs/pesquisa/projeto-pesquisa-dialog/projeto-pesquisa-dialog';
+import { TrabalhoCompletoPublicadoDialogComponent } from './dialogs/pesquisa/trabalho-publicado-dialog/trabalho-publicado-dialog';
+import { TrabalhoCompletoResumoPublicadoDialogComponent } from './dialogs/pesquisa/trabalho-resumo-dialog/trabalho-resumo-dialog';
 
 
 @NgModule({
@@ -36,7 +40,13 @@ import { AvaliacaoDiscenteDialogComponent } from './dialogs/ensino/avaliacao-dis
     SupervisaoAcademicaDialogComponent,
     PreceptoriaTutoriaDialogComponent,
     BancaExaminadoraDialogComponent,
-    AvaliacaoDiscenteDialogComponent
+    AvaliacaoDiscenteDialogComponent,
+    CHSemanalAtividadesPesquisaDialogComponent,
+    LivroCapituloVerbetePublicadoDialogComponent,
+    OutraAtividadePesquisaDialogComponent,
+    ProjetoPesquisaProducaoIntelectualDialogComponent,
+    TrabalhoCompletoPublicadoDialogComponent,
+    TrabalhoCompletoResumoPublicadoDialogComponent
   ],
   imports: [
     CommonModule,
@@ -60,6 +70,12 @@ import { AvaliacaoDiscenteDialogComponent } from './dialogs/ensino/avaliacao-dis
     PreceptoriaTutoriaDialogComponent,
     BancaExaminadoraDialogComponent,
     AvaliacaoDiscenteDialogComponent,
+    CHSemanalAtividadesPesquisaDialogComponent,
+    LivroCapituloVerbetePublicadoDialogComponent,
+    OutraAtividadePesquisaDialogComponent,
+    ProjetoPesquisaProducaoIntelectualDialogComponent,
+    TrabalhoCompletoPublicadoDialogComponent,
+    TrabalhoCompletoResumoPublicadoDialogComponent,
     ContainerComponent,
   
   ]
