@@ -24,12 +24,12 @@
               <mat-error *ngIf="cadastroForm.get('nome_completo')?.errors">Nome é obrigatório</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
-              <mat-label>Selecione seu vinculo</mat-label>
+              <mat-label>Selecione seu vínculo</mat-label>
               <mat-select formControlName="vinculo">
                 <mat-option value="Estatuário">Estatuário</mat-option>
                 <mat-option value="Não Selecionado">Não Selecionado</mat-option>
               </mat-select>
-              <mat-error *ngIf="cadastroForm.get('vinculo')?.errors">Vinculo é obrigatório</mat-error>
+              <mat-error *ngIf="cadastroForm.get('vinculo')?.errors">Vínculo é obrigatório</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Selecione sua classe</mat-label>
