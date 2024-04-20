@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" [routerLink]="['/perfil/painel']"  >Relátorio Anual do Docente</a>
+    <a class="navbar-brand" [routerLink]="['/perfil/painel']"  >SISRADOC - UFRA</a>
     <button *ngIf="isLogged" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -15,10 +15,10 @@
             <h4 class="nav-link d-flex align-items-end gap-2" aria-current="page" href="#" [routerLink]="['/perfil/painel']"><mat-icon fontIcon="home"></mat-icon>Perfil</h4>
           </li>
           <li class="nav-item mt-3">
-            <h4 class="nav-link d-flex align-items-end gap-2" [routerLink]="['/documento/radoc']"><mat-icon>description</mat-icon>Radoc</h4>
+            <h4 class="nav-link d-flex align-items-end gap-2" [routerLink]="['/documento/radoc']"><mat-icon>description</mat-icon>Relatório Anual de Docente</h4>
           </li>
           <li class="nav-item mt-3">
-            <h4 class="nav-link d-flex align-items-end gap-2" [routerLink]="['/painel/administrador']" *ngIf="user.includes('Administrador')"><mat-icon>description</mat-icon>Administrador</h4>
+            <h4 class="nav-link d-flex align-items-end gap-2" [routerLink]="['/painel/administrador']" *ngIf="user.includes('Administrador')"><mat-icon>description</mat-icon>Painel Administrador</h4>
           </li>
 
         </ul>
