@@ -121,3 +121,8 @@ button:disabled{
   color: #ffffff !important;
   border: none;
 }
+
+@media only screen and (max-device-width: 900px) {
+  app-container { width:100%; }
+  mat-form-field { width: 100%; display: block;}
+}
