@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>Outra Atividade de Extensão</h2>
+<mat-dialog-content>
+
+  <div class="tables mat-elevation-z8" matSort>
+    <table mat-table [dataSource]="extensaoData" style="background: none;">
+
+      <!-- Id Column -->
+      <!-- <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container> -->
+
+      <!-- Tag Name Column -->
+      <ng-container matColumnDef="tagName">
+        <th mat-header-cell *matHeaderCellDef> Tag </th>
+        <td mat-cell *matCellDef="let element"> {{element.codigo_disciplina}} </td>
+      </ng-container>
+
+      <!-- Sector Column -->
+      <ng-container matColumnDef="sector">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Setor"> Ano do Relátorio </th>
+        <td mat-cell *matCellDef="let element"> {{element.ano_e_semestre}} </td>
+      </ng-container>
+
+      <!-- Created Column -->
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef> Editar </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="edit(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Apagar </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="warn" (click)="delete(element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close cdkFocusInitial>Fechar</button>
+</mat-dialog-actions>

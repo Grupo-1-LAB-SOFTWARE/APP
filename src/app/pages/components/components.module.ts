@@ -23,6 +23,11 @@ import { OutraAtividadePesquisaDialogComponent } from './dialogs/pesquisa/outra-
 import { ProjetoPesquisaProducaoIntelectualDialogComponent } from './dialogs/pesquisa/projeto-pesquisa-dialog/projeto-pesquisa-dialog';
 import { TrabalhoCompletoPublicadoDialogComponent } from './dialogs/pesquisa/trabalho-publicado-dialog/trabalho-publicado-dialog';
 import { TrabalhoCompletoResumoPublicadoDialogComponent } from './dialogs/pesquisa/trabalho-resumo-dialog/trabalho-resumo-dialog';
+import { ProjetoExtensaoDialogComponent } from './dialogs/extensao/projeto-extensao-dialog/projeto-extensao-dialog';
+import { EstagioExtensaoDialogComponent } from './dialogs/extensao/estagio-extensao-dialog/estagio-extensao-dialog';
+import { AtividadeEnsinoNaoFormalDialogComponent } from './dialogs/extensao/atividade-ensino-nao-formal-dialog/atividade-ensino-nao-formal-dialog';
+import { OutraAtividadeExtensaoDialogComponent } from './dialogs/extensao/outra-atividade-extensao-dialog/outra-atividade-extensao-dialog';
+import { CHSemanalAtividadesExtensaoDialogComponent } from './dialogs/extensao/ch-semanal-atividades-extensao-dialog/ch-semanal-atividades-extensao-dialog';
 import { AtividadeGestaoRepresentacaoDialogComponent } from './dialogs/gestao/atividade_gestao_representacao-dialog/atividade_gestao_representacao-dialog';
 import { AfastamentoDialogComponent } from './dialogs/gestao/afastamento-dialog/afastamento-dialog';
 import { OutraInformacaoDialogComponent } from './dialogs/gestao/outra_informacao-dialog/outra_informacao-dialog';
@@ -51,6 +56,11 @@ import { QualificacaoDocenteAcademicaProfissionalDialogComponent } from './dialo
     ProjetoPesquisaProducaoIntelectualDialogComponent,
     TrabalhoCompletoPublicadoDialogComponent,
     TrabalhoCompletoResumoPublicadoDialogComponent,
+    ProjetoExtensaoDialogComponent,
+    EstagioExtensaoDialogComponent,
+    AtividadeEnsinoNaoFormalDialogComponent,
+    OutraAtividadeExtensaoDialogComponent,
+    CHSemanalAtividadesExtensaoDialogComponent,
     AtividadeGestaoRepresentacaoDialogComponent,
     AfastamentoDialogComponent,
     OutraInformacaoDialogComponent,
@@ -84,6 +94,15 @@ import { QualificacaoDocenteAcademicaProfissionalDialogComponent } from './dialo
     ProjetoPesquisaProducaoIntelectualDialogComponent,
     TrabalhoCompletoPublicadoDialogComponent,
     TrabalhoCompletoResumoPublicadoDialogComponent,
+    ProjetoExtensaoDialogComponent,
+    EstagioExtensaoDialogComponent,
+    AtividadeEnsinoNaoFormalDialogComponent,
+    OutraAtividadeExtensaoDialogComponent,
+    CHSemanalAtividadesExtensaoDialogComponent,
+    AtividadeGestaoRepresentacaoDialogComponent,
+    AfastamentoDialogComponent,
+    OutraInformacaoDialogComponent,
+    QualificacaoDocenteAcademicaProfissionalDialogComponent,
     ContainerComponent,
   
   ]
