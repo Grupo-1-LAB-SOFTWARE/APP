@@ -25,6 +25,7 @@ import { BancaExaminadoraDialogComponent } from '../../components/dialogs/ensino
 import { AvaliacaoDiscenteDialogComponent } from '../../components/dialogs/ensino/avaliacao-discente-dialog/avaliacao-discente-dialog';
 import { SharedDataServiceName } from 'src/app/core/services/shared-dataName.service';
 import { avOrientacaoServiceName } from '../../components/dialogs/ensino/atividade-orientacao-dialog/avOrientacaoName.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-ensino-create',
@@ -161,10 +162,10 @@ export class EnsinoCreateComponent implements OnInit {
       //atidadePedagogicaComplementar
     this.formAtividadeOrientacao = this.formBuilder.group({
       semestre: ['', [Validators.required]],
-      ch_semanal_orientacao: ['', [Validators.required]],
-      ch_semanal_coorientacao: ['', [Validators.required]],
-      ch_semanal_supervisao: [''],
-      ch_semanal_preceptoria_e_ou_tutoria: ['', [Validators.required]],
+      ch_semanal_orientacao: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
+      ch_semanal_coorientacao: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
+      ch_semanal_supervisao: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
+      ch_semanal_preceptoria_e_ou_tutoria: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
     })
     //Descrição Orientacao
     this.formDescricao_orientacao = this.formBuilder.group({
@@ -173,36 +174,36 @@ export class EnsinoCreateComponent implements OnInit {
       curso: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
       nivel: ['', [Validators.required]],
-      ch_semanal_primeiro_semestre: ['', [Validators.required]],
-      ch_semanal_segundo_semestre: ['', [Validators.required]],
+      ch_semanal_primeiro_semestre: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
+      ch_semanal_segundo_semestre: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
     })
     //SupervisaoAcademica
     this.formsupervisao_academica = this.formBuilder.group({
-      numero_doc: ['', [Validators.required]],
+      numero_doc: ['', [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]],
       nome_e_ou_matricula_discente: ['', [Validators.required]],
       curso: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
       nivel: ['', [Validators.required]],
-      ch_semanal_primeiro_semestre: ['', [Validators.required]],
-      ch_semanal_segundo_semestre: ['', [Validators.required]],
+      ch_semanal_primeiro_semestre: ['', [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]],
+      ch_semanal_segundo_semestre: ['', [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]],
     })
     //PreceptoriaTutoria
     this.formPreceptoriaTutoria = this.formBuilder.group({
-      numero_doc: ['', [Validators.required]],
+      numero_doc: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
       nome_e_ou_matricula_discente: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
-      ch_semanal_primeiro_semestre: ['', [Validators.required]],
-      ch_semanal_segundo_semestre: ['', [Validators.required]],
+      ch_semanal_primeiro_semestre: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
+      ch_semanal_segundo_semestre: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
     })
     //BancaExaminadora
     this.formBanca_examinadora = this.formBuilder.group({
-      numero_doc: ['', [Validators.required]],
+      numero_doc: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
       nome_candidato: ['', [Validators.required]],
       titulo_trabalho: ['', [Validators.required]],
       ies: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
-      ch_semanal_primeiro_semestre: ['', [Validators.required]],
-      ch_semanal_segundo_semestre: ['', [Validators.required]],
+      ch_semanal_primeiro_semestre: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
+      ch_semanal_segundo_semestre: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
     })
     //AvaliacaoDiscente
     this.formAvaliacao_discente = this.formBuilder.group({
@@ -210,8 +211,8 @@ export class EnsinoCreateComponent implements OnInit {
       nota_primeiro_semestre: ['', [Validators.required]],
       codigo_turma_primeiro_semestre: ['', [Validators.required]],
       numero_doc_segundo_semestre: ['', [Validators.required]],
-      nota_segundo_semestre: ['', [Validators.required]],
-      codigo_turma_segundo_semestre: ['', [Validators.required]],
+      nota_segundo_semestre: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
+      codigo_turma_segundo_semestre: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
     })
 
     if(!this.isCreate){
@@ -260,6 +261,7 @@ export class EnsinoCreateComponent implements OnInit {
   carregarDadosDoBackendAtividadePedagogica() {
     this.crudService.getOneEnsino('atividade_pedagogica_complementar', this.nomeRelatorio,this.AtividadePedagogicaId).subscribe((dados: any) => {
       // Preencha os campos do formulário com os dados recebidos do backend
+      console.log('atividade_pedagogica_complementar/'+ this.nomeRelatorio +'/'+this.AtividadePedagogicaId)
       this.formAtividadePedagogicaComplementar.patchValue({
         semestre: dados.semestre,
         ch_semanal_graduacao: dados.ch_semanal_graduacao,
@@ -356,7 +358,6 @@ export class EnsinoCreateComponent implements OnInit {
     const dialogRef = this.dialog.open(AtividadeLetivaDialogComponent, {
       width: '800px',
       data: {
-
         nomeRelatorio: this.nomeRelatorio
       }
     });
@@ -376,6 +377,8 @@ export class EnsinoCreateComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+      this.carregarDadosDoBackendAtividadePedagogica()
+
     });
   }
   openDialogAtividadeOrientacao(){
@@ -470,31 +473,6 @@ export class EnsinoCreateComponent implements OnInit {
     }
   }
 
-  async submit() {
-    const formValue = this.formAtividadeLetiva.getRawValue();
-    if (!this.formAtividadeLetiva.valid) {
-      this._snackbar.open('Preencha todos os campos.', 'OK', {
-        duration: 5000
-      });
-      return;
-    }
-
-    try {
-      this.isCreate ?
-        await this.ensinoService.create('ensino',formValue) :
-        await this.ensinoService.update('ensino', formValue);
-        this._snackbar.open('Relatório de ensino salvo com sucesso.', 'OK', {
-          duration: 5000
-        });
-      // Evitando o uso de location.reload() para atualizar a interface do usuário
-    } catch (error) {
-      console.error(error);
-      this._snackbar.open('Erro ao salvar relatório de ensino.', 'OK', {
-        duration: 5000
-      });
-    }
-  }
-
   createFormGroup() {
     return this.formBuilder.group({
       nome_docente: ['',[Validators.required]],
@@ -532,23 +510,22 @@ export class EnsinoCreateComponent implements OnInit {
           duration: 5000
         });
       } else { // Se não for uma criação, é uma atualização
-        await this.atividadeLetivaService.updateEnsino('atividade_letiva', formValue, this.nomeRelatorio, this.AtividadeLetivaId).toPromise();
+        await this.atividadeLetivaService.updateEnsino('atividade_letiva', formValue ,this.nomeRelatorio, this.AtividadeLetivaId).toPromise();
         this._snackbar.open('Atividade letiva atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    }  catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formAtividadeLetiva.reset();
   }
   async submitAtividadePedagogica() {
     const formValue = this.formAtividadePedagogicaComplementar.getRawValue();
-    console.log(formValue);
 
     if (!this.formAtividadePedagogicaComplementar.valid) {
       this._snackbar.open('Preencha todos os campos.', 'OK', {
@@ -570,14 +547,14 @@ export class EnsinoCreateComponent implements OnInit {
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formAtividadePedagogicaComplementar.reset();
-  }
+}
   async submitDescricaoOrientacao() {
     const formValue = this.formDescricao_orientacao.getRawValue();
     console.log(formValue);
@@ -596,16 +573,16 @@ export class EnsinoCreateComponent implements OnInit {
           duration: 5000
         });
       } else {
-        await this.descricaoOrientacaoService.updateEnsino('descricao_orientacao_coorientacao_academica', formValue, this.nomeRelatorio, this.descricaoId).toPromise();
+        await this.descricaoOrientacaoService.updateEnsino('descricao_orientacao_coorientacao_academica', formValue ,this.nomeRelatorio, this.descricaoId ).toPromise();
         this._snackbar.open('Descriação atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formDescricao_orientacao.reset();
@@ -628,16 +605,16 @@ export class EnsinoCreateComponent implements OnInit {
           duration: 5000
         });
       } else {
-        await this.atividadeOrientacaoService.updateEnsino('atividade_orientacao_supervisao_preceptoria_tutoria', formValue, this.nomeRelatorio, this.AtividadeOrientacaoId).toPromise();
+        await this.atividadeOrientacaoService.updateEnsino('atividade_orientacao_supervisao_preceptoria_tutoria', formValue ,this.nomeRelatorio, this.AtividadeOrientacaoId).toPromise();
         this._snackbar.open('Atividade de orientação/supervisão atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formAtividadeOrientacao.reset();
@@ -660,16 +637,16 @@ export class EnsinoCreateComponent implements OnInit {
           duration: 5000
         });
       } else {
-        await this.supervisaoAcademicaService.updateEnsino('supervisao_academica', formValue, this.nomeRelatorio, this.supervisaoId).toPromise();
+        await this.supervisaoAcademicaService.updateEnsino('supervisao_academica',  formValue ,this.nomeRelatorio, this.supervisaoId).toPromise();
         this._snackbar.open('Supervisão acadêmica atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formsupervisao_academica.reset();
@@ -692,16 +669,16 @@ export class EnsinoCreateComponent implements OnInit {
           duration: 5000
         });
       } else {
-        await this.preceptoriaTutoriaService.updateEnsino('preceptoria_tutoria_residencia', formValue, this.nomeRelatorio, this.preceptoriaId).toPromise();
+        await this.preceptoriaTutoriaService.updateEnsino('preceptoria_tutoria_residencia', formValue , this.nomeRelatorio, this.preceptoriaId).toPromise();
         this._snackbar.open('Preceptoria e/ou tutoria de residência atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formPreceptoriaTutoria.reset();
@@ -724,16 +701,16 @@ export class EnsinoCreateComponent implements OnInit {
           duration: 5000
         });
       } else {
-        await this.bancaExaminadoraService.updateEnsino('banca_examinadora', formValue,this.nomeRelatorio, this.bancaId).toPromise();
+        await this.bancaExaminadoraService.updateEnsino('banca_examinadora',  formValue,this.nomeRelatorio, this.bancaId).toPromise();
         this._snackbar.open('Banca Examinadora atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    }catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formBanca_examinadora.reset();
@@ -755,7 +732,6 @@ export class EnsinoCreateComponent implements OnInit {
         this._snackbar.open('Avaliação de Discente criada com sucesso.', 'OK', {
           duration: 5000
         });
-        this.formAvaliacao_discente.reset();
       } else {
         await this.avaliacaoDiscenteService.updateEnsino('avaliacao_discente', formValue,this.nomeRelatorio, this.AtividadeDiscenteId).toPromise();
         this._snackbar.open('Avaliação de Discente atualizada com sucesso.', 'OK', {
@@ -763,11 +739,12 @@ export class EnsinoCreateComponent implements OnInit {
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
+    this.formAvaliacao_discente.reset();
   }
 }

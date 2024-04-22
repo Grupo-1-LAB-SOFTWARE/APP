@@ -7,9 +7,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { CrudService } from 'src/app/core/services/crud.service';
-import { SharedDataServiceName } from 'src/app/core/services/shared-dataName.service';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { IpreceptoriaTutoria } from 'src/app/core/interfaces/ensino.interface';
+import { PreceptoriaServiceName } from './preceptoriaName.service';
 
 @Component({
   selector: 'app-preceptoria-tutoria-dialog',
@@ -36,7 +36,7 @@ export class PreceptoriaTutoriaDialogComponent  implements OnInit {
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
     private crudService: CrudService<IpreceptoriaTutoria>,
-    private sharedDataService: SharedDataServiceName,
+    private sharedDataService: PreceptoriaServiceName,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
   }

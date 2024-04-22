@@ -28,8 +28,8 @@
             <input matInput formControlName="nome_disciplina" >
           </mat-form-field>
 
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Ano e Semestre da Disciplina (ex.: 2024/1)</mat-label>
+          <mat-form-field hintLabel="ex.: 2024/1" [floatLabel]="this.floatLabelControl">
+            <mat-label>Ano e Semestre da Disciplina</mat-label>
             <input matInput formControlName="ano_e_semestre" >
           </mat-form-field>
           <mat-form-field [floatLabel]="this.floatLabelControl">
@@ -49,34 +49,40 @@
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
             <mat-label>Numero de turmas Teóricas</mat-label>
-            <input matInput formControlName="numero_turmas_teorico" >
+            <input matInput  type="number" formControlName="numero_turmas_teorico" >
           </mat-form-field>
 
         </div>
         <div class="stepColunm">
           <mat-form-field [floatLabel]="this.floatLabelControl">
             <mat-label>Número de turmas Práticas</mat-label>
-            <input matInput formControlName="numero_turmas_pratico" >
+            <input matInput type="number" formControlName="numero_turmas_pratico" >
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
             <mat-label>Carga Horária das Turmas Teóricas</mat-label>
-            <input matInput formControlName="ch_turmas_teorico" >
+            <input matInput  type="number" formControlName="ch_turmas_teorico" >
           </mat-form-field>
           <mat-form-field [floatLabel]="this.floatLabelControl">
             <mat-label>Carga Horária das Turmas Práticas</mat-label>
-            <input matInput formControlName="ch_turmas_pratico" >
+            <input matInput  type="number" formControlName="ch_turmas_pratico" >
           </mat-form-field>
 
-
+          <div class="list">
             <mat-label>Docentes envolvidos e cargas horárias</mat-label>
             <ng-container *ngFor="let item of lista.controls; let i = index;">
               <div [formGroup]="$any(item)">
-                <input matInput id="lista-{{ i }}" class="form-control" formControlName="nome_docente" type="text" matInput  placeholder="Nome completo do docente">
-                <input matInput id="lista-{{ i }}" class="form-control" formControlName="carga_horaria" type="number" matInput  placeholder="Carga horária">
+                <mat-form-field  [floatLabel]="this.floatLabelControl">
+                  <input matInput id="lista-{{ i }}"  formControlName="nome_docente" type="text"  placeholder="Nome completo do docente">
+                </mat-form-field>
+                <mat-form-field [floatLabel]="this.floatLabelControl">
+                  <input matInput id="lista-{{ i }}"  formControlName="carga_horaria" type="number"  placeholder="Carga horária">
+                </mat-form-field>
               </div>
             </ng-container>
             <button mat-fab extended class="add-button" type="button" (click)="addlista()"> <span class="spans">Adicionar mais um Docente</span></button>
+
+          </div>
         </div>
         <div>
         </div>
@@ -184,7 +190,7 @@
             <input matInput formControlName="numero_doc" >
           </mat-form-field>
 
-          <mat-form-field [floatLabel]="this.floatLabelControl">
+          <mat-form-field  hintLabel="Ex.: Nome do discente - matricula" [floatLabel]="this.floatLabelControl">
             <mat-label>Nome e/ou matrícula do discente</mat-label>
             <input matInput formControlName="nome_e_ou_matricula_discente" >
           </mat-form-field>

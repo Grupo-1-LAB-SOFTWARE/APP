@@ -11,6 +11,7 @@ import { SharedDataServiceName } from 'src/app/core/services/shared-dataName.ser
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { IatividadePedagogica } from 'src/app/core/interfaces/ensino.interface';
 import { avDiscenteServiceName } from '../avaliacao-discente-dialog/avDiscenteName.service';
+import { avPedagogicaServiceName } from './avPedagogicaName.service';
 @Component({
   selector: 'app-atividade-pedagogica-dialog',
   templateUrl: './atividade-pedagogica-dialog.html',
@@ -36,7 +37,7 @@ export class AtividadePedagogicaDialogComponent  implements OnInit {
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
     private crudService: CrudService<IatividadePedagogica>,
-    private sharedDataService: avDiscenteServiceName,
+    private sharedDataService: avPedagogicaServiceName,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
   }
