@@ -227,13 +227,13 @@ export class PesquisaCreateComponent implements OnInit {
 
     try {
       if (!this.isCreate) {
-        await this.projetoPesquisaProducaoIntelectualService.createEnsino('projetos_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de projetos de pesquisa ou de produção intelectual criado com sucesso.', 'OK', {
+        await this.projetoPesquisaProducaoIntelectualService.createEnsino('projeto_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Projeto de pesquisa ou de produção intelectual criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.projetoPesquisaProducaoIntelectualService.update('projetos_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de projetos de pesquisa ou de produção intelectual atualizado com sucesso.', 'OK', {
+        await this.projetoPesquisaProducaoIntelectualService.update('projeto_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Projeto de pesquisa ou de produção intelectual atualizado com sucesso.', 'OK', {
           duration: 5000
         });
       }
@@ -260,12 +260,12 @@ export class PesquisaCreateComponent implements OnInit {
     try {
       if (!this.isCreate) {
         await this.trabalhoCompletoPublicadoPeriodicoBoletimTecnicoService.createEnsino('trabalho_completo_publicado_periodico_boletim_tecnico', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de atividade letiva criado com sucesso.', 'OK', {
+        this._snackbar.open('Trabalho criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
         await this.trabalhoCompletoPublicadoPeriodicoBoletimTecnicoService.update('trabalho_completo_publicado_periodico_boletim_tecnico', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de atividade letiva atualizado com sucesso.', 'OK', {
+        this._snackbar.open('Trabalho atualizado com sucesso.', 'OK', {
           duration: 5000
         });
       }
@@ -292,12 +292,12 @@ export class PesquisaCreateComponent implements OnInit {
     try {
       if (!this.isCreate) {
         await this.livroCapituloVerbetePublicadoService.createEnsino('livro_capitulo_verbete_publicado', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de livros, capítulos de livros e verbetes publicados criado com sucesso.', 'OK', {
+        this._snackbar.open('Livro, capítulo de livro ou verbete publicado criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
         await this.livroCapituloVerbetePublicadoService.update('livro_capitulo_verbete_publicado', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de livros, capítulos de livros e verbetes publicados atualizado com sucesso.', 'OK', {
+        this._snackbar.open('Livro, capítulo de livro ou verbete publicados atualizado com sucesso.', 'OK', {
           duration: 5000
         });
       }
@@ -324,12 +324,12 @@ export class PesquisaCreateComponent implements OnInit {
     try {
       if (!this.isCreate) {
         await this.trabalhoCompletoResumoPublicadoApresentadoCongressosService.createEnsino('trabalho_completo_resumo_publicado_apresentado_congressos', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de trabalhos completos e resumos publicados e/ou apresentados em congressos ou similares criado com sucesso.', 'OK', {
+        this._snackbar.open('Trabalho completo e resumo publicado e/ou apresentado em congressos ou similares criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
         await this.trabalhoCompletoResumoPublicadoApresentadoCongressosService.update('trabalho_completo_resumo_publicado_apresentado_congressos', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de trabalhos completos e resumos publicados e/ou apresentados em congressos ou similares atualizado com sucesso.', 'OK', {
+        this._snackbar.open('Trabalho completo e resumo publicado e/ou apresentado em congressos ou similares atualizado com sucesso.', 'OK', {
           duration: 5000
         });
       }
@@ -356,12 +356,12 @@ export class PesquisaCreateComponent implements OnInit {
     try {
       if (!this.isCreate) {
         await this.outraAtividadePesquisaProducaoIntelectualService.createEnsino('outra_atividade_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de outras atividades de Pesquisa/Produção Intelectual criado com sucesso.', 'OK', {
+        this._snackbar.open('Outra atividade de Pesquisa/Produção Intelectual criada com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
         await this.outraAtividadePesquisaProducaoIntelectualService.update('outra_atividade_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Relatório de outras atividades de Pesquisa/Produção Intelectual atualizado com sucesso.', 'OK', {
+        this._snackbar.open('Outra atividade de Pesquisa/Produção Intelectual atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
@@ -388,12 +388,12 @@ export class PesquisaCreateComponent implements OnInit {
     try {
       if (!this.isCreate) {
         await this.chSemanalAtividadesPesquisaService.createEnsino('ch_semanal_atividades_pesquisa', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('CH semanal de pesquisa criada com sucesso.', 'OK', {
+        this._snackbar.open('Carga Horária semanal de pesquisa criada com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
         await this.chSemanalAtividadesPesquisaService.update('ch_semanal_atividades_pesquisa', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('CH semanal de pesquisa atualizada com sucesso.', 'OK', {
+        this._snackbar.open('Carga Horária semanal de pesquisa atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }

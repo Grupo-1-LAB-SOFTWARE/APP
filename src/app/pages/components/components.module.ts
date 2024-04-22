@@ -28,6 +28,11 @@ import { EstagioExtensaoDialogComponent } from './dialogs/extensao/estagio-exten
 import { AtividadeEnsinoNaoFormalDialogComponent } from './dialogs/extensao/atividade-ensino-nao-formal-dialog/atividade-ensino-nao-formal-dialog';
 import { OutraAtividadeExtensaoDialogComponent } from './dialogs/extensao/outra-atividade-extensao-dialog/outra-atividade-extensao-dialog';
 import { CHSemanalAtividadesExtensaoDialogComponent } from './dialogs/extensao/ch-semanal-atividades-extensao-dialog/ch-semanal-atividades-extensao-dialog';
+import { AtividadeGestaoRepresentacaoDialogComponent } from './dialogs/gestao/atividade_gestao_representacao-dialog/atividade_gestao_representacao-dialog';
+import { AfastamentoDialogComponent } from './dialogs/gestao/afastamento-dialog/afastamento-dialog';
+import { OutraInformacaoDialogComponent } from './dialogs/gestao/outra_informacao-dialog/outra_informacao-dialog';
+import { QualificacaoDocenteAcademicaProfissionalDialogComponent } from './dialogs/gestao/qualificacao_docente_academica_profissional-dialog/qualificacao_docente_academica_profissional-dialog';
+
 
 @NgModule({
   declarations: [
@@ -56,7 +61,10 @@ import { CHSemanalAtividadesExtensaoDialogComponent } from './dialogs/extensao/c
     AtividadeEnsinoNaoFormalDialogComponent,
     OutraAtividadeExtensaoDialogComponent,
     CHSemanalAtividadesExtensaoDialogComponent,
-
+    AtividadeGestaoRepresentacaoDialogComponent,
+    AfastamentoDialogComponent,
+    OutraInformacaoDialogComponent,
+    QualificacaoDocenteAcademicaProfissionalDialogComponent
   ],
   imports: [
     CommonModule,
@@ -91,6 +99,10 @@ import { CHSemanalAtividadesExtensaoDialogComponent } from './dialogs/extensao/c
     AtividadeEnsinoNaoFormalDialogComponent,
     OutraAtividadeExtensaoDialogComponent,
     CHSemanalAtividadesExtensaoDialogComponent,
+    AtividadeGestaoRepresentacaoDialogComponent,
+    AfastamentoDialogComponent,
+    OutraInformacaoDialogComponent,
+    QualificacaoDocenteAcademicaProfissionalDialogComponent,
     ContainerComponent,
   
   ]

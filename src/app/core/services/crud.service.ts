@@ -23,6 +23,10 @@ export class CrudService<T> {
     return this.http.get<T[]>(`${this.baseURL}/${endpoint}/${nome}/`);
   }
 
+  getAllGestao(endpoint: string, nome: string): Observable<T[]> {
+    return this.http.get<T[]>(`${this.baseURL}/${endpoint}/${nome}/`);
+  }
+
   getOne(endpoint: string, id: number | string): Observable<T> {
     return this.http.get<T>(`${this.baseURL}/${endpoint}/${id}/`);
   }
