@@ -2,7 +2,7 @@ export interface projetoExtensao {
   numero_doc:               number;
   titulo:                   string;
   funcao:                   string;
-  cadastro_propex:          string;
+  cadastro_proex:           string;
   situacao_atual:           string;
 }
 
@@ -23,7 +23,7 @@ export interface atividadeEnsinoNaoFormal {
 
 export interface outraAtividadeExtensao {
   numero_doc:                   number;
-  descricao:                    string;
+  atividade:                    string;
   ch_total_primeiro_semestre:   string;
   ch_total_segundo_semestre:    string;
 }
@@ -38,7 +38,7 @@ export interface IprojetoExtensao {
   numero_doc:               number;
   titulo:                   string;
   funcao:                   string;
-  cadastro_propex:          string;
+  cadastro_proex:           string;
   situacao_atual:           string;
 }
 
@@ -62,7 +62,7 @@ export interface IatividadeEnsinoNaoFormal {
 export interface IoutraAtividadeExtensao {
   id:                           number;
   numero_doc:                   number;
-  descricao:                    string;
+  atividade:                    string;
   ch_total_primeiro_semestre:   string;
   ch_total_segundo_semestre:    string;
 }

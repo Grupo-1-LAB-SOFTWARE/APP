@@ -63,7 +63,7 @@ export class ExtensaoCreateComponent implements OnInit {
       numero_doc:['',[Validators.required]],
       titulo:['', [Validators.required]],
       funcao:['', [Validators.required]],
-      cadastro_propex:['', [Validators.required]],
+      cadastro_proex:['', [Validators.required]],
       situacao_atual:['', [Validators.required]],
     });
     this.formEstagioExtensao = this.formBuilder.group({
@@ -74,7 +74,8 @@ export class ExtensaoCreateComponent implements OnInit {
       ch_semanal:['',[Validators.required]],
     });
     this.formOutraAtividadeExtensao = this.formBuilder.group({
-      descricao:['',[Validators.required]],
+      numero_doc:['',[Validators.required]],
+      atividade:['',[Validators.required]],
       ch_total_primeiro_semestre:['',[Validators.required]],
       ch_total_segundo_semestre:['',[Validators.required]],
     });
