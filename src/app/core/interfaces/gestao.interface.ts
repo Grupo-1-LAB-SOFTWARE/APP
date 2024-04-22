@@ -1,81 +1,70 @@
-export interface Campus {
-  id: number;
-  nome: string;
-  cidade: string;
-  diretor: string;
+export interface atividadeGestaoRepresentacao {
+  numero_doc:               number;
+  cargo_e_ou_funcao:        string;
+  semestre:                 number;
+  ch_semanal:               number;
+  ato_de_designacao:        string;
+  periodo:                  string;
 }
 
-export interface Instituto {
-  id: number;
-  nome: string;
-  sigla: string;
-  campus: Campus;
-  diretor: string;
+export interface qualificacaoDocenteAcademicaProfissional {
+  numero_doc:                       number;
+  atividades:                       string;
+  portaria_e_ou_data_de_realizacao: string;
 }
 
-export interface Curso {
-  id: number;
-  nome: string;
-  sigla: string;
-  campus: Campus;
-  instituto: Instituto;
-  nivel: string
+export interface outraInformacao {
+  numero_doc:               number;
+  atividades:               string;
 }
 
-export interface atividadeLetiva {
-  id: number;
-  codigo_disciplina: string;
-  nome_disciplina: string;
-  ano: Date;
-  semestre: number;
-  curso: Curso;
-  carga_horaria_disciplina: number;
-  docentes_envolvidos: string[];
-  carga_horaria_docentes_envolvidos: string[];
+export interface afastamento {
+  numero_doc:               number;
+  motivacao:                string;
+  portaria:                 string;
 }
 
-export interface atividadePedagogicaComplementar {
-  id: number;
-  ano: Date;
-  semestre: number;
-  carga_horaria_semanal: number;
-  docentes_envolvidos: string[];
-  carga_horaria_docentes_envolvidos: string[];
+export interface IatividadeGestaoRepresentacao {
+  id:                       number;
+  numero_doc:               number;
+  cargo_e_ou_funcao:        string;
+  semestre:                 number;
+  ch_semanal:               number;
+  ato_de_designacao:        string;
+  periodo:                  string;
 }
 
-export interface atividadeOrientacao {
-  id: number;
-  ano: Date;
-  semestre: number;
-  carga_horaria: number;
-  tipo: string;
+export interface IqualificacaoDocenteAcademicaProfissional {
+  id:                               number;
+  numero_doc:                       number;
+  atividades:                       string;
+  portaria_e_ou_data_de_realizacao: string;
 }
 
-export interface Orientando {
-  id:number,
-  ano: Date,
-  semestre: number,
-  nome: string,
-  matricula: string,
-  curso: string,
-  tipo: string,
-  atividade: atividadeOrientacao
+export interface IoutraInformacao {
+  id:                       number;
+  numero_doc:               number;
+  atividades:               string;
 }
 
-export interface bancaExaminacao {
-  id: number,
-  nome_candidato: string,
-  titulo_trabalho: string,
-  ies: string,
-  tipo: string,
-  ano: number,
-  semestre: number,
+export interface Iafastamento {
+  id:                       number;
+  numero_doc:               number;
+  motivacao:                string;
+  portaria:                 string;
 }
 
 export interface gestao {
   id: number,
-  atividade_letiva: atividadeLetiva,
-  atividade_pedagogica_complementar: atividadePedagogicaComplementar,
-  orientado: Orientando,
-  banca_examinacao: bancaExaminacao
+
+  nome: string,
+
+  atividade_gestao_representacao: atividadeGestaoRepresentacao,
+
+  qualificacao_docente_academica_profissional: qualificacaoDocenteAcademicaProfissional,
+
+  outra_informacao: outraInformacao
+
+  afastamento: afastamento
 }
+

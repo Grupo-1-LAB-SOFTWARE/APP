@@ -1,9 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { gestao } from 'src/app/core/interfaces/gestao.interface';
+import { gestao, IatividadeGestaoRepresentacao, IqualificacaoDocenteAcademicaProfissional, IoutraInformacao, Iafastamento } from 'src/app/core/interfaces/gestao.interface';
 import { CrudService } from 'src/app/core/services/crud.service';
+import { DialogData } from '../../radoc/radoc.component';
+import { SharedDataService } from 'src/app/core/services/shared-data.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AtividadeGestaoRepresentacaoDialogComponent } from '../../components/dialogs/gestao/atividade_gestao_representacao-dialog/atividade_gestao_representacao-dialog';
+import { AfastamentoDialogComponent } from '../../components/dialogs/gestao/afastamento-dialog/afastamento-dialog';
+import { OutraInformacaoDialogComponent } from '../../components/dialogs/gestao/outra_informacao-dialog/outra_informacao-dialog';
+import { QualificacaoDocenteAcademicaProfissionalDialogComponent } from '../../components/dialogs/gestao/qualificacao_docente_academica_profissional-dialog/qualificacao_docente_academica_profissional-dialog';
 
 @Component({
   selector: 'app-gestao-create',
@@ -19,103 +26,118 @@ export class GestaoCreateComponent implements OnInit {
   @Input() gestaoSize: number | undefined;
 
   floatLabelControl = 'always' as FloatLabelType;
-
-  form!: FormGroup;
+  //forms
+  formAtividadeGestaoRepresentacao!: any;
+  formQualificacaoDocenteAcademicaProfissional!: any;
+  formOutraInformacao!: any;
+  formAfastamento!: any;
 
   step: number = 1;
-
+  atividadeNAME:any | undefined;
   gestaoId!: number;
 
-  initialForm = {
-    atividadeLetiva_codigoDisciplina: ['', [Validators.required]],
-    atividadeLetiva_nomeDisciplina: ['', [Validators.required]],
-    atividadeLetiva_ano: ['', [Validators.required]],
-    atividadeLetiva_semestre: ['', [Validators.required]],
-    atividadeLetiva_cursoNome: ['', [Validators.required]],
-    atividadeLetiva_cursoCampos_Cidade: ['', [Validators.required]],
-    atividadeLetiva_cursoCampos_Nome: ['', [Validators.required]],
-    atividadeLetiva_cursoCampos_Diretor: ['', [Validators.required]],
-    atividadeLetiva_cursoInstituto_Diretor: ['', [Validators.required]],
-    atividadeLetiva_cursoInstituto_Nome: ['', [Validators.required]],
-    atividadeLetiva_cursoInstituto_Sigla: ['', [Validators.required]],
-    atividadeLetiva_cursoNivel: ['', [Validators.required]],
-    atividadeLetiva_cursosigla: ['', [Validators.required]],
-    atividadeLetiva_docentes_envolvidos: ['', [Validators.required]],
-    atividadeLetiva_carga_horaria_docentes_envolvidos: ['', [Validators.required]],
-    atividadePedagogicaComplementar_ano: ['', [Validators.required]],
-    atividadePedagogicaComplementar_semestre: ['', [Validators.required]],
-    atividadePedagogicaComplementar_carga_horaria_semanal: ['', [Validators.required]],
-    atividadePedagogicaComplementar_docentes_envolvidos: ['', [Validators.required]],
-    atividadePedagogicaComplementar_carga_horaria_docentes_envolvidos: ['', [Validators.required]],
-    orientado_semestre: ['', [Validators.required]],
-    orientado_nome: ['', [Validators.required]],
-    orientado_matricula: ['', [Validators.required]],
-    orientado_atividade_carga_horaria: [''],
-    orientado_atividade_tipo: ['', [Validators.required]],
-    bancaExaminacao_nomeCandidato: ['', [Validators.required]],
-    bancaExaminacao_tituloTrabalho: ['', [Validators.required]],
-    bancaExaminacao_ies: ['', [Validators.required]],
-    bancaExaminacao_tipo: ['', [Validators.required]],
-    bancaExaminacao_ano: ['', [Validators.required]],
-    bancaExaminacao_semestre: ['', [Validators.required]],
-  }
-
+  dialogData!: DialogData | undefined;
+  nomeRelatorio: string = '';
   constructor(
     private readonly gestaoService: CrudService<gestao>,
-    private formBuilder: NonNullableFormBuilder,
+    private readonly formBuilder: FormBuilder,
     private _snackbar: MatSnackBar,
-  ) {
-  }
+    private atividadeGestaoRepresentacaoService: CrudService<IatividadeGestaoRepresentacao>,
+    private qualificacaoDocenteAcademicaProfissionalService: CrudService<IqualificacaoDocenteAcademicaProfissional>,
+    private outraInformacaoService: CrudService<IoutraInformacao>,
+    private afastamentoService: CrudService<Iafastamento>,
+    private CrudService: CrudService<any>,
+    private sharedDataService: SharedDataService,
+    public dialog: MatDialog
+  ) {}
 
-  ngOnInit(): void {
-    this.form = this.formBuilder.group(this.initialForm);
-    if(!this.isCreate && this.gestao){
-      this.gestaoId = Number(this.gestao.id);
-      this.fillForm(this.gestao);
+  async ngOnInit(){
+    this.sharedDataService.nomeRelatorio$.subscribe(nome => {
+      this.nomeRelatorio = nome;
+    });
+
+    this.formAtividadeGestaoRepresentacao = this.formBuilder.group({
+      numero_doc:['',[Validators.required]],
+      cargo_e_ou_funcao:['', [Validators.required]],
+      semestre:['', [Validators.required]],
+      ch_semanal:['', [Validators.required]],
+      ato_de_designacao:['', [Validators.required]],
+      periodo:['', [Validators.required]],
+    });
+    this.formQualificacaoDocenteAcademicaProfissional = this.formBuilder.group({
+      numero_doc:['',[Validators.required]],
+      atividades:['',[Validators.required]],
+      portaria_e_ou_data_de_realizacao:['',[Validators.required]],
+    });
+    this.formOutraInformacao = this.formBuilder.group({
+      numero_doc:['',[Validators.required]],
+      atividades:['',[Validators.required]],
+    });
+    this.formAfastamento = this.formBuilder.group({
+      numero_doc:['',[Validators.required]],
+      motivacao:['',[Validators.required]],
+      portaria:['', [Validators.required]],
+    });
+
+    if(!this.isCreate){
+      this.gestaoId = Number(this.gestao?.id);
     }
+    console.log(this.gestao)
+    console.log(this.formBuilder.array([this.formBuilder.control('')]));
+
+  }
+  openDialogAtividadeGestaoRepresentacao(){
+    const dialogRef = this.dialog.open(AtividadeGestaoRepresentacaoDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogQualificacaoDocenteAcademicaProfissional(){
+    const dialogRef = this.dialog.open(QualificacaoDocenteAcademicaProfissionalDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogOutraInformacao(){
+    const dialogRef = this.dialog.open(OutraInformacaoDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogAfastamento(){
+    const dialogRef = this.dialog.open(AfastamentoDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
-  fillForm(gestao: gestao) {
-    this.form.patchValue({
-      atividadeLetiva_codigoDisciplina: gestao.atividade_letiva.codigo_disciplina,
-      atividadeLetiva_nomeDisciplina: gestao.atividade_letiva.nome_disciplina,
-      atividadeLetiva_ano: gestao.atividade_letiva.ano,
-      atividadeLetiva_semestre: gestao.atividade_letiva.semestre,
-      atividadeLetiva_cursoNome: gestao.atividade_letiva.curso.nome,
-      atividadeLetiva_cursoCampos_Cidade: gestao.atividade_letiva.curso.campus.cidade,
-      atividadeLetiva_cursoCampos_Nome: gestao.atividade_letiva.curso.campus.nome,
-      atividadeLetiva_cursoCampos_Diretor: gestao.atividade_letiva.curso.campus.diretor,
-      atividadeLetiva_cursoInstituto_Diretor: gestao.atividade_letiva.curso.instituto.diretor,
-      atividadeLetiva_cursoInstituto_Nome: gestao.atividade_letiva.curso.instituto.nome,
-      atividadeLetiva_cursoInstituto_Sigla: gestao.atividade_letiva.curso.instituto.sigla,
-      atividadeLetiva_cursoInstituto_Campus: gestao.atividade_letiva.curso.instituto.campus,
-      atividadeLetiva_cursoNivel: gestao.atividade_letiva.curso.nivel,
-      atividadeLetiva_cursosigla: gestao.atividade_letiva.curso.sigla,
-      atividadeLetiva_docentes_envolvidos: gestao.atividade_letiva.docentes_envolvidos,
-      atividadeLetiva_carga_horaria_docentes_envolvidos: gestao.atividade_letiva.carga_horaria_docentes_envolvidos,
-      atividadePedagogicaComplementar_ano: gestao.atividade_pedagogica_complementar.ano,
-      atividadePedagogicaComplementar_semestre: gestao.atividade_pedagogica_complementar.semestre,
-      atividadePedagogicaComplementar_carga_horaria_semanal: gestao.atividade_pedagogica_complementar.carga_horaria_semanal,
-      atividadePedagogicaComplementar_docentes_envolvidos: gestao.atividade_pedagogica_complementar.docentes_envolvidos,
-      atividadePedagogicaComplementar_carga_horaria_docentes_envolvidos: gestao.atividade_pedagogica_complementar.carga_horaria_docentes_envolvidos,
-      orientado_ano: gestao.orientado.ano,
-      orientado_semestre: gestao.orientado.semestre,
-      orientado_nome: gestao.orientado.nome,
-      orientado_matricula: gestao.orientado.matricula,
-      orientado_curso: gestao.orientado.curso,
-      orientado_tipo: gestao.orientado.tipo,
-      orientado_atividade_ano: gestao.orientado.atividade.ano,
-      orientado_atividade_semestre: gestao.orientado.atividade.semestre,
-      orientado_atividade_carga_horaria: gestao.orientado.atividade.carga_horaria,
-      orientado_atividade_tipo: gestao.orientado.atividade.tipo,
-      bancaExaminacao_nomeCandidato: gestao.banca_examinacao.nome_candidato,
-      bancaExaminacao_tituloTrabalho: gestao.banca_examinacao.titulo_trabalho,
-      bancaExaminacao_ies: gestao.banca_examinacao.ies,
-      bancaExaminacao_tipo: gestao.banca_examinacao.tipo,
-      bancaExaminacao_ano: gestao.banca_examinacao.ano,
-      bancaExaminacao_semestre: gestao.banca_examinacao.semestre,
-    })
-  }
 
   goBack() {
     if (this.step > 1) {
@@ -124,14 +146,14 @@ export class GestaoCreateComponent implements OnInit {
   }
 
   goNext() {
-    if (this.step < 5) {
+    if (this.step < 8) {
       this.step++;
     }
   }
 
   async submit() {
-    const formValue = this.form.getRawValue();
-    if (!this.form.valid) {
+    const formValue = this.formAtividadeGestaoRepresentacao.getRawValue();
+    if (!this.formAtividadeGestaoRepresentacao.valid) {
       this._snackbar.open('Preencha todos os campos.', 'OK', {
         duration: 5000
       });
@@ -142,17 +164,146 @@ export class GestaoCreateComponent implements OnInit {
       this.isCreate ?
         await this.gestaoService.create('gestao',formValue) :
         await this.gestaoService.update('gestao', formValue);
-        this._snackbar.open('Relátorio de gestao salvo com sucesso.', 'OK', {
+        this._snackbar.open('Relatório de gestão e outras atividades salvo com sucesso.', 'OK', {
           duration: 5000
         });
-      location.reload();
+      // Evitando o uso de location.reload() para atualizar a interface do usuário
     } catch (error) {
       console.error(error);
-      this._snackbar.open('Erro ao salvar Relátorio de gestao.', 'OK', {
+      this._snackbar.open('Erro ao salvar Relatório de gestão e outras atividades.', 'OK', {
         duration: 5000
       });
     }
   }
 
-}
+  //buttonsSubmit
+  async submitAtividadeGestaoRepresentacao() {
+    const formValue = this.formAtividadeGestaoRepresentacao.getRawValue();
+    console.log(formValue);
 
+    if (!this.formAtividadeGestaoRepresentacao.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.atividadeGestaoRepresentacaoService.createEnsino('atividade_gestao_representacao', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Atividade de Gestão ou Representação criada com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.atividadeGestaoRepresentacaoService.update('atividade_gestao_representacao', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Atividade de Gestão ou Representação atualizada com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formAtividadeGestaoRepresentacao.reset();
+  }
+  async submitQualificacaoDocenteAcademicaProfissional() {
+    const formValue = this.formQualificacaoDocenteAcademicaProfissional.getRawValue();
+    console.log(formValue);
+
+    if (!this.formQualificacaoDocenteAcademicaProfissional.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.qualificacaoDocenteAcademicaProfissionalService.createEnsino('qualificacao_docente_academica_profissional', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Qualificação Acadêmica Profissional ou Outra Atividade criada com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.qualificacaoDocenteAcademicaProfissionalService.update('qualificacao_docente_academica_profissional', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Qualificação Acadêmica Profissional ou Outra Atividade atualizada com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formQualificacaoDocenteAcademicaProfissional.reset();
+  }
+
+  async submitOutraInformacao() {
+    const formValue = this.formOutraInformacao.getRawValue();
+    console.log(formValue);
+
+    if (!this.formOutraInformacao.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.outraInformacaoService.createEnsino('outra_informacao', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Outra Informação criada com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.outraInformacaoService.update('outra_informacao', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Outra Informação atualizada com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formOutraInformacao.reset();
+  }
+  async submitAfastamento() {
+    const formValue = this.formAfastamento.getRawValue();
+    console.log(formValue);
+
+    if (!this.formAfastamento.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.afastamentoService.createEnsino('afastamento', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Afastamento criado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.afastamentoService.update('afastamento', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Afastamento atualizado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formAfastamento.reset();
+  }
+}
