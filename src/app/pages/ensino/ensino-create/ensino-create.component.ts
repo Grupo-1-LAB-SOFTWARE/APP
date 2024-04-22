@@ -162,10 +162,10 @@ export class EnsinoCreateComponent implements OnInit {
       //atidadePedagogicaComplementar
     this.formAtividadeOrientacao = this.formBuilder.group({
       semestre: ['', [Validators.required]],
-      ch_semanal_orientacao: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
-      ch_semanal_coorientacao: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
-      ch_semanal_supervisao: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
-      ch_semanal_preceptoria_e_ou_tutoria: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
+      ch_semanal_orientacao: ['', [Validators.required]],
+      ch_semanal_coorientacao: ['', [Validators.required]],
+      ch_semanal_supervisao: ['', [Validators.required]],
+      ch_semanal_preceptoria_e_ou_tutoria: ['', [Validators.required]],
     })
     //Descrição Orientacao
     this.formDescricao_orientacao = this.formBuilder.group({
@@ -174,36 +174,36 @@ export class EnsinoCreateComponent implements OnInit {
       curso: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
       nivel: ['', [Validators.required]],
-      ch_semanal_primeiro_semestre: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
-      ch_semanal_segundo_semestre: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
+      ch_semanal_primeiro_semestre: ['', [Validators.required]],
+      ch_semanal_segundo_semestre: ['', [Validators.required]],
     })
     //SupervisaoAcademica
     this.formsupervisao_academica = this.formBuilder.group({
-      numero_doc: ['', [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]],
+      numero_doc: ['', [Validators.required]],
       nome_e_ou_matricula_discente: ['', [Validators.required]],
       curso: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
       nivel: ['', [Validators.required]],
-      ch_semanal_primeiro_semestre: ['', [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]],
-      ch_semanal_segundo_semestre: ['', [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]],
+      ch_semanal_primeiro_semestre: ['', [Validators.required]],
+      ch_semanal_segundo_semestre: ['', [Validators.required]],
     })
     //PreceptoriaTutoria
     this.formPreceptoriaTutoria = this.formBuilder.group({
-      numero_doc: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
+      numero_doc: ['', [Validators.required]],
       nome_e_ou_matricula_discente: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
-      ch_semanal_primeiro_semestre: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
-      ch_semanal_segundo_semestre: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
+      ch_semanal_primeiro_semestre: ['', [Validators.required]],
+      ch_semanal_segundo_semestre: ['', [Validators.required]],
     })
     //BancaExaminadora
     this.formBanca_examinadora = this.formBuilder.group({
-      numero_doc: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
+      numero_doc: ['', [Validators.required]],
       nome_candidato: ['', [Validators.required]],
       titulo_trabalho: ['', [Validators.required]],
       ies: ['', [Validators.required]],
       tipo: ['', [Validators.required]],
-      ch_semanal_primeiro_semestre: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
-      ch_semanal_segundo_semestre: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
+      ch_semanal_primeiro_semestre: ['', [Validators.required]],
+      ch_semanal_segundo_semestre: ['', [Validators.required]],
     })
     //AvaliacaoDiscente
     this.formAvaliacao_discente = this.formBuilder.group({
@@ -211,8 +211,8 @@ export class EnsinoCreateComponent implements OnInit {
       nota_primeiro_semestre: ['', [Validators.required]],
       codigo_turma_primeiro_semestre: ['', [Validators.required]],
       numero_doc_segundo_semestre: ['', [Validators.required]],
-      nota_segundo_semestre: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
-      codigo_turma_segundo_semestre: ['', [Validators.required], Validators.pattern(/^\d+(\.\d+)?$/)],
+      nota_segundo_semestre: ['', [Validators.required]],
+      codigo_turma_segundo_semestre: ['', [Validators.required]],
     })
 
     if(!this.isCreate){
