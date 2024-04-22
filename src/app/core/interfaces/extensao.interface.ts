@@ -1,81 +1,90 @@
-export interface Campus {
-  id: number;
-  nome: string;
-  cidade: string;
-  diretor: string;
+export interface projetoExtensao {
+  numero_doc:               number;
+  titulo:                   string;
+  funcao:                   string;
+  cadastro_propex:          string;
+  situacao_atual:           string;
 }
 
-export interface Instituto {
-  id: number;
-  nome: string;
-  sigla: string;
-  campus: Campus;
-  diretor: string;
+export interface estagioExtensao {
+  numero_doc:               number;
+  area_conhecimento:        string;
+  instituicao_ou_local:     string;
+  periodo:                  string;
+  ch_semanal:               number;
 }
 
-export interface Curso {
-  id: number;
-  nome: string;
-  sigla: string;
-  campus: Campus;
-  instituto: Instituto;
-  nivel: string
+export interface atividadeEnsinoNaoFormal {
+  numero_doc:                   number;
+  atividade:                    string;
+  ch_total_primeiro_semestre:   string;
+  ch_total_segundo_semestre:    string;
 }
 
-export interface atividadeLetiva {
-  id: number;
-  codigo_disciplina: string;
-  nome_disciplina: string;
-  ano: Date;
-  semestre: number;
-  curso: Curso;
-  carga_horaria_disciplina: number;
-  docentes_envolvidos: string[];
-  carga_horaria_docentes_envolvidos: string[];
+export interface outraAtividadeExtensao {
+  numero_doc:                   number;
+  descricao:                    string;
+  ch_total_primeiro_semestre:   string;
+  ch_total_segundo_semestre:    string;
 }
 
-export interface atividadePedagogicaComplementar {
-  id: number;
-  ano: Date;
-  semestre: number;
-  carga_horaria_semanal: number;
-  docentes_envolvidos: string[];
-  carga_horaria_docentes_envolvidos: string[];
+export interface chSemanalAtividadesExtensao {
+  ch_semanal_primeiro_semestre:  number;
+  ch_semanal_segundo_semestre:   number;
 }
 
-export interface atividadeOrientacao {
-  id: number;
-  ano: Date;
-  semestre: number;
-  carga_horaria: number;
-  tipo: string;
+export interface IprojetoExtensao {
+  id:                       number;
+  numero_doc:               number;
+  titulo:                   string;
+  funcao:                   string;
+  cadastro_propex:          string;
+  situacao_atual:           string;
 }
 
-export interface Orientando {
-  id:number,
-  ano: Date,
-  semestre: number,
-  nome: string,
-  matricula: string,
-  curso: string,
-  tipo: string,
-  atividade: atividadeOrientacao
+export interface IestagioExtensao {
+  id:                       number;
+  numero_doc:               number;
+  area_conhecimento:        string;
+  instituicao_ou_local:     string;
+  periodo:                  string;
+  ch_semanal:               number;
 }
 
-export interface bancaExaminacao {
-  id: number,
-  nome_candidato: string,
-  titulo_trabalho: string,
-  ies: string,
-  tipo: string,
-  ano: number,
-  semestre: number,
+export interface IatividadeEnsinoNaoFormal {
+  id:                           number;
+  numero_doc:                   number;
+  atividade:                    string;
+  ch_total_primeiro_semestre:   string;
+  ch_total_segundo_semestre:    string;
+}
+
+export interface IoutraAtividadeExtensao {
+  id:                           number;
+  numero_doc:                   number;
+  descricao:                    string;
+  ch_total_primeiro_semestre:   string;
+  ch_total_segundo_semestre:    string;
+}
+
+export interface IchSemanalAtividadesExtensao {
+  id:                            number;
+  ch_semanal_primeiro_semestre:  number;
+  ch_semanal_segundo_semestre:   number;
 }
 
 export interface extensao {
   id: number,
-  atividade_letiva: atividadeLetiva,
-  atividade_pedagogica_complementar: atividadePedagogicaComplementar,
-  orientado: Orientando,
-  banca_examinacao: bancaExaminacao
+
+  nome: string,
+
+  projeto_extensao: projetoExtensao,
+
+  estagio_extensao: estagioExtensao,
+
+  atividade_ensino_nao_formal: atividadeEnsinoNaoFormal,
+
+  outra_atividade_extensao: outraAtividadeExtensao,
+
+  ch_semanal_atividades_extensao: chSemanalAtividadesExtensao,
 }

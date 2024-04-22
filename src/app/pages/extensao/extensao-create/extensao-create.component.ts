@@ -1,9 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { extensao } from 'src/app/core/interfaces/extensao.interface';
+import { extensao, IprojetoExtensao, IestagioExtensao, IatividadeEnsinoNaoFormal, IoutraAtividadeExtensao, IchSemanalAtividadesExtensao } from 'src/app/core/interfaces/extensao.interface';
 import { CrudService } from 'src/app/core/services/crud.service';
+import { DialogData } from '../../radoc/radoc.component';
+import { SharedDataService } from 'src/app/core/services/shared-data.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ProjetoExtensaoDialogComponent } from '../../components/dialogs/extensao/projeto-extensao-dialog/projeto-extensao-dialog';
+import { EstagioExtensaoDialogComponent } from '../../components/dialogs/extensao/estagio-extensao-dialog/estagio-extensao-dialog';
+import { OutraAtividadeExtensaoDialogComponent } from '../../components/dialogs/extensao/outra-atividade-extensao-dialog/outra-atividade-extensao-dialog';
+import { AtividadeEnsinoNaoFormalDialogComponent } from '../../components/dialogs/extensao/atividade-ensino-nao-formal-dialog/atividade-ensino-nao-formal-dialog';
+import { CHSemanalAtividadesExtensaoDialogComponent } from '../../components/dialogs/extensao/ch-semanal-atividades-extensao-dialog/ch-semanal-atividades-extensao-dialog';
 
 @Component({
   selector: 'app-extensao-create',
@@ -19,104 +27,153 @@ export class ExtensaoCreateComponent implements OnInit {
   @Input() extensaoSize: number | undefined;
 
   floatLabelControl = 'always' as FloatLabelType;
-
-  form!: FormGroup;
+  //forms
+  formProjetoExtensao!: any;
+  formEstagioExtensao!: any;
+  formOutraAtividadeExtensao!: any;
+  formAtividadeEnsinoNaoFormal!: any;
+  formCHSemanalAtividadesExtensao!: any;
 
   step: number = 1;
-
+  atividadeNAME:any | undefined;
   extensaoId!: number;
 
-  initialForm = {
-    atividadeLetiva_codigoDisciplina: ['', [Validators.required]],
-    atividadeLetiva_nomeDisciplina: ['', [Validators.required]],
-    atividadeLetiva_ano: ['', [Validators.required]],
-    atividadeLetiva_semestre: ['', [Validators.required]],
-    atividadeLetiva_cursoNome: ['', [Validators.required]],
-    atividadeLetiva_cursoCampos_Cidade: ['', [Validators.required]],
-    atividadeLetiva_cursoCampos_Nome: ['', [Validators.required]],
-    atividadeLetiva_cursoCampos_Diretor: ['', [Validators.required]],
-    atividadeLetiva_cursoInstituto_Diretor: ['', [Validators.required]],
-    atividadeLetiva_cursoInstituto_Nome: ['', [Validators.required]],
-    atividadeLetiva_cursoInstituto_Sigla: ['', [Validators.required]],
-    atividadeLetiva_cursoNivel: ['', [Validators.required]],
-    atividadeLetiva_cursosigla: ['', [Validators.required]],
-    atividadeLetiva_docentes_envolvidos: ['', [Validators.required]],
-    atividadeLetiva_carga_horaria_docentes_envolvidos: ['', [Validators.required]],
-    atividadePedagogicaComplementar_ano: ['', [Validators.required]],
-    atividadePedagogicaComplementar_semestre: ['', [Validators.required]],
-    atividadePedagogicaComplementar_carga_horaria_semanal: ['', [Validators.required]],
-    atividadePedagogicaComplementar_docentes_envolvidos: ['', [Validators.required]],
-    atividadePedagogicaComplementar_carga_horaria_docentes_envolvidos: ['', [Validators.required]],
-    orientado_semestre: ['', [Validators.required]],
-    orientado_nome: ['', [Validators.required]],
-    orientado_matricula: ['', [Validators.required]],
-    orientado_atividade_carga_horaria: [''],
-    orientado_atividade_tipo: ['', [Validators.required]],
-    bancaExaminacao_nomeCandidato: ['', [Validators.required]],
-    bancaExaminacao_tituloTrabalho: ['', [Validators.required]],
-    bancaExaminacao_ies: ['', [Validators.required]],
-    bancaExaminacao_tipo: ['', [Validators.required]],
-    bancaExaminacao_ano: ['', [Validators.required]],
-    bancaExaminacao_semestre: ['', [Validators.required]],
-  }
-
+  dialogData!: DialogData | undefined;
+  nomeRelatorio: string = '';
   constructor(
     private readonly extensaoService: CrudService<extensao>,
-    private formBuilder: NonNullableFormBuilder,
+    private readonly formBuilder: FormBuilder,
     private _snackbar: MatSnackBar,
-  ) {
-  }
+    private projetoExtensaoService: CrudService<IprojetoExtensao>,
+    private estagioExtensaoService: CrudService<IestagioExtensao>,
+    private atividadeEnsinoNaoFormalService: CrudService<IatividadeEnsinoNaoFormal>,
+    private outraAtividadeExtensaoService: CrudService<IoutraAtividadeExtensao>,
+    private chSemanalAtividadesExtensaoService: CrudService<IchSemanalAtividadesExtensao>,
+    private CrudService: CrudService<any>,
+    private sharedDataService: SharedDataService,
+    public dialog: MatDialog
+  ) {}
 
-  ngOnInit(): void {
-    this.form = this.formBuilder.group(this.initialForm);
-    if(!this.isCreate && this.extensao){
-      this.extensaoId = Number(this.extensao.id);
-      this.fillForm(this.extensao);
+  async ngOnInit(){
+    this.sharedDataService.nomeRelatorio$.subscribe(nome => {
+      this.nomeRelatorio = nome;
+    });
+
+    this.formProjetoExtensao = this.formBuilder.group({
+      numero_doc:['',[Validators.required]],
+      titulo:['', [Validators.required]],
+      funcao:['', [Validators.required]],
+      cadastro_propex:['', [Validators.required]],
+      situacao_atual:['', [Validators.required]],
+    });
+    this.formEstagioExtensao = this.formBuilder.group({
+      numero_doc:['',[Validators.required]],
+      area_conhecimento:['',[Validators.required]],
+      instituicao_ou_local:['',[Validators.required]],
+      periodo:['',[Validators.required]],
+      ch_semanal:['',[Validators.required]],
+    });
+    this.formOutraAtividadeExtensao = this.formBuilder.group({
+      descricao:['',[Validators.required]],
+      ch_total_primeiro_semestre:['',[Validators.required]],
+      ch_total_segundo_semestre:['',[Validators.required]],
+    });
+    this.formAtividadeEnsinoNaoFormal = this.formBuilder.group({
+      numero_doc:['',[Validators.required]],
+      atividade:['',[Validators.required]],
+      ch_total_primeiro_semestre:['',[Validators.required]],
+      ch_total_segundo_semestre:['',[Validators.required]],
+    });
+    this.formCHSemanalAtividadesExtensao = this.formBuilder.group({
+      ch_semanal_primeiro_semestre:['',[Validators.required]],
+      ch_semanal_segundo_semestre:['',[Validators.required]],
+    });
+
+    if(!this.isCreate){
+      this.extensaoId = Number(this.extensao?.id);
     }
-  }
+    console.log(this.extensao)
+    console.log(this.formBuilder.array([this.formBuilder.control('')]));
 
-  fillForm(extensao: extensao) {
-    this.form.patchValue({
-      atividadeLetiva_codigoDisciplina: extensao.atividade_letiva.codigo_disciplina,
-      atividadeLetiva_nomeDisciplina: extensao.atividade_letiva.nome_disciplina,
-      atividadeLetiva_ano: extensao.atividade_letiva.ano,
-      atividadeLetiva_semestre: extensao.atividade_letiva.semestre,
-      atividadeLetiva_cursoNome: extensao.atividade_letiva.curso.nome,
-      atividadeLetiva_cursoCampos_Cidade: extensao.atividade_letiva.curso.campus.cidade,
-      atividadeLetiva_cursoCampos_Nome: extensao.atividade_letiva.curso.campus.nome,
-      atividadeLetiva_cursoCampos_Diretor: extensao.atividade_letiva.curso.campus.diretor,
-      atividadeLetiva_cursoInstituto_Diretor: extensao.atividade_letiva.curso.instituto.diretor,
-      atividadeLetiva_cursoInstituto_Nome: extensao.atividade_letiva.curso.instituto.nome,
-      atividadeLetiva_cursoInstituto_Sigla: extensao.atividade_letiva.curso.instituto.sigla,
-      atividadeLetiva_cursoInstituto_Campus: extensao.atividade_letiva.curso.instituto.campus,
-      atividadeLetiva_cursoNivel: extensao.atividade_letiva.curso.nivel,
-      atividadeLetiva_cursosigla: extensao.atividade_letiva.curso.sigla,
-      atividadeLetiva_docentes_envolvidos: extensao.atividade_letiva.docentes_envolvidos,
-      atividadeLetiva_carga_horaria_docentes_envolvidos: extensao.atividade_letiva.carga_horaria_docentes_envolvidos,
-      atividadePedagogicaComplementar_ano: extensao.atividade_pedagogica_complementar.ano,
-      atividadePedagogicaComplementar_semestre: extensao.atividade_pedagogica_complementar.semestre,
-      atividadePedagogicaComplementar_carga_horaria_semanal: extensao.atividade_pedagogica_complementar.carga_horaria_semanal,
-      atividadePedagogicaComplementar_docentes_envolvidos: extensao.atividade_pedagogica_complementar.docentes_envolvidos,
-      atividadePedagogicaComplementar_carga_horaria_docentes_envolvidos: extensao.atividade_pedagogica_complementar.carga_horaria_docentes_envolvidos,
-      orientado_ano: extensao.orientado.ano,
-      orientado_semestre: extensao.orientado.semestre,
-      orientado_nome: extensao.orientado.nome,
-      orientado_matricula: extensao.orientado.matricula,
-      orientado_curso: extensao.orientado.curso,
-      orientado_tipo: extensao.orientado.tipo,
-      orientado_atividade_ano: extensao.orientado.atividade.ano,
-      orientado_atividade_semestre: extensao.orientado.atividade.semestre,
-      orientado_atividade_carga_horaria: extensao.orientado.atividade.carga_horaria,
-      orientado_atividade_tipo: extensao.orientado.atividade.tipo,
-      bancaExaminacao_nomeCandidato: extensao.banca_examinacao.nome_candidato,
-      bancaExaminacao_tituloTrabalho: extensao.banca_examinacao.titulo_trabalho,
-      bancaExaminacao_ies: extensao.banca_examinacao.ies,
-      bancaExaminacao_tipo: extensao.banca_examinacao.tipo,
-      bancaExaminacao_ano: extensao.banca_examinacao.ano,
-      bancaExaminacao_semestre: extensao.banca_examinacao.semestre,
-    })
   }
+  openDialogProjetoExtensao(){
+    const dialogRef = this.dialog.open(ProjetoExtensaoDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+      }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogEstagioExtensao(){
+    const dialogRef = this.dialog.open(EstagioExtensaoDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogAtividadeEnsinoNaoFormal(){
+    const dialogRef = this.dialog.open(AtividadeEnsinoNaoFormalDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogOutraAtividadeExtensao(){
+    const dialogRef = this.dialog.open(OutraAtividadeExtensaoDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogAtividadeEnsinoNaoFormall(){
+    const dialogRef = this.dialog.open(AtividadeEnsinoNaoFormalDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openDialogCHSemanalAtividadesExtensao(){
+    const dialogRef = this.dialog.open(CHSemanalAtividadesExtensaoDialogComponent, {
+      width: '800px',
+      data: {
+        nomeRelatorio: this.nomeRelatorio
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  
   goBack() {
     if (this.step > 1) {
       this.step--;
@@ -124,14 +181,14 @@ export class ExtensaoCreateComponent implements OnInit {
   }
 
   goNext() {
-    if (this.step < 5) {
+    if (this.step < 8) {
       this.step++;
     }
   }
 
   async submit() {
-    const formValue = this.form.getRawValue();
-    if (!this.form.valid) {
+    const formValue = this.formProjetoExtensao.getRawValue();
+    if (!this.formProjetoExtensao.valid) {
       this._snackbar.open('Preencha todos os campos.', 'OK', {
         duration: 5000
       });
@@ -142,16 +199,177 @@ export class ExtensaoCreateComponent implements OnInit {
       this.isCreate ?
         await this.extensaoService.create('extensao',formValue) :
         await this.extensaoService.update('extensao', formValue);
-        this._snackbar.open('Relátorio de extensao salvo com sucesso.', 'OK', {
+        this._snackbar.open('Relatório de extensão salvo com sucesso.', 'OK', {
           duration: 5000
         });
-      location.reload();
+      // Evitando o uso de location.reload() para atualizar a interface do usuário
     } catch (error) {
       console.error(error);
-      this._snackbar.open('Erro ao salvar Relátorio de extensao.', 'OK', {
+      this._snackbar.open('Erro ao salvar Relatório de extensão.', 'OK', {
         duration: 5000
       });
     }
   }
 
+  //buttonsSubmit
+  async submitProjetoExtensao() {
+    const formValue = this.formProjetoExtensao.getRawValue();
+    console.log(formValue);
+
+    if (!this.formProjetoExtensao.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.projetoExtensaoService.createEnsino('projeto_extensao', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Projeto de extensão criado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.projetoExtensaoService.update('projeto_extensao', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Projeto de extensão atualizado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formProjetoExtensao.reset();
+  }
+  async submitEstagioExtensao() {
+    const formValue = this.formEstagioExtensao.getRawValue();
+    console.log(formValue);
+
+    if (!this.formEstagioExtensao.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.estagioExtensaoService.createEnsino('estagio_extensao', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Estágio de Extensão criado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.estagioExtensaoService.update('estagio_extensao', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Estágio de Extensão atualizado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formEstagioExtensao.reset();
+  }
+  async submitAtividadeEnsinoNaoFormal() {
+    const formValue = this.formAtividadeEnsinoNaoFormal.getRawValue();
+    console.log(formValue);
+
+    if (!this.formAtividadeEnsinoNaoFormal.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.atividadeEnsinoNaoFormalService.createEnsino('atividade_ensino_nao_formal', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Atividade de Ensino não formal criada com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.atividadeEnsinoNaoFormalService.update('atividade_ensino_nao_formal', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Atividade de Ensino não formal atualizada com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formAtividadeEnsinoNaoFormal.reset();
+  }
+  async submitOutraAtividadeExtensao() {
+    const formValue = this.formOutraAtividadeExtensao.getRawValue();
+    console.log(formValue);
+
+    if (!this.formOutraAtividadeExtensao.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.outraAtividadeExtensaoService.createEnsino('outra_atividade_extensao', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Outra Atividade de Extensão criado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.outraAtividadeExtensaoService.update('outra_atividade_extensao', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('Outra Atividade de Extensão atualizado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formOutraAtividadeExtensao.reset();
+  }
+  async submitCHSemanalAtividadesExtensao() {
+    const formValue = this.formCHSemanalAtividadesExtensao.getRawValue();
+    console.log(formValue);
+
+    if (!this.formCHSemanalAtividadesExtensao.valid) {
+      this._snackbar.open('Preencha todos os campos.', 'OK', {
+        duration: 5000
+      });
+      return;
+    }
+
+    try {
+      if (!this.isCreate) {
+        await this.chSemanalAtividadesExtensaoService.createEnsino('ch_semanal_atividades_extensao', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('CH Semanal Atividades de Extensão criado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      } else {
+        await this.chSemanalAtividadesExtensaoService.update('ch_semanal_atividades_extensao', formValue, this.nomeRelatorio).toPromise();
+        this._snackbar.open('CH Semanal Atividades de Extensão atualizado com sucesso.', 'OK', {
+          duration: 5000
+        });
+      }
+      // Aqui você pode atualizar a interface do usuário sem recarregar a página
+    } catch (error) {
+      console.error(error);
+      this._snackbar.open(error as string, 'OK', {
+        duration: 5000
+      });
+    }
+    this.formCHSemanalAtividadesExtensao.reset();
+  }
 }
