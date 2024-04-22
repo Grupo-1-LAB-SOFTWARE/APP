@@ -23,6 +23,10 @@ import { OutraAtividadePesquisaDialogComponent } from './dialogs/pesquisa/outra-
 import { ProjetoPesquisaProducaoIntelectualDialogComponent } from './dialogs/pesquisa/projeto-pesquisa-dialog/projeto-pesquisa-dialog';
 import { TrabalhoCompletoPublicadoDialogComponent } from './dialogs/pesquisa/trabalho-publicado-dialog/trabalho-publicado-dialog';
 import { TrabalhoCompletoResumoPublicadoDialogComponent } from './dialogs/pesquisa/trabalho-resumo-dialog/trabalho-resumo-dialog';
+import { AtividadeGestaoRepresentacaoDialogComponent } from './dialogs/gestao/atividade_gestao_representacao-dialog/atividade_gestao_representacao-dialog';
+import { AfastamentoDialogComponent } from './dialogs/gestao/afastamento-dialog/afastamento-dialog';
+import { OutraInformacaoDialogComponent } from './dialogs/gestao/outra_informacao-dialog/outra_informacao-dialog';
+import { QualificacaoDocenteAcademicaProfissionalDialogComponent } from './dialogs/gestao/qualificacao_docente_academica_profissional-dialog/qualificacao_docente_academica_profissional-dialog';
 
 
 @NgModule({
@@ -46,7 +50,11 @@ import { TrabalhoCompletoResumoPublicadoDialogComponent } from './dialogs/pesqui
     OutraAtividadePesquisaDialogComponent,
     ProjetoPesquisaProducaoIntelectualDialogComponent,
     TrabalhoCompletoPublicadoDialogComponent,
-    TrabalhoCompletoResumoPublicadoDialogComponent
+    TrabalhoCompletoResumoPublicadoDialogComponent,
+    AtividadeGestaoRepresentacaoDialogComponent,
+    AfastamentoDialogComponent,
+    OutraInformacaoDialogComponent,
+    QualificacaoDocenteAcademicaProfissionalDialogComponent
   ],
   imports: [
     CommonModule,

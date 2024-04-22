@@ -227,12 +227,12 @@ export class PesquisaCreateComponent implements OnInit {
 
     try {
       if (!this.isCreate) {
-        await this.projetoPesquisaProducaoIntelectualService.createEnsino('projetos_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
+        await this.projetoPesquisaProducaoIntelectualService.createEnsino('projeto_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Projeto de pesquisa ou de produção intelectual criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.projetoPesquisaProducaoIntelectualService.update('projetos_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
+        await this.projetoPesquisaProducaoIntelectualService.update('projeto_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Projeto de pesquisa ou de produção intelectual atualizado com sucesso.', 'OK', {
           duration: 5000
         });
@@ -329,7 +329,7 @@ export class PesquisaCreateComponent implements OnInit {
         });
       } else {
         await this.trabalhoCompletoResumoPublicadoApresentadoCongressosService.update('trabalho_completo_resumo_publicado_apresentado_congressos', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Trabalho completo e resumo publicado e/ou apresentado em congressos ou similares criado com sucesso.', 'OK', {
+        this._snackbar.open('Trabalho completo e resumo publicado e/ou apresentado em congressos ou similares atualizado com sucesso.', 'OK', {
           duration: 5000
         });
       }
@@ -356,12 +356,12 @@ export class PesquisaCreateComponent implements OnInit {
     try {
       if (!this.isCreate) {
         await this.outraAtividadePesquisaProducaoIntelectualService.createEnsino('outra_atividade_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Outra atividades de Pesquisa/Produção Intelectual criada com sucesso.', 'OK', {
+        this._snackbar.open('Outra atividade de Pesquisa/Produção Intelectual criada com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
         await this.outraAtividadePesquisaProducaoIntelectualService.update('outra_atividade_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
-        this._snackbar.open('Outra atividades de Pesquisa/Produção Intelectual criada com sucesso.', 'OK', {
+        this._snackbar.open('Outra atividade de Pesquisa/Produção Intelectual atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }

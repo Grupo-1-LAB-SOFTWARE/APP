@@ -1,227 +1,159 @@
-<form class="form" [formGroup]="form">
+<form class="form" [formGroup]="formAtividadeGestaoRepresentacao">
   <!-- step 1 -->
+
   <ng-container *ngIf="step == 1">
     <div>
-      <h2>1 - Atividade Letiva</h2>
-      <div class="d-flex justify-content-center align-items-start gap-2">
+      <div style="display: flex; justify-content: center; gap: 1rem;">
+        <h2>1 - Atividade de Gestão ou Representação</h2>
+        <button  mat-mini-fab (click)="openDialogAtividadeGestaoRepresentacao()"><mat-icon style="color: white;" fontIcon="toc"></mat-icon></button>
+      </div>
+      <div class="d-flex justify-content-center align-items-start gap-5">
         <div class="stepColunm">
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Código da Disciplina</mat-label>
-            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-              cdkAutosizeMaxRows="3" formControlName="atividadeLetiva_codigoDisciplina" ></textarea>
+            <mat-label>Número do documento</mat-label>
+            <input matInput formControlName="numero_doc" >
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nome da Disciplina</mat-label>
-            <input matInput formControlName="atividadeLetiva_nomeDisciplina" >
+            <mat-label>Cargo e/ou Função</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="3" formControlName="cargo_e_ou_funcao"></textarea>
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Ano da Disciplina</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="atividadeLetiva_ano">
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Semestre da Disciplina</mat-label>
-            <mat-select formControlName="atividadeLetiva_semestre">
+            <mat-label>Semestre</mat-label>
+            <mat-select formControlName="semestre">
               <mat-option value="1">Primeiro semestre</mat-option>
               <mat-option value="2">Segundo semestre</mat-option>
             </mat-select>
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nome do Curso</mat-label>
-            <input matInput formControlName="atividadeLetiva_cursoNome" >
+            <mat-label>Carga Horária Semanal</mat-label>
+            <input matInput formControlName="ch_semanal" >
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nome da Cidade</mat-label>
-            <input matInput formControlName="atividadeLetiva_cursoCampos_Cidade" >
+            <mat-label>Ato de Designação</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="3" formControlName="ato_de_designacao"></textarea>
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nome do Campos</mat-label>
-            <input matInput formControlName="atividadeLetiva_cursoCampos_Nome" >
+            <mat-label>Período</mat-label>
+            <input matInput formControlName="periodo" >
           </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nome do Diretor</mat-label>
-            <input matInput formControlName="atividadeLetiva_cursoCampos_Diretor" >
-          </mat-form-field>
-        </div>
-        <div class="stepColunm">
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nome do Diretor do instituto</mat-label>
-            <input matInput formControlName="atividadeLetiva_cursoInstituto_Diretor" >
-          </mat-form-field>
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nome do instituto</mat-label>
-            <input matInput formControlName="atividadeLetiva_cursoInstituto_Nome" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Sigla do Curso</mat-label>
-            <input matInput formControlName="atividadeLetiva_cursoInstituto_Sigla" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nível do curso</mat-label>
-            <input matInput formControlName="atividadeLetiva_cursoNivel" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nível do curso</mat-label>
-            <input matInput formControlName="atividadeLetiva_cursosigla" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nível do curso</mat-label>
-            <input matInput formControlName="atividadeLetiva_docentes_envolvidos" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nível do curso</mat-label>
-            <input matInput formControlName="atividadeLetiva_carga_horaria_docentes_envolvidos" >
-          </mat-form-field>
+          
         </div>
         <div>
         </div>
       </div>
-      <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
+
+      <button mat-fab extended  (click)="goNext()"><span class="spans">Próximo</span></button>
+      <button mat-fab extended type="button" (click)="submitAtividadeGestaoRepresentacao()"><span class="spans">Salvar</span></button>
     </div>
   </ng-container>
-
+</form>
+<form [formGroup]="formQualificacaoDocenteAcademicaProfissional">
   <!-- step 2 -->
   <ng-container *ngIf="step == 2">
     <div>
-      <h2>2 - Atividade Pedagógica Complementar</h2>
-      <div class="d-flex justify-content-center align-items-start gap-2">
+      <div style="display: flex; justify-content: center; gap: 1rem;">
+        <h2>2 - Qualificação Acadêmica Profissional ou Outra Atividade</h2>
+        <button  mat-mini-fab (click)="openDialogQualificacaoDocenteAcademicaProfissional()"><mat-icon style="color: white;" fontIcon="toc"></mat-icon></button>
+      </div>
+      <div class="d-flex justify-content-center align-items-start gap-5">
         <div class="stepColunm">
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Ano</mat-label>
-            <input matInput formControlName="atividadePedagogicaComplementar_ano" >
+            <mat-label>Número do documento</mat-label>
+            <input matInput formControlName="numero_doc" >
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Semestre</mat-label>
-            <input matInput formControlName="atividadePedagogicaComplementar_semestre" >
+            <mat-label>Atividades</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="3" formControlName="atividades"></textarea>
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria semanal</mat-label>
-            <input matInput formControlName="atividadePedagogicaComplementar_carga_horaria_semanal" >
+            <mat-label>Portaria e/ou Data de Realização</mat-label>
+            <input matInput formControlName="portaria_e_ou_data_de_realizacao" >
           </mat-form-field>
 
         </div>
         <div class="stepColunm">
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Docentes envolvidos</mat-label>
-            <input matInput formControlName="atividadePedagogicaComplementar_docentes_envolvidos" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria docentes envolvidos</mat-label>
-            <input matInput formControlName="atividadePedagogicaComplementar_carga_horaria_docentes_envolvidos" >
-          </mat-form-field>
-
         </div>
       </div>
       <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
+      <button mat-fab extended (click)="submitQualificacaoDocenteAcademicaProfissional()"><span class="spans">Salvar</span></button>
       <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
     </div>
   </ng-container>
+</form>
   <!-- step 3 -->
-
+<form [formGroup]="formOutraInformacao">
   <ng-container *ngIf="step == 3">
     <div>
-      <h2>3 - Orientado do Semestre </h2>
-      <div class="d-flex justify-content-center align-items-start gap-2">
+      <div style="display: flex; justify-content: center; gap: 1rem;">
+        <h2>3 - Outra Informação</h2>
+        <button  mat-mini-fab (click)="openDialogOutraInformacao()"><mat-icon style="color: white;" fontIcon="toc"></mat-icon></button>
+      </div>
+      <div class="d-flex justify-content-center align-items-start gap-5">
         <div class="stepColunm">
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Ano</mat-label>
-            <input matInput formControlName="orientado_ano" >
+            <mat-label>Número do documento</mat-label>
+            <input matInput formControlName="numero_doc" >
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Semestre</mat-label>
-            <input matInput formControlName="orientado_semestre" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nome do Orientado</mat-label>
-            <input matInput formControlName="orientado_nome" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Matricula do Orientado</mat-label>
-            <input matInput formControlName="orientado_matricula" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Carga Horaria</mat-label>
-            <input matInput formControlName="orientado_atividade_carga_horaria" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Tipo</mat-label>
-            <input matInput formControlName="orientado_atividade_tipo" >
+            <mat-label>Atividades</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="3" formControlName="atividades"></textarea>
           </mat-form-field>
 
         </div>
+        <div class="stepColunm">
+        </div>
       </div>
       <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
+      <button mat-fab extended (click)="submitOutraInformacao()"><span class="spans">Salvar</span></button>
       <button mat-fab extended (click)="goNext()"><span class="spans">Próximo</span></button>
     </div>
   </ng-container>
+</form>
 
-  <!-- step 4 -->
+<form [formGroup]="formAfastamento">
   <ng-container *ngIf="step == 4">
     <div>
-      <h2>4 - Banca de Examinação</h2>
-      <div class="d-flex justify-content-center align-items-start gap-2">
+      <div style="display: flex; justify-content: center; gap: 1rem;">
+        <h2>4 - Afastamento</h2>
+        <button  mat-mini-fab (click)="openDialogAfastamento()"><mat-icon style="color: white;" fontIcon="toc"></mat-icon></button>
+      </div>
+      <div class="d-flex justify-content-center align-items-start gap-5">
         <div class="stepColunm">
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Nome do candidato</mat-label>
-            <input matInput formControlName="bancaExaminacao_nomeCandidato" >
+            <mat-label>Número do documento</mat-label>
+            <input matInput formControlName="numero_doc" >
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Titulo do trabalho</mat-label>
-            <input matInput formControlName="bancaExaminacao_tituloTrabalho" >
+            <mat-label>Motivação</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="3" formControlName="motivacao"></textarea>
           </mat-form-field>
 
           <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>IES da banca</mat-label>
-            <input matInput formControlName="bancaExaminacao_ies" >
+            <mat-label>Portaria</mat-label>
+            <input matInput formControlName="portaria" >
           </mat-form-field>
 
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Tipo da banca</mat-label>
-            <input matInput formControlName="bancaExaminacao_tipo" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Ano da banca</mat-label>
-            <input matInput formControlName="bancaExaminacao_ano" >
-          </mat-form-field>
-
-          <mat-form-field [floatLabel]="this.floatLabelControl">
-            <mat-label>Semestre da banca</mat-label>
-            <input matInput formControlName="bancaExaminacao_semestre" >
-          </mat-form-field>
         </div>
         <div class="stepColunm">
         </div>
       </div>
       <button style="margin-right: 10px;" mat-fab extended (click)="goBack()"><span class="spans">Voltar</span></button>
-      <button mat-fab extended (click)="submit()"><span class="spans">Salvar</span></button>
+      <button mat-fab extended (click)="submitAfastamento()"><span class="spans">Salvar</span></button>
     </div>
   </ng-container>
-
 </form>

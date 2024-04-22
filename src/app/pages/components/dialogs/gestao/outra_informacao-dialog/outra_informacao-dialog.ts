@@ -1,4 +1,3 @@
-import { DialogData } from 'src/app/pages/radoc/radoc.component';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { firstValueFrom } from 'rxjs';
@@ -10,34 +9,34 @@ import { CrudService } from 'src/app/core/services/crud.service';
 import { SharedDataServiceName } from 'src/app/core/services/shared-dataName.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon';
-import { IprojetoPesquisaProducaoIntelectual } from 'src/app/core/interfaces/pesquisa.interface';
+import { IoutraInformacao } from 'src/app/core/interfaces/gestao.interface';
 
 @Component({
-  selector: 'app-projeto-pesquisa-dialog',
-  templateUrl: './projeto-pesquisa-dialog.html',
-  styleUrls: ['./projeto-pesquisa-dialog.scss'],
+  selector: 'app-outra_informacao-dialog',
+  templateUrl: './outra_informacao-dialog.html',
+  styleUrls: ['./outra_informacao-dialog.scss'],
 
 })
-export class ProjetoPesquisaProducaoIntelectualDialogComponent implements OnInit {
+export class OutraInformacaoDialogComponent implements OnInit {
   displayedColumns: string[] = ['tagName', 'sector', 'edit', 'delete'];
 
-  atividadePesquisa: IprojetoPesquisaProducaoIntelectual | undefined;
-  pesquisaForm = false;
+  atividadeGestao: IoutraInformacao | undefined;
+  gestaoForm = false;
   isCreate = false;
 
-  pesquisaData!: MatTableDataSource<IprojetoPesquisaProducaoIntelectual>;
-  pesquisaSize = 0;
+  gestaoData!: MatTableDataSource<IoutraInformacao>;
+  gestaoSize = 0;
   nome_relatorio!: string;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
 
   constructor(
     private readonly router: Router,
     private _snackbar: MatSnackBar,
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
-    private crudService: CrudService<IprojetoPesquisaProducaoIntelectual>,
+    private crudService: CrudService<IoutraInformacao>,
     private sharedDataService: SharedDataServiceName,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ConfirmDialogComponent>
@@ -47,15 +46,15 @@ export class ProjetoPesquisaProducaoIntelectualDialogComponent implements OnInit
   async ngOnInit() {
     console.log(this.data.nomeRelatorio)
     try {
-      const result = await this.crudService.getAllPesquisa('projeto_pesquisa_producao_intelectual',this.data.nomeRelatorio).toPromise();
+      const result = await this.crudService.getAllGestao('outra_informacao',this.data.nomeRelatorio).toPromise();
       console.log(this.data + "teste data");
       console.log(result + "teste resultado");
 
       if (result) {
         console.log(result)
-        this.pesquisaSize = result.length;
-        this.pesquisaData = new MatTableDataSource<IprojetoPesquisaProducaoIntelectual>(result);
-        this.pesquisaData.paginator = this.paginator;
+        this.gestaoSize = result.length;
+        this.gestaoData = new MatTableDataSource<IoutraInformacao>(result);
+        this.gestaoData.paginator = this.paginator;
       } else {
         console.error("Erro ao obter dados do Relátorio: resultado indefinido");
         this.onError("Erro ao obter dados do Relátorio");
@@ -68,30 +67,30 @@ export class ProjetoPesquisaProducaoIntelectualDialogComponent implements OnInit
 
 
   viewList() {
-    this.pesquisaForm = false;
+    this.gestaoForm = false;
     this.isCreate = false;
     location.reload();
   }
 
   create() {
-    this.pesquisaForm = true;
+    this.gestaoForm = true;
     this.isCreate = true;
   }
 
-  edit(pesquisa: IprojetoPesquisaProducaoIntelectual) {
-    this.pesquisaForm = true;
+  edit(gestao: IoutraInformacao) {
+    this.gestaoForm = true;
     this.isCreate = false;
-    this.atividadePesquisa = pesquisa;
-    if (pesquisa.id) {
-      this.sharedDataService.atualizaridEdicaoRelatorio(this.atividadePesquisa.id);
+    this.atividadeGestao = gestao;
+    if (gestao.id) {
+      this.sharedDataService.atualizaridEdicaoRelatorio(this.atividadeGestao.id);
     } else {
       console.error("Nome do relatório não está definido.");
     }
   }
 
-  async delete(radoc: IprojetoPesquisaProducaoIntelectual) {
-    this.atividadePesquisa = radoc;
-    this.sharedDataService.atualizaridEdicaoRelatorio(this.atividadePesquisa.id);
+  async delete(radoc: IoutraInformacao) {
+    this.atividadeGestao = radoc;
+    this.sharedDataService.atualizaridEdicaoRelatorio(this.atividadeGestao.id);
     try {
       const result = await firstValueFrom(
         this.dialog
@@ -99,13 +98,13 @@ export class ProjetoPesquisaProducaoIntelectualDialogComponent implements OnInit
         .afterClosed()
       );
       if (result && radoc.id !== undefined) {
-        await this.crudService.delete('projeto_pesquisa_producao_intelectual', this.data.nomeRelatorio , this.atividadePesquisa.id).toPromise();
+        await this.crudService.delete('outra_informacao', this.data.nomeRelatorio , this.atividadeGestao.id).toPromise();
         this._snackbar.open("Item deletado com sucesso", "Fechar", {
           duration: 5000
         });
         // Feche o diálogo após a exclusão ser concluída
         this.dialogRef.close();
-
+ 
         // Recarregue o diálogo para atualizar os dados
 
       } else {

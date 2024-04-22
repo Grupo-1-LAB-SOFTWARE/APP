@@ -1,4 +1,4 @@
-.form{
+form{
   flex-direction: column;
   display: flex;
   justify-content: center;
@@ -6,7 +6,6 @@
   gap: 1rem;
 }
 mat-card{
-  background-color: #FFFF;
   padding: 17px 35px;
   border-radius: 2%;
   top: 1rem;
