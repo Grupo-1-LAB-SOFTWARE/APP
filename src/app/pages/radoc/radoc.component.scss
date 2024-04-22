@@ -52,11 +52,3 @@ mat-progress-spinner{
 ng-container {
   display: flex;
 }
-
-
-@media only screen and (max-device-width: 900px) {
-  meta[name="viewport"] {
-    content: "width=device-width";
-  }
-}
-
