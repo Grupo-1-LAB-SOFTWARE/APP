@@ -46,7 +46,7 @@ export class CHSemanalAtividadesExtensaoDialogComponent implements OnInit {
   async ngOnInit() {
     console.log(this.data.nomeRelatorio)
     try {
-      const result = await this.crudService.getAllEnsino('atividade_ensino_nao_formal',this.data.nomeRelatorio).toPromise();
+      const result = await this.crudService.getAllEnsino('ch_semanal_atividades_extensao',this.data.nomeRelatorio).toPromise();
       console.log(this.data + "teste data");
       console.log(result + "teste resultado");
 
@@ -100,7 +100,7 @@ export class CHSemanalAtividadesExtensaoDialogComponent implements OnInit {
         .afterClosed()
       );
       if (result && radoc.id !== undefined) {
-        await this.crudService.delete('atividade_ensino_nao_formal', this.data.nomeRelatorio , this.ch_semanal_atividades_extensao.id).toPromise();
+        await this.crudService.delete('ch_semanal_atividades_extensao', this.data.nomeRelatorio , this.ch_semanal_atividades_extensao.id).toPromise();
         this._snackbar.open("Item deletado com sucesso", "Fechar", {
           duration: 5000
         });

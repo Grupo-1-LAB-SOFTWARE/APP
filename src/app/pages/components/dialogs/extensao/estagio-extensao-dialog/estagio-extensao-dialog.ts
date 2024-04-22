@@ -46,7 +46,7 @@ export class EstagioExtensaoDialogComponent implements OnInit {
   async ngOnInit() {
     console.log(this.data.nomeRelatorio)
     try {
-      const result = await this.crudService.getAllEnsino('atividade_ensino_nao_formal',this.data.nomeRelatorio).toPromise();
+      const result = await this.crudService.getAllEnsino('estagio_extensao',this.data.nomeRelatorio).toPromise();
       console.log(this.data + "teste data");
       console.log(result + "teste resultado");
 
@@ -83,7 +83,7 @@ export class EstagioExtensaoDialogComponent implements OnInit {
     this.estagio_extensao = extensao;
     if (extensao.id) {
       this.sharedDataService.atualizaridEdicaoRelatorio(this.estagio_extensao.id);
-      console.log('/extensao/atividade-ensino-nao-formal/' + this.estagio_extensao.id)
+      console.log('/extensao/estagio-extensao/' + this.estagio_extensao.id)
 
     } else {
       console.error("Nome do relatório não está definido.");
@@ -100,7 +100,7 @@ export class EstagioExtensaoDialogComponent implements OnInit {
         .afterClosed()
       );
       if (result && radoc.id !== undefined) {
-        await this.crudService.delete('atividade_ensino_nao_formal', this.data.nomeRelatorio , this.estagio_extensao.id).toPromise();
+        await this.crudService.delete('estagio_extensao', this.data.nomeRelatorio , this.estagio_extensao.id).toPromise();
         this._snackbar.open("Item deletado com sucesso", "Fechar", {
           duration: 5000
         });
