@@ -11,6 +11,7 @@ import { SharedDataServiceName } from 'src/app/core/services/shared-dataName.ser
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ItrabalhoCompletoResumoPublicadoApresentadoCongressos } from 'src/app/core/interfaces/pesquisa.interface';
+import { trabalhoResumoName } from './trabalhoResumoName.service';
 
 @Component({
   selector: 'app-trabalho-resumo-dialog',
@@ -38,7 +39,7 @@ export class TrabalhoCompletoResumoPublicadoDialogComponent implements OnInit {
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
     private crudService: CrudService<ItrabalhoCompletoResumoPublicadoApresentadoCongressos>,
-    private sharedDataService: SharedDataServiceName,
+    private sharedDataService: trabalhoResumoName,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ConfirmDialogComponent>
   ) {

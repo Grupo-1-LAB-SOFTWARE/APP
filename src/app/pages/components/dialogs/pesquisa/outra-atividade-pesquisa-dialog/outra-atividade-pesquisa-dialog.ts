@@ -11,6 +11,7 @@ import { SharedDataServiceName } from 'src/app/core/services/shared-dataName.ser
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { IoutraAtividadePesquisaProducaoIntelectual } from 'src/app/core/interfaces/pesquisa.interface';
+import { outraAtividadePesquisaName } from './outraAtividadePesquisaName.service';
 
 @Component({
   selector: 'app-outra-atividade-pesquisa-dialog',
@@ -38,7 +39,7 @@ export class OutraAtividadePesquisaDialogComponent implements OnInit {
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
     private crudService: CrudService<IoutraAtividadePesquisaProducaoIntelectual>,
-    private sharedDataService: SharedDataServiceName,
+    private sharedDataService: outraAtividadePesquisaName,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ConfirmDialogComponent>
   ) {

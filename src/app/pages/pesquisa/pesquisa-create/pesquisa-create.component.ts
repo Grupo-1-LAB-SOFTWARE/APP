@@ -1,3 +1,9 @@
+import { chSemanalAtividadePesquisaName } from './../../components/dialogs/pesquisa/ch-semanal-atividades-pesquisa-dialog/chSemanalAtividadePesquisaName.service';
+import { livroCapituloVerbetePublicadoName } from './../../components/dialogs/pesquisa/livro-capitulo-verbete-publicado-dialog/livroCapituloVerbetePublicadoName.service';
+import { outraAtividadePesquisaName } from './../../components/dialogs/pesquisa/outra-atividade-pesquisa-dialog/outraAtividadePesquisaName.service';
+import { projetoPesquisaName } from './../../components/dialogs/pesquisa/projeto-pesquisa-dialog/projetoPesquisaName.service';
+import { trabalhoPublicadoName } from './../../components/dialogs/pesquisa/trabalho-publicado-dialog/trabalhoPublicadoName.service';
+import { trabalhoResumoName } from './../../components/dialogs/pesquisa/trabalho-resumo-dialog/trabalhoResumoName.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
@@ -13,6 +19,9 @@ import { LivroCapituloVerbetePublicadoDialogComponent } from '../../components/d
 import { TrabalhoCompletoResumoPublicadoDialogComponent } from '../../components/dialogs/pesquisa/trabalho-resumo-dialog/trabalho-resumo-dialog';
 import { OutraAtividadePesquisaDialogComponent } from '../../components/dialogs/pesquisa/outra-atividade-pesquisa-dialog/outra-atividade-pesquisa-dialog';
 import { CHSemanalAtividadesPesquisaDialogComponent } from '../../components/dialogs/pesquisa/ch-semanal-atividades-pesquisa-dialog/ch-semanal-atividades-pesquisa-dialog';
+import { SharedDataServiceName } from 'src/app/core/services/shared-dataName.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import {  Router } from '@angular/router';
 
 @Component({
   selector: 'app-pesquisa-create',
@@ -42,6 +51,13 @@ export class PesquisaCreateComponent implements OnInit {
 
   dialogData!: DialogData | undefined;
   nomeRelatorio: string = '';
+
+  projetoPesquisaId: any;
+  trabalhoCompletoPublicadoId: any;
+  livroCapituloVerbeteId: any;
+  trabalhoCompletoResumoId: any;
+  outraAtividadePesquisaId: any;
+  chSemanalAtividadesPesquisaId: any;
   constructor(
     private readonly pesquisaService: CrudService<pesquisa>,
     private readonly formBuilder: FormBuilder,
@@ -54,10 +70,48 @@ export class PesquisaCreateComponent implements OnInit {
     private chSemanalAtividadesPesquisaService: CrudService<IchSemanalAtividadesPesquisa>,
     private CrudService: CrudService<any>,
     private sharedDataService: SharedDataService,
-    public dialog: MatDialog
+    private sharedDataServiceName: SharedDataServiceName,
+    private chSemanalAtividadePesquisaName: chSemanalAtividadePesquisaName,
+    private livroCapituloVerbetePublicadoName: livroCapituloVerbetePublicadoName,
+    private outraAtividadePesquisaName: outraAtividadePesquisaName,
+    private projetoPesquisaName: projetoPesquisaName,
+    private trabalhoPublicadoName: trabalhoPublicadoName,
+    private trabalhoResumoName: trabalhoResumoName,
+    public dialog: MatDialog,
+    private router: Router
   ) {}
 
   async ngOnInit(){
+    this.projetoPesquisaName.projetoPesquisa$.subscribe(id => {
+      this.projetoPesquisaId = id;
+      this.carregarDadosDoBackendProjetoPesquisa()
+
+    })
+    this.trabalhoPublicadoName.trabalhoPublicado$.subscribe(id => {
+      this.trabalhoCompletoPublicadoId = id;
+      this.carregarDadosDoBackendTrabalhoCompletoPublicado()
+
+    })
+    this.livroCapituloVerbetePublicadoName.livroCapituloVerbetePublicado$.subscribe(id => {
+      this.livroCapituloVerbeteId = id;
+      this.carregarDadosDoBackendLivroCapituloVerbete()
+
+    })
+    this.trabalhoResumoName.trabalhoResumo$.subscribe(id => {
+      this.trabalhoCompletoResumoId = id;
+      this.carregarDadosDoBackendTrabalhoCompletoResumo()
+
+    })
+    this.outraAtividadePesquisaName.outraAtividadePesquisa$.subscribe(id => {
+      this.outraAtividadePesquisaId = id;
+      this.carregarDadosDoBackendOutraAtividadePesquisa()
+
+    })
+    this.chSemanalAtividadePesquisaName.chSemanalAtividadePesquisa$.subscribe(id => {
+      this.chSemanalAtividadesPesquisaId = id;
+      this.carregarDadosDoBackendCHSemanalAtividadesPesquisa()
+
+    })
     this.sharedDataService.nomeRelatorio$.subscribe(nome => {
       this.nomeRelatorio = nome;
     });
@@ -97,6 +151,76 @@ export class PesquisaCreateComponent implements OnInit {
     console.log(this.formBuilder.array([this.formBuilder.control('')]));
 
   }
+  carregarDadosDoBackendProjetoPesquisa() {
+    this.CrudService.getOneEnsino('projeto_pesquisa_producao_intelectual', this.nomeRelatorio,this.projetoPesquisaId).subscribe((dados: any) => {
+      // Preencha os campos do formulário com os dados recebidos do backend
+      this.formProjetoPesquisaProducaoIntelectual.patchValue({
+        numero_doc: dados.numero_doc,
+        titulo: dados.titulo,
+        funcao: dados.funcao,
+        cadastro_proped: dados.cadastro_proped,
+        situacao_atual: dados.situacao_atual,
+
+      });
+    });
+  }
+
+  carregarDadosDoBackendTrabalhoCompletoPublicado() {
+    this.CrudService.getOneEnsino('trabalho_completo_publicado_periodico_boletim_tecnico', this.nomeRelatorio,this.trabalhoCompletoPublicadoId).subscribe((dados: any) => {
+      // Preencha os campos do formulário com os dados recebidos do backend
+      this.formTrabalhoCompletoPublicadoPeriodicoBoletimTecnico.patchValue({
+        numero_doc: dados.numero_doc,
+        descricao: dados.descricao,
+
+      });
+    });
+  }
+
+  carregarDadosDoBackendLivroCapituloVerbete() {
+    this.CrudService.getOneEnsino('livro_capitulo_verbete_publicado', this.nomeRelatorio,this.livroCapituloVerbeteId).subscribe((dados: any) => {
+      // Preencha os campos do formulário com os dados recebidos do backend
+      this.formLivroCapituloVerbetePublicado.patchValue({
+        numero_doc: dados.numero_doc,
+        descricao: dados.descricao,
+
+      });
+    });
+  }
+
+  carregarDadosDoBackendTrabalhoCompletoResumo() {
+    this.CrudService.getOneEnsino('trabalho_completo_resumo_publicado_apresentado_congressos', this.nomeRelatorio,this.trabalhoCompletoResumoId).subscribe((dados: any) => {
+      console.log(this.nomeRelatorio + this.trabalhoCompletoPublicadoId)
+      // Preencha os campos do formulário com os dados recebidos do backend
+      this.formTrabalhoCompletoResumoPublicadoApresentadoCongressos.patchValue({
+        numero_doc: dados.numero_doc,
+        descricao: dados.descricao,
+
+      });
+    });
+  }
+
+  carregarDadosDoBackendOutraAtividadePesquisa() {
+    this.CrudService.getOneEnsino('outra_atividade_pesquisa_producao_intelectual', this.nomeRelatorio,this.outraAtividadePesquisaId).subscribe((dados: any) => {
+      // Preencha os campos do formulário com os dados recebidos do backend
+      this.formOutraAtividadePesquisaProducaoIntelectual.patchValue({
+        numero_doc: dados.numero_doc,
+        descricao: dados.descricao,
+
+      });
+    });
+  }
+
+  carregarDadosDoBackendCHSemanalAtividadesPesquisa() {
+    this.CrudService.getOneEnsino('ch_semanal_atividades_pesquisa', this.nomeRelatorio,this.chSemanalAtividadesPesquisaId).subscribe((dados: any) => {
+      // Preencha os campos do formulário com os dados recebidos do backend
+      this.formCHSemanalAtividadesPesquisa.patchValue({
+        ch_semanal_primeiro_semestre: dados.ch_semanal_primeiro_semestre,
+        ch_semanal_segundo_semestre: dados.ch_semanal_segundo_semestre,
+
+      });
+    });
+  }
+
   openDialogProjetoDePesquisaOuProducaoIntelectual(){
     const dialogRef = this.dialog.open(ProjetoPesquisaProducaoIntelectualDialogComponent, {
       width: '800px',
@@ -205,10 +329,10 @@ export class PesquisaCreateComponent implements OnInit {
           duration: 5000
         });
       // Evitando o uso de location.reload() para atualizar a interface do usuário
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open('Erro ao salvar Relatório de pesquisa.', 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
   }
@@ -226,22 +350,23 @@ export class PesquisaCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.projetoPesquisaId == 0) {
         await this.projetoPesquisaProducaoIntelectualService.createEnsino('projeto_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Projeto de pesquisa ou de produção intelectual criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.projetoPesquisaProducaoIntelectualService.update('projeto_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
+        await this.projetoPesquisaProducaoIntelectualService.updateEnsino('projeto_pesquisa_producao_intelectual', formValue ,this.nomeRelatorio, this.projetoPesquisaId).toPromise();
+
         this._snackbar.open('Projeto de pesquisa ou de produção intelectual atualizado com sucesso.', 'OK', {
           duration: 5000
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formProjetoPesquisaProducaoIntelectual.reset();
@@ -258,22 +383,24 @@ export class PesquisaCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.trabalhoCompletoPublicadoId == 0) {
         await this.trabalhoCompletoPublicadoPeriodicoBoletimTecnicoService.createEnsino('trabalho_completo_publicado_periodico_boletim_tecnico', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Trabalho criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.trabalhoCompletoPublicadoPeriodicoBoletimTecnicoService.update('trabalho_completo_publicado_periodico_boletim_tecnico', formValue, this.nomeRelatorio).toPromise();
+
+        await this.trabalhoCompletoPublicadoPeriodicoBoletimTecnicoService.updateEnsino('trabalho_completo_publicado_periodico_boletim_tecnico', formValue ,this.nomeRelatorio, this.trabalhoCompletoPublicadoId).toPromise();
+
         this._snackbar.open('Trabalho atualizado com sucesso.', 'OK', {
           duration: 5000
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formTrabalhoCompletoPublicadoPeriodicoBoletimTecnico.reset();
@@ -290,22 +417,23 @@ export class PesquisaCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.livroCapituloVerbeteId == 0) {
         await this.livroCapituloVerbetePublicadoService.createEnsino('livro_capitulo_verbete_publicado', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Livro, capítulo de livro ou verbete publicado criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.livroCapituloVerbetePublicadoService.update('livro_capitulo_verbete_publicado', formValue, this.nomeRelatorio).toPromise();
+        await this.livroCapituloVerbetePublicadoService.updateEnsino('livro_capitulo_verbete_publicado', formValue ,this.nomeRelatorio, this.livroCapituloVerbeteId).toPromise();
+
         this._snackbar.open('Livro, capítulo de livro ou verbete publicados atualizado com sucesso.', 'OK', {
           duration: 5000
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formLivroCapituloVerbetePublicado.reset();
@@ -322,22 +450,23 @@ export class PesquisaCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.trabalhoCompletoResumoId == 0) {
         await this.trabalhoCompletoResumoPublicadoApresentadoCongressosService.createEnsino('trabalho_completo_resumo_publicado_apresentado_congressos', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Trabalho completo e resumo publicado e/ou apresentado em congressos ou similares criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.trabalhoCompletoResumoPublicadoApresentadoCongressosService.update('trabalho_completo_resumo_publicado_apresentado_congressos', formValue, this.nomeRelatorio).toPromise();
+        await this.trabalhoCompletoResumoPublicadoApresentadoCongressosService.updateEnsino('trabalho_completo_resumo_publicado_apresentado_congressos', formValue ,this.nomeRelatorio, this.trabalhoCompletoResumoId).toPromise();
+
         this._snackbar.open('Trabalho completo e resumo publicado e/ou apresentado em congressos ou similares atualizado com sucesso.', 'OK', {
           duration: 5000
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formTrabalhoCompletoResumoPublicadoApresentadoCongressos.reset();
@@ -354,22 +483,23 @@ export class PesquisaCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.outraAtividadePesquisaId == 0) {
         await this.outraAtividadePesquisaProducaoIntelectualService.createEnsino('outra_atividade_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Outra atividade de Pesquisa/Produção Intelectual criada com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.outraAtividadePesquisaProducaoIntelectualService.update('outra_atividade_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
+        await this.outraAtividadePesquisaProducaoIntelectualService.updateEnsino('outra_atividade_pesquisa_producao_intelectual', formValue ,this.nomeRelatorio, this.outraAtividadePesquisaId).toPromise();
+
         this._snackbar.open('Outra atividade de Pesquisa/Produção Intelectual atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formOutraAtividadePesquisaProducaoIntelectual.reset();
@@ -386,22 +516,23 @@ export class PesquisaCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.chSemanalAtividadesPesquisaId == 0) {
         await this.chSemanalAtividadesPesquisaService.createEnsino('ch_semanal_atividades_pesquisa', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Carga Horária semanal de pesquisa criada com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.chSemanalAtividadesPesquisaService.update('ch_semanal_atividades_pesquisa', formValue, this.nomeRelatorio).toPromise();
+        await this.chSemanalAtividadesPesquisaService.updateEnsino('ch_semanal_atividades_pesquisa', formValue ,this.nomeRelatorio, this.chSemanalAtividadesPesquisaId).toPromise();
+
         this._snackbar.open('Carga Horária semanal de pesquisa atualizada com sucesso.', 'OK', {
           duration: 5000
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    }  catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formCHSemanalAtividadesPesquisa.reset();
