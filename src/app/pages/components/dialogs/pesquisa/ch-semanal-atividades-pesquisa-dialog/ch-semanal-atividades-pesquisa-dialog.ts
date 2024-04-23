@@ -10,6 +10,7 @@ import { SharedDataServiceName } from 'src/app/core/services/shared-dataName.ser
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { IchSemanalAtividadesPesquisa } from 'src/app/core/interfaces/pesquisa.interface';
+import { chSemanalAtividadePesquisaName } from './chSemanalAtividadePesquisaName.service';
 
 @Component({
   selector: 'app-ch-semanal-atividades-pesquisa-dialog',
@@ -37,7 +38,7 @@ export class CHSemanalAtividadesPesquisaDialogComponent implements OnInit {
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
     private crudService: CrudService<IchSemanalAtividadesPesquisa>,
-    private sharedDataService: SharedDataServiceName,
+    private sharedDataService: chSemanalAtividadePesquisaName,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ConfirmDialogComponent>
   ) {

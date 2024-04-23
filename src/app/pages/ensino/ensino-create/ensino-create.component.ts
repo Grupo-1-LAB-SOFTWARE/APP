@@ -285,7 +285,7 @@ export class EnsinoCreateComponent implements OnInit {
   }
 
   carregarDadosDoBackendDescricaoOrientacao() {
-    this.crudService.getOneEnsino('descricao_orientacao_coorientacao_academica', this.nomeRelatorio,this.AtividadeOrientacaoId).subscribe((dados: any) => {
+    this.crudService.getOneEnsino('descricao_orientacao_coorientacao_academica', this.nomeRelatorio,this.descricaoId).subscribe((dados: any) => {
       this.formDescricao_orientacao.patchValue({
         numero_doc: dados.numero_doc,
         nome_e_ou_matricula_discente: dados.nome_e_ou_matricula_discente,

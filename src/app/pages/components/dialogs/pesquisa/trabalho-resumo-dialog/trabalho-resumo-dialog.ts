@@ -11,6 +11,7 @@ import { SharedDataServiceName } from 'src/app/core/services/shared-dataName.ser
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ItrabalhoCompletoResumoPublicadoApresentadoCongressos } from 'src/app/core/interfaces/pesquisa.interface';
+import { trabalhoResumoName } from './trabalhoResumoName.service';
 
 @Component({
   selector: 'app-trabalho-resumo-dialog',
