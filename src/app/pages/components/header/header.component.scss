@@ -5,7 +5,7 @@ nav{
   background-color:  rgb(25,122,64);
 }
 mat-icon,h4,a,h5{
-  color: #000000
+  color: #ffffff
 }
 mat-icon[_ngcontent-ng-c1228791483], h4[_ngcontent-ng-c1228791483], a[_ngcontent-ng-c1228791483], h5[_ngcontent-ng-c1228791483] {
   color: white !important;
@@ -16,4 +16,8 @@ mat-icon[_ngcontent-ng-c1228791483], h4[_ngcontent-ng-c1228791483], a[_ngcontent
 }
 .offcanvas-body{
   background-color: #115B2F;
+}
+html{
+  --mdc-outlined-text-field-input-text-color: #ffffff !important;
+  --mdc-outlined-text-field-input-text-placeholder-color: #ffffff !important;
 }

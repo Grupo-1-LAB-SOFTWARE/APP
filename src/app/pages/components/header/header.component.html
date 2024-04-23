@@ -12,13 +12,13 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item ">
-            <h4 class="nav-link d-flex align-items-end gap-2" aria-current="page" href="#" [routerLink]="['/perfil/painel']"><mat-icon fontIcon="home"></mat-icon>Perfil</h4>
+            <h4 class="nav-link d-flex align-items-end gap-2" aria-current="page" href="#" [routerLink]="['/perfil/painel']"><mat-icon  fontIcon="home"></mat-icon><span class="spans">Perfil</span></h4>
           </li>
           <li class="nav-item mt-3">
-            <h4 class="nav-link d-flex align-items-end gap-2" [routerLink]="['/documento/radoc']"><mat-icon>description</mat-icon>Relatório Anual de Docente</h4>
+            <h4 class="nav-link d-flex align-items-end gap-2" [routerLink]="['/documento/radoc']"><mat-icon>description</mat-icon><span class="spans">Relatório Anual de Docente</span></h4>
           </li>
           <li class="nav-item mt-3">
-            <h4 class="nav-link d-flex align-items-end gap-2" [routerLink]="['/painel/administrador']" *ngIf="user.includes('Administrador')"><mat-icon>description</mat-icon>Painel Administrador</h4>
+            <h4 class="nav-link d-flex align-items-end gap-2" [routerLink]="['/painel/administrador']" *ngIf="user.includes('Administrador')"><mat-icon>description</mat-icon><span class="spans">Painel Administrador</span></h4>
           </li>
 
         </ul>

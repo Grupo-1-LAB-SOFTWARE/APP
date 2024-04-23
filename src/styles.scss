@@ -116,7 +116,7 @@ $background-color-profile: #FFA500;
   color: white !important;
 }
 .mat-mdc-fab.mat-accent, .mat-mdc-mini-fab.mat-accent {
-    --mdc-fab-container-color: #115B2F;
+    --mdc-fab-container-color:  rgb(25,122,64);
     --mdc-fab-icon-color: black;
     --mat-mdc-fab-color: #000;
 }
@@ -169,4 +169,9 @@ $background-color-profile: #FFA500;
 }
 .mat-mdc-button-touch-target{
   background-color: transparent !important;
+}
+.tables{
+  width: 100%;
+  border-radius: 30px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px 0px, rgba(0, 0, 0, 0.06) 0px 2px 4px 0px;
 }
