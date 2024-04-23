@@ -11,6 +11,7 @@ import { SharedDataServiceName } from 'src/app/core/services/shared-dataName.ser
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { IlivroCapituloVerbetePublicado } from 'src/app/core/interfaces/pesquisa.interface';
+import { livroCapituloVerbetePublicadoName } from './livroCapituloVerbetePublicadoName.service';
 
 @Component({
   selector: 'app-livro-capitulo-verbete-publicado-dialog',
@@ -38,7 +39,7 @@ export class LivroCapituloVerbetePublicadoDialogComponent implements OnInit {
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
     private crudService: CrudService<IlivroCapituloVerbetePublicado>,
-    private sharedDataService: SharedDataServiceName,
+    private sharedDataService: livroCapituloVerbetePublicadoName,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ConfirmDialogComponent>
   ) {

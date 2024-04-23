@@ -12,6 +12,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { IprojetoPesquisaProducaoIntelectual } from 'src/app/core/interfaces/pesquisa.interface';
+import { projetoPesquisaName } from './projetoPesquisaName.service';
 
 @Component({
   selector: 'app-projeto-pesquisa-dialog',
@@ -38,7 +39,7 @@ export class ProjetoPesquisaProducaoIntelectualDialogComponent implements OnInit
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
     private crudService: CrudService<IprojetoPesquisaProducaoIntelectual>,
-    private sharedDataService: SharedDataServiceName,
+    private sharedDataService: projetoPesquisaName,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ConfirmDialogComponent>
   ) {
