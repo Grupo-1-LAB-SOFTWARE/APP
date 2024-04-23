@@ -340,10 +340,10 @@ export class ExtensaoCreateComponent implements OnInit {
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formProjetoExtensao.reset();
@@ -372,10 +372,10 @@ export class ExtensaoCreateComponent implements OnInit {
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formEstagioExtensao.reset();
@@ -404,10 +404,10 @@ export class ExtensaoCreateComponent implements OnInit {
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formAtividadeEnsinoNaoFormal.reset();
@@ -436,10 +436,10 @@ export class ExtensaoCreateComponent implements OnInit {
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formOutraAtividadeExtensao.reset();
@@ -468,10 +468,10 @@ export class ExtensaoCreateComponent implements OnInit {
         });
       }
       // Aqui você pode atualizar a interface do usuário sem recarregar a página
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      this._snackbar.open(error as string, 'OK', {
-        duration: 5000
+      this._snackbar.open(error.error.bad_request || error.error , 'OK', {
+
       });
     }
     this.formCHSemanalAtividadesExtensao.reset();
