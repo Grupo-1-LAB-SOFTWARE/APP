@@ -46,9 +46,9 @@ export class CadastroComponent {
             });
             this.router.navigate(['/tela-confirmar']);
           },
-          error: () => {
+          error: ( erro) => {
             this.router.navigate(['/login']);
-            this._snackbar.open('Erro ao cadastrar usuário.', 'OK', {
+            this._snackbar.open(erro.error.bad_request || erro.error, 'OK', {
               duration: 5000
             });
 
