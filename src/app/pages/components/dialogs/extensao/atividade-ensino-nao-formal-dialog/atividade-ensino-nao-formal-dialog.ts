@@ -10,7 +10,7 @@ import { SharedDataServiceName } from 'src/app/core/services/shared-dataName.ser
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { IatividadeEnsinoNaoFormal } from 'src/app/core/interfaces/extensao.interface';
-
+import { AtividadeNaoFormalServiceName } from './atividadeNaoFormalName.service';
 @Component({
   selector: 'app-atividade-ensino-nao-formal-dialog',
   templateUrl: './atividade-ensino-nao-formal-dialog.html',
@@ -37,7 +37,7 @@ export class AtividadeEnsinoNaoFormalDialogComponent implements OnInit {
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
     private crudService: CrudService<IatividadeEnsinoNaoFormal>,
-    private sharedDataService: SharedDataServiceName,
+    private sharedDataService: AtividadeNaoFormalServiceName,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ConfirmDialogComponent>
   ) {

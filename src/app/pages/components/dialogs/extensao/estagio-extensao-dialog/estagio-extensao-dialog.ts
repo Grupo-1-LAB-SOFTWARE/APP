@@ -10,6 +10,7 @@ import { SharedDataServiceName } from 'src/app/core/services/shared-dataName.ser
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { IestagioExtensao } from 'src/app/core/interfaces/extensao.interface';
+import { EstagioExtensaoServiceName } from './estagioExtensao.service';
 
 @Component({
   selector: 'app-estagio-extensao-dialog',
@@ -37,7 +38,7 @@ export class EstagioExtensaoDialogComponent implements OnInit {
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
     private crudService: CrudService<IestagioExtensao>,
-    private sharedDataService: SharedDataServiceName,
+    private sharedDataService: EstagioExtensaoServiceName,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ConfirmDialogComponent>
   ) {
