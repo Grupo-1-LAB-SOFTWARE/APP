@@ -12,6 +12,12 @@ import { EstagioExtensaoDialogComponent } from '../../components/dialogs/extensa
 import { OutraAtividadeExtensaoDialogComponent } from '../../components/dialogs/extensao/outra-atividade-extensao-dialog/outra-atividade-extensao-dialog';
 import { AtividadeEnsinoNaoFormalDialogComponent } from '../../components/dialogs/extensao/atividade-ensino-nao-formal-dialog/atividade-ensino-nao-formal-dialog';
 import { CHSemanalAtividadesExtensaoDialogComponent } from '../../components/dialogs/extensao/ch-semanal-atividades-extensao-dialog/ch-semanal-atividades-extensao-dialog';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ProjetoExtensaoServiceName } from '../../components/dialogs/extensao/projeto-extensao-dialog/projetoExtensao.service';
+import { OutraAtividadeExtensaoServiceName } from '../../components/dialogs/extensao/outra-atividade-extensao-dialog/outraAtividadeExtensao.service';
+import { EstagioExtensaoServiceName } from '../../components/dialogs/extensao/estagio-extensao-dialog/estagioExtensao.service';
+import { CHSemanalExtensaoServiceName } from '../../components/dialogs/extensao/ch-semanal-atividades-extensao-dialog/chSemanalExtensaoName.service';
+import { AtividadeNaoFormalServiceName } from '../../components/dialogs/extensao/atividade-ensino-nao-formal-dialog/atividadeNaoFormalName.service';
 
 @Component({
   selector: 'app-extensao-create',
@@ -40,6 +46,13 @@ export class ExtensaoCreateComponent implements OnInit {
 
   dialogData!: DialogData | undefined;
   nomeRelatorio: string = '';
+
+  ProjetoExtensaoId: any;
+  EstagioExtensaoId: any;
+  OutraAtividadeExtensaoId: any;
+  AtividadeNaoFormalId: any;
+  CHSemanalId: any;
+
   constructor(
     private readonly extensaoService: CrudService<extensao>,
     private readonly formBuilder: FormBuilder,
@@ -51,6 +64,11 @@ export class ExtensaoCreateComponent implements OnInit {
     private chSemanalAtividadesExtensaoService: CrudService<IchSemanalAtividadesExtensao>,
     private CrudService: CrudService<any>,
     private sharedDataService: SharedDataService,
+    private ProjetoExtensaoServiceName: ProjetoExtensaoServiceName,
+    private OutraAtividadeExtensaoServiceName: OutraAtividadeExtensaoServiceName,
+    private EstagioExtensaoServiceName: EstagioExtensaoServiceName,
+    private CHSemanalExtensaoServiceName: CHSemanalExtensaoServiceName,
+    private AtividadeNaoFormalServiceName: AtividadeNaoFormalServiceName,
     public dialog: MatDialog
   ) {}
 
@@ -58,6 +76,31 @@ export class ExtensaoCreateComponent implements OnInit {
     this.sharedDataService.nomeRelatorio$.subscribe(nome => {
       this.nomeRelatorio = nome;
     });
+    this.ProjetoExtensaoServiceName.ProjetoExtensao$.subscribe(id => {
+      this.ProjetoExtensaoId = id;
+      this.carregarDadosDoBackendProjetoExtensao()
+
+    })
+    this.EstagioExtensaoServiceName.EstagioExtensao$.subscribe(id => {
+      this.EstagioExtensaoId = id;
+      this.carregarDadosDoBackendEstagioExtensao()
+
+    })
+    this.OutraAtividadeExtensaoServiceName.OutraAtividadeExtensao$.subscribe(id => {
+      this.OutraAtividadeExtensaoId = id;
+      this.carregarDadosDoBackendOutraAtividadeExtensao()
+
+    })
+    this.AtividadeNaoFormalServiceName.AtividadeNaoFormal$.subscribe(id => {
+      this.AtividadeNaoFormalId = id;
+      this.carregarDadosDoBackendAtividadeNaoFormal()
+
+    })
+    this.CHSemanalExtensaoServiceName.CHSemanalExtensao$.subscribe(id => {
+      this.CHSemanalId = id;
+      this.carregarDadosDoBackendCHSemanalExtensao()
+
+    })
 
     this.formProjetoExtensao = this.formBuilder.group({
       numero_doc:['',[Validators.required]],
@@ -95,8 +138,68 @@ export class ExtensaoCreateComponent implements OnInit {
     }
     console.log(this.extensao)
     console.log(this.formBuilder.array([this.formBuilder.control('')]));
-
   }
+  carregarDadosDoBackendProjetoExtensao() {
+    this.CrudService.getOneEnsino('projeto_extensao', this.nomeRelatorio,this.ProjetoExtensaoId).subscribe((dados: any) => {
+      // Preencha os campos do formulário com os dados recebidos do backend
+      console.log('atividade_pedagogica_complementar/'+ this.nomeRelatorio +'/'+this.ProjetoExtensaoId)
+      this.formProjetoExtensao.patchValue({
+        numero_doc: dados.numero_doc,
+        titulo: dados.titulo,
+        funcao: dados.funcao,
+        cadastro_proex: dados.cadastro_proex,
+        situacao_atual: dados.situacao_atual,
+      });
+    });
+  }
+  carregarDadosDoBackendEstagioExtensao() {
+    this.CrudService.getOneEnsino('estagio_extensao', this.nomeRelatorio,this.EstagioExtensaoId).subscribe((dados: any) => {
+      // Preencha os campos do formulário com os dados recebidos do backend
+      console.log('atividade_pedagogica_complementar/'+ this.nomeRelatorio +'/'+this.EstagioExtensaoId)
+      this.formEstagioExtensao.patchValue({
+        numero_doc: dados.numero_doc,
+        area_conhecimento: dados.area_conhecimento,
+        instituicao_ou_local: dados.instituicao_ou_local,
+        periodo: dados.periodo,
+        ch_semanal: dados.ch_semanal,
+      });
+    });
+  }
+  carregarDadosDoBackendAtividadeNaoFormal() {
+    this.CrudService.getOneEnsino('atividade_ensino_nao_formal', this.nomeRelatorio,this.AtividadeNaoFormalId).subscribe((dados: any) => {
+      // Preencha os campos do formulário com os dados recebidos do backend
+      console.log('atividade_pedagogica_complementar/'+ this.nomeRelatorio +'/'+this.AtividadeNaoFormalId)
+      this.formAtividadeEnsinoNaoFormal.patchValue({
+        numero_doc: dados.numero_doc,
+        atividade: dados.atividade,
+        ch_total_primeiro_semestre: dados.ch_total_primeiro_semestre,
+        ch_total_segundo_semestre: dados.ch_total_segundo_semestre,
+      });
+    });
+  }
+  carregarDadosDoBackendOutraAtividadeExtensao() {
+    this.CrudService.getOneEnsino('outra_atividade_extensao', this.nomeRelatorio,this.OutraAtividadeExtensaoId).subscribe((dados: any) => {
+      // Preencha os campos do formulário com os dados recebidos do backend
+      console.log('atividade_pedagogica_complementar/'+ this.nomeRelatorio +'/'+this.OutraAtividadeExtensaoId)
+      this.formOutraAtividadeExtensao.patchValue({
+        numero_doc: dados.numero_doc,
+        atividade: dados.atividade,
+        ch_total_primeiro_semestre: dados.ch_total_primeiro_semestre,
+        ch_total_segundo_semestre: dados.ch_total_segundo_semestre,
+      });
+    });
+  }
+  carregarDadosDoBackendCHSemanalExtensao() {
+    this.CrudService.getOneEnsino('ch_semanal_atividades_extensao', this.nomeRelatorio,this.CHSemanalId).subscribe((dados: any) => {
+      // Preencha os campos do formulário com os dados recebidos do backend
+      console.log('atividade_pedagogica_complementar/'+ this.nomeRelatorio +'/'+this.CHSemanalId)
+      this.formCHSemanalAtividadesExtensao.patchValue({
+        ch_semanal_primeiro_semestre: dados.ch_semanal_primeiro_semestre,
+        ch_semanal_segundo_semestre: dados.ch_semanal_segundo_semestre,
+      });
+    });
+  }
+    
   openDialogProjetoExtensao(){
     const dialogRef = this.dialog.open(ProjetoExtensaoDialogComponent, {
       width: '800px',
@@ -225,13 +328,13 @@ export class ExtensaoCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.ProjetoExtensaoId == 0) {
         await this.projetoExtensaoService.createEnsino('projeto_extensao', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Projeto de extensão criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.projetoExtensaoService.update('projeto_extensao', formValue, this.nomeRelatorio).toPromise();
+        await this.projetoExtensaoService.updateEnsino('projeto_extensao', formValue, this.nomeRelatorio, this.ProjetoExtensaoId).toPromise();
         this._snackbar.open('Projeto de extensão atualizado com sucesso.', 'OK', {
           duration: 5000
         });
@@ -257,13 +360,13 @@ export class ExtensaoCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.EstagioExtensaoId == 0) {
         await this.estagioExtensaoService.createEnsino('estagio_extensao', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Estágio de Extensão criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.estagioExtensaoService.update('estagio_extensao', formValue, this.nomeRelatorio).toPromise();
+        await this.estagioExtensaoService.updateEnsino('estagio_extensao', formValue, this.nomeRelatorio, this.EstagioExtensaoId).toPromise();
         this._snackbar.open('Estágio de Extensão atualizado com sucesso.', 'OK', {
           duration: 5000
         });
@@ -289,13 +392,13 @@ export class ExtensaoCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.AtividadeNaoFormalId == 0) {
         await this.atividadeEnsinoNaoFormalService.createEnsino('atividade_ensino_nao_formal', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Atividade de Ensino não formal criada com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.atividadeEnsinoNaoFormalService.update('atividade_ensino_nao_formal', formValue, this.nomeRelatorio).toPromise();
+        await this.atividadeEnsinoNaoFormalService.updateEnsino('atividade_ensino_nao_formal', formValue, this.nomeRelatorio, this.AtividadeNaoFormalId).toPromise();
         this._snackbar.open('Atividade de Ensino não formal atualizada com sucesso.', 'OK', {
           duration: 5000
         });
@@ -321,13 +424,13 @@ export class ExtensaoCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.OutraAtividadeExtensaoId == 0) {
         await this.outraAtividadeExtensaoService.createEnsino('outra_atividade_extensao', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Outra Atividade de Extensão criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.outraAtividadeExtensaoService.update('outra_atividade_extensao', formValue, this.nomeRelatorio).toPromise();
+        await this.outraAtividadeExtensaoService.updateEnsino('outra_atividade_extensao', formValue, this.nomeRelatorio, this.OutraAtividadeExtensaoId).toPromise();
         this._snackbar.open('Outra Atividade de Extensão atualizado com sucesso.', 'OK', {
           duration: 5000
         });
@@ -353,13 +456,13 @@ export class ExtensaoCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.CHSemanalId == 0) {
         await this.chSemanalAtividadesExtensaoService.createEnsino('ch_semanal_atividades_extensao', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('CH Semanal Atividades de Extensão criado com sucesso.', 'OK', {
           duration: 5000
         });
       } else {
-        await this.chSemanalAtividadesExtensaoService.update('ch_semanal_atividades_extensao', formValue, this.nomeRelatorio).toPromise();
+        await this.chSemanalAtividadesExtensaoService.updateEnsino('ch_semanal_atividades_extensao', formValue, this.nomeRelatorio, this.CHSemanalId).toPromise();
         this._snackbar.open('CH Semanal Atividades de Extensão atualizado com sucesso.', 'OK', {
           duration: 5000
         });
