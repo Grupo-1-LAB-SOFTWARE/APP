@@ -15,9 +15,10 @@
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
       </mat-form-field>
-      <div *ngIf="ativacaoSucesso">
-        <p>A sua conta foi ativada com sucesso! <br/>Você já pode fazer login.</p>
+      <div class="ativacao-sucesso" *ngIf="ativacaoSucesso" style="max-width: 600px; white-space: nowrap;">
+        <p>Conta ativada com sucesso!</p>
       </div>
+      
 
         <button mat-fab extended [disabled]="form.invalid" type="submit" class="btn-entrar" (click)="login()"><span class="spans">Entrar</span></button>
 

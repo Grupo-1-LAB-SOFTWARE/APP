@@ -64,7 +64,7 @@ import { QualificacaoDocenteAcademicaProfissionalDialogComponent } from './dialo
     AtividadeGestaoRepresentacaoDialogComponent,
     AfastamentoDialogComponent,
     OutraInformacaoDialogComponent,
-    QualificacaoDocenteAcademicaProfissionalDialogComponent
+    QualificacaoDocenteAcademicaProfissionalDialogComponent,
   ],
   imports: [
     CommonModule,
