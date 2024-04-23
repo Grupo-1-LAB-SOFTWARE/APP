@@ -82,32 +82,32 @@ export class PesquisaCreateComponent implements OnInit {
   ) {}
 
   async ngOnInit(){
-    this.sharedDataServiceName.nomeRelatorio$.subscribe(id => {
+    this.projetoPesquisaName.projetoPesquisa$.subscribe(id => {
       this.projetoPesquisaId = id;
       this.carregarDadosDoBackendProjetoPesquisa()
 
     })
-    this.sharedDataServiceName.nomeRelatorio$.subscribe(id => {
+    this.trabalhoPublicadoName.trabalhoPublicado$.subscribe(id => {
       this.trabalhoCompletoPublicadoId = id;
       this.carregarDadosDoBackendTrabalhoCompletoPublicado()
 
     })
-    this.sharedDataServiceName.nomeRelatorio$.subscribe(id => {
+    this.livroCapituloVerbetePublicadoName.livroCapituloVerbetePublicado$.subscribe(id => {
       this.livroCapituloVerbeteId = id;
       this.carregarDadosDoBackendLivroCapituloVerbete()
 
     })
-    this.sharedDataServiceName.nomeRelatorio$.subscribe(id => {
+    this.trabalhoResumoName.trabalhoResumo$.subscribe(id => {
       this.trabalhoCompletoResumoId = id;
       this.carregarDadosDoBackendTrabalhoCompletoResumo()
 
     })
-    this.sharedDataServiceName.nomeRelatorio$.subscribe(id => {
+    this.outraAtividadePesquisaName.outraAtividadePesquisa$.subscribe(id => {
       this.outraAtividadePesquisaId = id;
       this.carregarDadosDoBackendOutraAtividadePesquisa()
 
     })
-    this.sharedDataServiceName.nomeRelatorio$.subscribe(id => {
+    this.chSemanalAtividadePesquisaName.chSemanalAtividadePesquisa$.subscribe(id => {
       this.chSemanalAtividadesPesquisaId = id;
       this.carregarDadosDoBackendCHSemanalAtividadesPesquisa()
 
@@ -189,6 +189,7 @@ export class PesquisaCreateComponent implements OnInit {
 
   carregarDadosDoBackendTrabalhoCompletoResumo() {
     this.CrudService.getOneEnsino('trabalho_completo_resumo_publicado_apresentado_congressos', this.nomeRelatorio,this.trabalhoCompletoResumoId).subscribe((dados: any) => {
+      console.log(this.nomeRelatorio + this.trabalhoCompletoPublicadoId)
       // Preencha os campos do formulário com os dados recebidos do backend
       this.formTrabalhoCompletoResumoPublicadoApresentadoCongressos.patchValue({
         numero_doc: dados.numero_doc,
@@ -349,7 +350,7 @@ export class PesquisaCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.projetoPesquisaId == 0) {
         await this.projetoPesquisaProducaoIntelectualService.createEnsino('projeto_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Projeto de pesquisa ou de produção intelectual criado com sucesso.', 'OK', {
           duration: 5000
@@ -382,7 +383,7 @@ export class PesquisaCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.trabalhoCompletoPublicadoId == 0) {
         await this.trabalhoCompletoPublicadoPeriodicoBoletimTecnicoService.createEnsino('trabalho_completo_publicado_periodico_boletim_tecnico', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Trabalho criado com sucesso.', 'OK', {
           duration: 5000
@@ -416,7 +417,7 @@ export class PesquisaCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.livroCapituloVerbeteId == 0) {
         await this.livroCapituloVerbetePublicadoService.createEnsino('livro_capitulo_verbete_publicado', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Livro, capítulo de livro ou verbete publicado criado com sucesso.', 'OK', {
           duration: 5000
@@ -449,7 +450,7 @@ export class PesquisaCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.trabalhoCompletoResumoId == 0) {
         await this.trabalhoCompletoResumoPublicadoApresentadoCongressosService.createEnsino('trabalho_completo_resumo_publicado_apresentado_congressos', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Trabalho completo e resumo publicado e/ou apresentado em congressos ou similares criado com sucesso.', 'OK', {
           duration: 5000
@@ -482,7 +483,7 @@ export class PesquisaCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.outraAtividadePesquisaId == 0) {
         await this.outraAtividadePesquisaProducaoIntelectualService.createEnsino('outra_atividade_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Outra atividade de Pesquisa/Produção Intelectual criada com sucesso.', 'OK', {
           duration: 5000
@@ -515,7 +516,7 @@ export class PesquisaCreateComponent implements OnInit {
     }
 
     try {
-      if (!this.isCreate) {
+      if (this.chSemanalAtividadesPesquisaId == 0) {
         await this.chSemanalAtividadesPesquisaService.createEnsino('ch_semanal_atividades_pesquisa', formValue, this.nomeRelatorio).toPromise();
         this._snackbar.open('Carga Horária semanal de pesquisa criada com sucesso.', 'OK', {
           duration: 5000

@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class trabalhoPublicadoName {
   private trabalhoPublicadoSubject = new BehaviorSubject<number>(0);
-  outraAtividadePesquisa$ = this.trabalhoPublicadoSubject.asObservable();
+  trabalhoPublicado$ = this.trabalhoPublicadoSubject.asObservable();
 
   constructor() { }
 

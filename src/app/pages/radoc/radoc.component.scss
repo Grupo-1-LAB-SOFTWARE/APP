@@ -49,3 +49,6 @@ mat-progress-spinner{
   color: white;
 }
 
+@media only screen and (max-device-width: 900px) {
+  mat-card-content { padding-left: 1rem; }
+}

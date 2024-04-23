@@ -39,7 +39,7 @@ export class TrabalhoCompletoResumoPublicadoDialogComponent implements OnInit {
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
     private crudService: CrudService<ItrabalhoCompletoResumoPublicadoApresentadoCongressos>,
-    private sharedDataService: SharedDataServiceName,
+    private sharedDataService: trabalhoResumoName,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ConfirmDialogComponent>
   ) {
