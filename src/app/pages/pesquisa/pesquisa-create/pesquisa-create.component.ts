@@ -355,7 +355,8 @@ export class PesquisaCreateComponent implements OnInit {
           duration: 5000
         });
       } else {
-        await this.projetoPesquisaProducaoIntelectualService.update('projeto_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
+        await this.projetoPesquisaProducaoIntelectualService.updateEnsino('projeto_pesquisa_producao_intelectual', formValue ,this.nomeRelatorio, this.projetoPesquisaId).toPromise();
+
         this._snackbar.open('Projeto de pesquisa ou de produção intelectual atualizado com sucesso.', 'OK', {
           duration: 5000
         });
@@ -387,7 +388,9 @@ export class PesquisaCreateComponent implements OnInit {
           duration: 5000
         });
       } else {
-        await this.trabalhoCompletoPublicadoPeriodicoBoletimTecnicoService.update('trabalho_completo_publicado_periodico_boletim_tecnico', formValue, this.nomeRelatorio).toPromise();
+
+        await this.trabalhoCompletoPublicadoPeriodicoBoletimTecnicoService.updateEnsino('trabalho_completo_publicado_periodico_boletim_tecnico', formValue ,this.nomeRelatorio, this.trabalhoCompletoPublicadoId).toPromise();
+
         this._snackbar.open('Trabalho atualizado com sucesso.', 'OK', {
           duration: 5000
         });
@@ -419,7 +422,8 @@ export class PesquisaCreateComponent implements OnInit {
           duration: 5000
         });
       } else {
-        await this.livroCapituloVerbetePublicadoService.update('livro_capitulo_verbete_publicado', formValue, this.nomeRelatorio).toPromise();
+        await this.livroCapituloVerbetePublicadoService.updateEnsino('livro_capitulo_verbete_publicado', formValue ,this.nomeRelatorio, this.livroCapituloVerbeteId).toPromise();
+
         this._snackbar.open('Livro, capítulo de livro ou verbete publicados atualizado com sucesso.', 'OK', {
           duration: 5000
         });
@@ -451,7 +455,8 @@ export class PesquisaCreateComponent implements OnInit {
           duration: 5000
         });
       } else {
-        await this.trabalhoCompletoResumoPublicadoApresentadoCongressosService.update('trabalho_completo_resumo_publicado_apresentado_congressos', formValue, this.nomeRelatorio).toPromise();
+        await this.trabalhoCompletoResumoPublicadoApresentadoCongressosService.updateEnsino('trabalho_completo_resumo_publicado_apresentado_congressos', formValue ,this.nomeRelatorio, this.trabalhoCompletoResumoId).toPromise();
+
         this._snackbar.open('Trabalho completo e resumo publicado e/ou apresentado em congressos ou similares atualizado com sucesso.', 'OK', {
           duration: 5000
         });
@@ -483,7 +488,8 @@ export class PesquisaCreateComponent implements OnInit {
           duration: 5000
         });
       } else {
-        await this.outraAtividadePesquisaProducaoIntelectualService.update('outra_atividade_pesquisa_producao_intelectual', formValue, this.nomeRelatorio).toPromise();
+        await this.outraAtividadePesquisaProducaoIntelectualService.updateEnsino('outra_atividade_pesquisa_producao_intelectual', formValue ,this.nomeRelatorio, this.outraAtividadePesquisaId).toPromise();
+
         this._snackbar.open('Outra atividade de Pesquisa/Produção Intelectual atualizada com sucesso.', 'OK', {
           duration: 5000
         });
@@ -515,7 +521,8 @@ export class PesquisaCreateComponent implements OnInit {
           duration: 5000
         });
       } else {
-        await this.chSemanalAtividadesPesquisaService.update('ch_semanal_atividades_pesquisa', formValue, this.nomeRelatorio).toPromise();
+        await this.chSemanalAtividadesPesquisaService.updateEnsino('ch_semanal_atividades_pesquisa', formValue ,this.nomeRelatorio, this.chSemanalAtividadesPesquisaId).toPromise();
+
         this._snackbar.open('Carga Horária semanal de pesquisa atualizada com sucesso.', 'OK', {
           duration: 5000
         });
