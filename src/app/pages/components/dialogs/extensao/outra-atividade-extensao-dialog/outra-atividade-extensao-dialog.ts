@@ -10,6 +10,7 @@ import { SharedDataServiceName } from 'src/app/core/services/shared-dataName.ser
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { IoutraAtividadeExtensao } from 'src/app/core/interfaces/extensao.interface';
+import { OutraAtividadeExtensaoServiceName } from './outraAtividadeExtensao.service';
 
 @Component({
   selector: 'app-outra-atividade-extensao-dialog',
@@ -37,7 +38,7 @@ export class OutraAtividadeExtensaoDialogComponent implements OnInit {
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
     private crudService: CrudService<IoutraAtividadeExtensao>,
-    private sharedDataService: SharedDataServiceName,
+    private sharedDataService: OutraAtividadeExtensaoServiceName,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ConfirmDialogComponent>
   ) {

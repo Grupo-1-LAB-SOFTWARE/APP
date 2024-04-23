@@ -5,6 +5,8 @@ import { Usuario } from 'src/app/core/interfaces/usuario.interface';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { FormularioService } from 'src/app/core/services/formulario.service';
 import { SharedDataperfilService } from 'src/app/core/services/shared-perfil-data.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil-create',
@@ -20,6 +22,8 @@ export class PerfilCreateComponent implements OnInit {
   constructor(
     private formularioService: FormularioService,
     private crudService: CrudService<Usuario>,
+    private _snackbar: MatSnackBar,
+    private router : Router
     ) {}
 
 
@@ -56,10 +60,11 @@ export class PerfilCreateComponent implements OnInit {
       console.log(formCadastro.value)
       this.crudService.updatePerfil('usuarios', formCadastro.value).subscribe({
         next: (value) => {
-          console.log('Cadastro realizado com sucesso', value);
+          this._snackbar.open('Edição realizada com sucesso', 'OK');
+          this.router.navigate(['/perfil/painel'])
         },
         error: (err) => {
-          console.log('Erro ao realizar cadastro', err)
+          this._snackbar.open('Erro ao realizar edição', 'OK');
         }
       })
     }
